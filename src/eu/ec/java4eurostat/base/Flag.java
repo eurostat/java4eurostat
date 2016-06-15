@@ -6,6 +6,10 @@ package eu.ec.java4eurostat.base;
 import java.util.HashMap;
 
 /**
+ * 
+ * Flags are codes added to the data and defining a specific characteristic.
+ * http://ec.europa.eu/eurostat/data/database/information
+ * 
  * @author julien Gaffuri
  *
  */

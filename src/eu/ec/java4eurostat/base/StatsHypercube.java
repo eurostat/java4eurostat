@@ -9,17 +9,26 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map.Entry;
 
 /**
+ * An hypercube of statistical values.
+ * 
  * @author julien Gaffuri
  *
  */
 public class StatsHypercube {
+	/**
+	 * The statistical values.
+	 */
 	public Collection<Stat> stats;
+
+	/**
+	 * The dimension labels.
+	 * Ex: gender,time,country
+	 */
 	public Collection<String> dimLabels;
+
 
 	public StatsHypercube(String... dimLabels){
 		this();
@@ -35,7 +44,15 @@ public class StatsHypercube {
 		this.dimLabels = dimLabels;
 	}
 
-	//return all values for a dimension
+
+
+	/**
+	 * Return all dimension values for a dimension.
+	 * Ex: Return (male,female) from "gender".
+	 * 
+	 * @param dimLabel
+	 * @return
+	 */
 	public HashSet<String> getDimValues(String dimLabel) {
 		HashSet<String> dimValues = new HashSet<String>();
 		for(Stat s : stats)
@@ -43,7 +60,21 @@ public class StatsHypercube {
 		return dimValues;
 	}
 
-	//get all stats having a dim value
+	/**
+	 * A selection criteria to decide whether a statistical value should be kept of not.
+	 * Ex: All stats with gender=male, with value=0, with country starting with a 'A', etc.
+	 * 
+	 * @author Julien Gaffuri
+	 *
+	 */
+	public interface StatSelectionCriteria { boolean keep(Stat stat); }
+
+	/**
+	 * Extract an hypercube based on a selection criteria
+	 * 
+	 * @param sel The selection criterion
+	 * @return The extracted hypercube
+	 */
 	public StatsHypercube select(StatSelectionCriteria sel) {
 		HashSet<Stat> stats_ = new HashSet<Stat>();
 		for(Stat stat : this.stats)
@@ -52,6 +83,14 @@ public class StatsHypercube {
 	}
 
 	//get all stats having a dim value
+	/**
+	 * Extract an hypercube of stats having dimLabel=dimValue
+	 * Ex: gender=male, country=HU, etc.
+	 * 
+	 * @param dimLabel
+	 * @param dimValue
+	 * @return
+	 */
 	public StatsHypercube select(final String dimLabel, final String dimValue){
 		if(!dimLabels.contains(dimLabel)) System.err.println("No dimension label: " + dimLabel);
 		return select(new StatSelectionCriteria() {
@@ -62,7 +101,12 @@ public class StatsHypercube {
 		});
 	}
 
-	//delete a dimension
+	/**
+	 * Delete a dimension.
+	 * This should be used, for example, to free memory when all stats have a unique dimension value.
+	 * 
+	 * @param dimLabel
+	 */
 	public void delete(String dimLabel){
 		for(Stat s:stats){
 			String out = s.dims.remove(dimLabel);
@@ -72,12 +116,22 @@ public class StatsHypercube {
 		dimLabels.remove(dimLabel);
 	}
 
-	//delete all stats having a given value for a dimension
+	/**
+	 * Delete all stats having a given value for a dimension
+	 * 
+	 * @param dimLabel
+	 * @param dimValue
+	 */
 	public void delete(String dimLabel, String dimValue){
 		stats.removeAll( select(dimLabel, dimValue).stats );
 	}
 
-	//delete the stats having a label value with a given length
+	/**
+	 * Delete the stats having a label value with a given length
+	 * 
+	 * @param dimLabel
+	 * @param size
+	 */
 	public void delete(String dimLabel, int size) {
 		HashSet<String> values = getDimValues(dimLabel);
 		for(String v:values){
@@ -86,6 +140,9 @@ public class StatsHypercube {
 		}
 	}
 
+	/**
+	 * Print hypercube structure.
+	 */
 	public void printInfo() {
 		printInfo(true);
 	}
@@ -141,6 +198,7 @@ public class StatsHypercube {
 		}
 	}
 
+	/*
 	public void checkGeoIds(Collection<String> nIds) {
 		checkGeoIds("geo",nIds);
 	}
@@ -160,5 +218,5 @@ public class StatsHypercube {
 		for(Entry<String,Integer> missing : missings.entrySet())
 			System.err.println("\tUnknown geolocation id: "+missing.getKey()+" ("+missing.getValue()+" times)");
 	}
-
+	 */
 }

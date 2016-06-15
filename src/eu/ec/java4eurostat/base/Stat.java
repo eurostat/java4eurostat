@@ -8,21 +8,44 @@ import java.util.HashSet;
 import java.util.Map.Entry;
 
 /**
+ * 
+ * A statistical value, described by dimension-coordinates in the hypercube, and possibly flags.
+ * 
  * @author julien Gaffuri
  *
  */
 public class Stat {
-	//dim label - dim value
-	public HashMap<String,String> dims = new HashMap<String,String>();
-	//value
+
+	/**
+	 * The value
+	 */
 	public double value;
 
-	//flags
+	/**
+	 * The dimensions
+	 * Ex: gender -> male ; time -> 2015 ; country -> PL
+	 */
+	public HashMap<String,String> dims = new HashMap<String,String>();
+
+	/**
+	 * The flags providing some metadata information
+	 */
 	private HashSet<Flag.FlagType> flags = null;
+
+	/**
+	 * Add a flag to the statistical value.
+	 * @param flag
+	 * @return
+	 */
 	public boolean addFlag(Flag.FlagType flag){
 		if(flags == null) flags = new HashSet<Flag.FlagType>();
 		return flags.add(flag);
 	}
+
+	/**
+	 * Add flags to the statistical value.
+	 * @param flags
+	 */
 	public void addAllFlags(String flags) {
 		for (int i=0; i<flags.length(); i++){
 			Flag.FlagType flag = Flag.code.get(""+flags.charAt(i));

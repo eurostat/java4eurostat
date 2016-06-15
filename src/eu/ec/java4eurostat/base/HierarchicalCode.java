@@ -136,15 +136,4 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 		return null;
 	}
 
-
-
-
-
-	/*
-	@Override
-	public boolean equals(Object o) {
-		if(o instanceof HierarchicalCode) return code == ((HierarchicalCode)o).code;
-		return super.equals(o);
-	}
-	 */
 }

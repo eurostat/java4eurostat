@@ -10,7 +10,6 @@ import java.util.StringTokenizer;
 
 import eu.ec.java4eurostat.base.Flag;
 import eu.ec.java4eurostat.base.Stat;
-import eu.ec.java4eurostat.base.StatSelectionCriteria;
 import eu.ec.java4eurostat.base.StatsHypercube;
 
 /**
@@ -21,14 +20,14 @@ public class TSV {
 
 	public static StatsHypercube load(String... inputFilePath){ return load( inputFilePath, null ); }
 
-	public static StatsHypercube load(String inputFilePath, StatSelectionCriteria ssc){ return load( inputFilePath, false, ssc ); }
-	public static StatsHypercube load(String inputFilePath, boolean mess, StatSelectionCriteria ssc){ return load( new String[]{inputFilePath}, mess, ssc ); }
+	public static StatsHypercube load(String inputFilePath, StatsHypercube.StatSelectionCriteria ssc){ return load( inputFilePath, false, ssc ); }
+	public static StatsHypercube load(String inputFilePath, boolean mess, StatsHypercube.StatSelectionCriteria ssc){ return load( new String[]{inputFilePath}, mess, ssc ); }
 
-	public static StatsHypercube load(String[] inputFilePaths, StatSelectionCriteria ssc){ return load( inputFilePaths, false, ssc ); }
-	public static StatsHypercube load(String[] inputFilePaths, boolean mess, StatSelectionCriteria ssc){ return load( new ArrayList<String>(Arrays.asList(inputFilePaths)), mess, ssc ); }
+	public static StatsHypercube load(String[] inputFilePaths, StatsHypercube.StatSelectionCriteria ssc){ return load( inputFilePaths, false, ssc ); }
+	public static StatsHypercube load(String[] inputFilePaths, boolean mess, StatsHypercube.StatSelectionCriteria ssc){ return load( new ArrayList<String>(Arrays.asList(inputFilePaths)), mess, ssc ); }
 
-	public static StatsHypercube load(ArrayList<String> inputFilePaths, StatSelectionCriteria ssc){ return load( inputFilePaths, false, ssc ); }
-	public static StatsHypercube load(ArrayList<String> inputFilePaths, boolean mess, StatSelectionCriteria ssc){
+	public static StatsHypercube load(ArrayList<String> inputFilePaths, StatsHypercube.StatSelectionCriteria ssc){ return load( inputFilePaths, false, ssc ); }
+	public static StatsHypercube load(ArrayList<String> inputFilePaths, boolean mess, StatsHypercube.StatSelectionCriteria ssc){
 		if(inputFilePaths==null || inputFilePaths.size()==0) return null;
 		String sep="\t";
 		BufferedReader br = null;
