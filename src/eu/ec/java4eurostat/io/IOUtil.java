@@ -33,6 +33,11 @@ public class IOUtil {
 		try {
 			URL website = new URL(url);
 			ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+
+			/*File f = new File(path);
+			if(f.exists()) f.delete();
+			f.createNewFile();*/
+
 			FileOutputStream fos = new FileOutputStream(path);
 			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 			fos.close();

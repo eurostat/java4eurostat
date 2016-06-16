@@ -18,9 +18,21 @@ import java.util.Set;
  */
 public class StatsIndex {
 
-	//can be (HashMap<String, StatsIndex> or Collection<Stat> or Stat
+	/**
+	 * The index recusrssive element: Can be:
+	 *    - HashMap<String, StatsIndex>
+	 *    - Collection<Stat>
+	 *    - Stat
+	 * depending on the case.
+	 */
 	private Object data;
 
+	/**
+	 * Build an index depending on the ordered list of dimension labels.
+	 * 
+	 * @param hc
+	 * @param dimLabels
+	 */
 	public StatsIndex(StatsHypercube hc, String... dimLabels){
 		if(dimLabels.length == 0){
 			if(hc.stats.size()==0)
@@ -61,6 +73,12 @@ public class StatsIndex {
 		}
 	}
 
+	/**
+	 * Retrieve a subindex.
+	 * 
+	 * @param dimLabels
+	 * @return
+	 */
 	public StatsIndex getSubIndex(String... dimLabels){
 		StatsIndex out = this;
 		for(String label : dimLabels){
@@ -95,6 +113,12 @@ public class StatsIndex {
 		return col;
 	}
 
+	/**
+	 * Return a subindex as an hypercube object.
+	 * @param dims
+	 * @param dimLabels
+	 * @return
+	 */
 	public StatsHypercube getStatsHypercube(Collection<String> dims, String... dimLabels){
 		StatsHypercube sh = new StatsHypercube();
 		sh.stats = getCollection(dimLabels);
@@ -102,6 +126,11 @@ public class StatsIndex {
 		return sh;
 	}
 
+	/**
+	 * 
+	 * @param dimLabels dim labels vector
+	 * @return A stat, or null in case of impossibility
+	 */
 	public Stat getSingleStat(String... dimLabels){
 		StatsIndex si = getSubIndex(dimLabels);
 		if(si==null) return null;
@@ -120,12 +149,20 @@ public class StatsIndex {
 		return s.value;
 	}
 
+	/**
+	 * @param dimLabels dim labels vector
+	 * @return A flagged single value, or NaN in case of impossibility
+	 */
 	public String getSingleValueFlagged(String... dimLabels){
 		Stat s = getSingleStat(dimLabels);
 		if(s == null) return null;
 		return s.getValueFlagged();
 	}
 
+	/**
+	 * @param dimLabels
+	 * @return The index keys (which are dimension values).
+	 */
 	public Set<String> getKeys(String... dimLabels){
 		StatsIndex si = getSubIndex(dimLabels);
 		if(si == null) return null;
@@ -133,6 +170,10 @@ public class StatsIndex {
 		return null;
 	}
 
+	/**
+	 * @param dimLabels
+	 * @return The index keys (which are dimension values), as a sorted list.
+	 */
 	public List<String> getKeysAsList(String... dimLabels){
 		Set<String> set = getKeys(dimLabels);
 		if(set == null) return null;
@@ -141,7 +182,15 @@ public class StatsIndex {
 		return list;
 	}
 
+
+	/**
+	 * Print the index structure.
+	 */
 	public void print(){ print(0); }
+
+	/**
+	 * Print the index structure, with indentation.
+	 */
 	public void print(int indent){
 		if(data instanceof Stat){
 			for(int i=0;i<indent;i++) System.out.print("\t");

@@ -3,13 +3,12 @@
  */
 package eu.ec.java4eurostat.base;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map.Entry;
 
 /**
  * An hypercube of statistical values.
@@ -157,66 +156,33 @@ public class StatsHypercube {
 		}
 	}
 
-	public void exportAsCSV(String outFilePath) {
-		exportAsCSV(outFilePath, "geo", "time");
-	}
-
-	public void exportAsCSV(String outFilePath, String geoLabel, String timeLabel) {
-		exportAsCSV(outFilePath, geoLabel, timeLabel, null);
-	}
-
-	public void exportAsCSV(String outFilePath, String geoLabel, String timeLabel, String addLabel) {
-		exportAsCSV(outFilePath, geoLabel, timeLabel, addLabel, "\t");
-	}
-
-	//TODO ??? export all dims in a clean way
-	public void exportAsCSV(String outFilePath, String geoLabel, String timeLabel, String addLabel, String sep) {
-		try {
-			new File(outFilePath).delete();
-			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(outFilePath), true));
-
-			//write header
-			StringBuffer sb = new StringBuffer();
-			sb.append(geoLabel).append(sep).append(timeLabel);
-			if(addLabel!=null)
-				sb.append(sep).append(addLabel);
-			sb.append(sep).append("value").append("\n");
-			bw.write(sb.toString());
-
-			//write data
-			for(Stat s : stats){
-				sb = new StringBuffer();
-				sb.append(s.dims.get(geoLabel)).append(sep).append(s.dims.get(timeLabel));
-				if(addLabel!=null)
-					sb.append(sep).append(s.dims.get(addLabel));
-				sb.append(sep).append(s.value).append("\n");
-				bw.write(sb.toString());
-			}
-			bw.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/*
-	public void checkGeoIds(Collection<String> nIds) {
-		checkGeoIds("geo",nIds);
-	}
-	public void checkGeoIds(String geoLabel, Collection<String> nIds) {
-		HashMap<String,Integer> missings = new HashMap<String,Integer>();
-		//list and count missings
-		for(Stat s : stats){
-			String geoId = s.dims.get(geoLabel);
-			if(nIds.contains(geoId)) continue;
-			if(missings.get(geoId)==null)
-				missings.put(geoId, 1);
-			else
-				missings.put(geoId, missings.get(geoId)+1);
-		}
-		//show result
-		System.err.println("\t"+missings.size()+" geolocations missing");
-		for(Entry<String,Integer> missing : missings.entrySet())
-			System.err.println("\tUnknown geolocation id: "+missing.getKey()+" ("+missing.getValue()+" times)");
-	}
+	/**
+	 * Check dimension values are within a list of valid values.
+	 * 
+	 * @param dimLabel
+	 * @param expectedDimValues
+	 * @param print
+	 * @return
 	 */
+	public HashMap<String,Integer> checkDimensionValuesValidity(String dimLabel, Collection<String> expectedDimValues, boolean print) {
+		HashMap<String,Integer> unexpectedValues = new HashMap<String,Integer>();
+
+		//list and count unexpected values
+		for(Stat s : stats){
+			String DimValue = s.dims.get(dimLabel);
+			if(expectedDimValues.contains(DimValue)) continue;
+			if(unexpectedValues.get(DimValue)==null)
+				unexpectedValues.put(DimValue, 1);
+			else
+				unexpectedValues.put(DimValue, unexpectedValues.get(DimValue)+1);
+		}
+
+		if(print){
+			//show result
+			System.err.println(unexpectedValues.size()+" unexpected values");
+			for(Entry<String,Integer> missing : unexpectedValues.entrySet())
+				System.err.println("\t"+missing.getKey()+" (found "+missing.getValue()+" times)");
+		}
+		return unexpectedValues;
+	}
 }

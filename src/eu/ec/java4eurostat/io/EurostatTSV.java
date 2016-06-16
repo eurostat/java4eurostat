@@ -16,7 +16,7 @@ import eu.ec.java4eurostat.base.StatsHypercube;
  * @author julien Gaffuri
  *
  */
-public class TSV {
+public class EurostatTSV {
 
 	public static StatsHypercube load(String... inputFilePath){ return load( inputFilePath, null ); }
 
