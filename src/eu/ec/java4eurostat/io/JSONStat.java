@@ -3,6 +3,8 @@
  */
 package eu.ec.java4eurostat.io;
 
+import java.util.HashMap;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,15 +29,28 @@ public class JSONStat {
 
 		//read dimension sizes
 		JSONArray sizes = obj.getJSONArray("size");
-		//System.out.println(sizes); [6,35,21]
+
+		//read dimension values
+		HashMap<String,JSONObject> dimValues = new HashMap<String,JSONObject>();
+		for(int coordI=0; coordI<sizes.length(); coordI++){
+			String dimLabel = obj.getJSONArray("id").getString(coordI);
+			JSONObject ind = dimensions.getJSONObject(dimLabel).getJSONObject("category").getJSONObject("index");
+			ind = invert(ind);
+			dimValues.put(dimLabel, ind);
+		}
+
+		//compute number of values
 		int nb = 1;
 		for(int i=0; i<sizes.length(); i++) nb = nb*sizes.getInt(i);
 
-		JSONObject values = obj.getJSONObject("value"); //TODO could be an array
+		JSONObject values = obj.getJSONObject("value"); //NB: this might be an array
 		for(int i=0; i<nb; i++){
 			Stat s = new Stat();
+
+			//get value. If none, continue.
 			try { s.value = values.getDouble(""+i); } catch (JSONException e) { continue; }
 
+			//compute value coordinates in the hypercube
 			int[] coords = new int[sizes.length()];
 			int i_=i, nb_=nb;
 			for(int coordI=0; coordI<coords.length; coordI++){
@@ -44,13 +59,11 @@ public class JSONStat {
 				if(nb_>0) coords[coordI] /= nb_;
 				i_ -= coords[coordI] * nb_;
 			}
-			//System.out.println( coords[0]+" " + coords[1]+" " + coords[2]+" " );
 
+			//assign dimension values depending on coordinates
 			for(int coordI=0; coordI<coords.length; coordI++){
-				//TODO read dimension labels and values
-				//coords[coordI]
-				String dimLabel = "";
-				String dimValue = "";
+				String dimLabel = obj.getJSONArray("id").getString(coordI);
+				String dimValue = dimValues.get(dimLabel).getString(""+coords[coordI]);
 				s.dims.put(dimLabel, dimValue);
 			}
 			hc.stats.add(s);
@@ -58,13 +71,18 @@ public class JSONStat {
 
 		//TODO read status for flags
 
-		hc.printInfo();
 		return hc;
 	}
 
-
-	public static void main(String[] args) {
-		EurobaseIO.getData("prc_hicp_cow");
+	private static JSONObject invert(JSONObject obj) {
+		JSONObject out = new JSONObject();
+		for(Object key : obj.keySet())
+			out.put(obj.get(key.toString()).toString(), key);
+		return out;
 	}
+
+	/*public static void main(String[] args) {
+		EurobaseIO.getData("prc_hicp_cow").printInfo();;
+	}*/
 
 }
