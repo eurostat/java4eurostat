@@ -3,7 +3,7 @@ Java4eurostat is a Java library for statistical data manipulation. It provides a
 
 ## Usage example
 
-Let's start with a simple example on this dataset:
+Let's start with a simple dataset:
 
 |country|gender|year|population|
 |:--:|:--:|:--:| --:|
@@ -93,15 +93,59 @@ Information: 2001 value(s) with 3 dimension(s).
       ...
 ```
 
-TODO: Describe short example on selection.
+Once loaded, data can be filtered/selected. For example, ```hc.selectDimValueEqualTo("country", "Brasil")``` returns only the data for Brasil (slice operation) and ```hc.selectValueGreaterThan(147)``` returns only values greater than 147. Selection criteria can be combined in cascade like ```TODO example``` or using logical 'AND' and 'OR' operators ```TODO example```. Generic selection criteria can be specified such as:
+
+```java
+TODO Show example of generic selection with Criteria class.
+```
+
+A single value can be retrieved with for example ```hc.selectDimValueEqualTo("country", "Japan", "gender", "Total", "year", "2014")``` but the fastest way to retrieve a value or scan a dataset is to use the ```StatsIndex``` such as:
+
+```java
+TODO example
+```
+
+Scanning a full dataset across its dimensions is very fast with:
+
+```java
+TODO example
+```
+
 
 ## Input formats
-TODO describe CSV, TSV, JSONStat
+### CSV
+```java
+//load
+StatsHypercube hc = CSV.load("example.csv", "population");
+//save
+TODO example
+```
+### JSON-stat https://json-stat.org/
+```java
+//load
+TODO example
+//save
+TODO example
+```
+### Eurostat TSV
+```java
+//load
+TODO example
+//save
+TODO example
+```
+### Web scraping
+TODO describe
+### Eurostat web service
+TODO describe
+### Filtering on loading
+TODO describe
 
 ## Data manipulation
 ### Selection/filtering/slicing/dicing
 TODO describe
 ### Indexing
 TODO describe
+
 ## Time series analysis
 TODO describe gap and outlier detection
