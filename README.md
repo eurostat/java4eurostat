@@ -66,8 +66,7 @@ Information: 12 value(s) with 3 dimension(s).
       Japan
 ```
 
-TODO: present selection, indexing.
-
+TODO: Eurostat loading example. Short example on selection.
 
 ## Input formats
 TODO describe CSV, TSV, JSONStat
@@ -75,6 +74,7 @@ TODO describe CSV, TSV, JSONStat
 ## Data manipulation
 ### Selection/filtering/slicing/dicing
 TODO describe
-
+### Indexing
+TODO describe
 ## Time series analysis
 TODO describe gap and outlier detection
