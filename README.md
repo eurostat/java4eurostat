@@ -87,11 +87,18 @@ Information: 2001 value(s) with 3 dimension(s).
       ...
 ```
 
-Once loaded, data can be filtered/selected. For example, ```hc.selectDimValueEqualTo("country", "Brasil")``` selects data for Brasil and ```hc.selectValueGreaterThan(147)``` selects values greater than 147. Selection criteria can be combined in cascade like ```TODO example``` or using logical 'AND' and 'OR' operators ```TODO example```. Generic selection criteria can be specified such as:
+Once loaded, data can be filtered/selected. For example, ```hc.selectDimValueEqualTo("country", "Brasil")``` selects data for Brasil and ```hc.selectValueGreaterThan(147)``` selects data with values greater than 147. Selection criteria can be combined in cascade like ```hc.selectDimValueEqualTo("country", "Brasil").selectDimValueGreaterThan("year",2012)``` to select population data for Brasil after 2012. Logical operators 'AND', 'OR' and 'NOT' can also be used to build more complex selection criteria. Generic selection criteria can be specified such as:
 
 ```java
-TODO Show example of generic selection with Criteria class.
+hc.select(new Criteria(){
+	@Override
+	public boolean keep(Stat stat) {
+		return stat.dims.get("Country").contains("r") && Math.sqrt(stat.value)>7;
+	}
+});
 ```
+
+which select all statistics for countries with a "r" and whose root square value is greatr than 7.
 
 A single value can be retrieved with for example ```hc.selectDimValueEqualTo("country", "Japan", "gender", "Total", "year", "2014")``` but the fastest way to retrieve a value or scan a dataset is to use the ```StatsIndex``` such as:
 
