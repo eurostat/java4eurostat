@@ -87,20 +87,20 @@ Information: 2001 value(s) with 3 dimension(s).
       ...
 ```
 
-Once loaded, data can be filtered/selected. For example, ```hc.selectDimValueEqualTo("country", "Brasil")``` selects data for Brasil and ```hc.selectValueGreaterThan(147)``` selects data with values greater than 147. Selection criteria can be combined in cascade like ```hc.selectDimValueEqualTo("country", "Brasil").selectDimValueGreaterThan("year",2012)``` to select population data for Brasil after 2012. Logical operators 'AND', 'OR' and 'NOT' can also be used to build more complex selection criteria. Generic selection criteria can be specified such as:
+Once loaded, data can be filtered/selected. For example, ```hc.selectDimValueEqualTo("country","Brasil")``` selects data for Brasil and ```hc.selectValueGreaterThan(147)``` selects data with values greater than 147. Selection criteria can be combined in cascade like ```hc.selectDimValueEqualTo("country","Brasil").selectDimValueGreaterThan("year",2012)``` for the selection of Brasil data after 2012. Logical operators 'AND', 'OR' and 'NOT' can also be used to build more complex selection criteria. Totally generic selection criteria can be specified such as:
 
 ```java
 hc.select(new Criteria(){
 	@Override
 	public boolean keep(Stat stat) {
-		return stat.dims.get("Country").contains("r") && Math.sqrt(stat.value)>7;
+		return stat.dims.get("country").contains("r") && Math.sqrt(stat.value)>7;
 	}
 });
 ```
 
-which select all statistics for countries with a "r" and whose root square value is greatr than 7.
+which selects all statistics with country names containing a "r" character, and whose root square value is greater than 7.
 
-A single value can be retrieved with for example ```hc.selectDimValueEqualTo("country", "Japan", "gender", "Total", "year", "2014")``` but the fastest way to retrieve a value or scan a dataset is to use the ```StatsIndex``` such as:
+A single value can be retrieved with for example ```hc.selectDimValueEqualTo("country", "Japan", "gender", "Total", "year", "2014").stats.iterator().next().value``` but the fastest way to retrieve a value and scan a dataset is to use an index such as:
 
 ```java
 TODO example
