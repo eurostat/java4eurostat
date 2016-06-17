@@ -134,9 +134,13 @@ Female
 A statistical value is accessed quickly from the index and its dimension values: ```double value = index.getSingleValue("Total","2014","Japan");```. Scanning a full dataset across its dimensions is very fast with:
 
 ```java
-TODO example
+for(String gender : index.getKeys())
+	for(String year : index.getKeys(gender))
+		for(String country : index.getKeys(gender,year)) {
+			System.out.println(gender +" "+year+" "+country);
+			System.out.println(index.getSingleValue(gender,year,country));
+		}
 ```
-
 
 ## Input formats
 ### CSV
