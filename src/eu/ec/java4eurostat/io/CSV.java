@@ -4,9 +4,15 @@
 package eu.ec.java4eurostat.io;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -82,46 +88,45 @@ public class CSV {
 		return hc;		
 	}
 
-	//TODO save as CSV
+	public static void save(StatsHypercube hc, String valueLabel, String outPath, String outFile) { save(hc,valueLabel,outPath,outFile,","); }
+	public static void save(StatsHypercube hc, String valueLabel, String outPath, String outFile, String separator) { save(hc,valueLabel,outPath,outFile,",",null); }
+	public static void save(StatsHypercube hc, String valueLabel, String outPath, String outFile, String separator, Comparator<String> keysComparator) {
+		try {
+			new File(outPath).mkdirs();
+			File f=new File(outPath+outFile);
+			if(f.exists()) f.delete();
+			BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));
 
-	public static void main(String[] args) {
-		//StatsHypercube hc = load("data/ex.csv", "population");
-		//load("data/ex.csv", "population").printInfo();
-		//load("data/ex.csv", "population").selectDimValueEqualTo("country", "Brasil").printInfo();
-		//load("data/ex.csv", "population").selectValueGreaterThan(147).printInfo();
-		//load("data/ex.csv", "population").selectDimValueEqualTo("country", "Japan", "gender", "Total", "year", "2014").printInfo();
-		//load("data/ex.csv", "population").selectDimValueEqualTo("country", "Brasil").selectDimValueGreaterThan("year",2012).printInfo();
-		//load("data/ex.csv", "population").selectDimValueEqualTo("country", "Brasil").selectDimValueGreaterThan("year",2012).printInfo();
-
-		/*
-		load("data/ex.csv", "population").select(new Criteria(){
-			@Override
-			public boolean keep(Stat stat) {
-				return stat.dims.get("country").contains("r") && Math.sqrt(stat.value)>7;
+			//write header
+			Collection<String> dimLabels = new ArrayList<String>(hc.dimLabels);
+			if(keysComparator != null){
+				Collections.sort((ArrayList<String>)dimLabels, keysComparator);
 			}
-		}).printInfo();*/
-		/*
-		StatsIndex index = new StatsIndex(hc,"gender","year","country");
-		//double value = index.getSingleValue("Total","2014","Japan");
-		//System.out.println(value);
+			int i=0;
+			for(String dimLabel:dimLabels ){
+				if(dimLabel.contains(separator)) bw.write("\"");
+				bw.write(dimLabel);
+				if(dimLabel.contains(separator)) bw.write("\"");
+				if(i<dimLabels.size()-1) bw.write(",");
+				i++;
+			}
+			bw.write(","+valueLabel+"\n");
 
-		for(String gender : index.getKeys())
-			for(String year : index.getKeys(gender))
-				for(String country : index.getKeys(gender,year)){
-					System.out.println(gender +" "+year+" "+country);
-					System.out.println(index.getSingleValue(gender,year,country));
+			//write data
+			for(Stat s : hc.stats){
+				i=0;
+				for(String dimLabel : dimLabels){
+					String dimValue = s.dims.get(dimLabel);
+					if(dimValue.contains(separator)) bw.write("\"");
+					bw.write(dimValue);
+					if(dimValue.contains(separator)) bw.write("\"");
+					if(i<dimLabels.size()-1) bw.write(",");
+					i++;
 				}
-		 */
-
-		/*System.out.println(
-				load("data/ex.csv", "population").selectDimValueEqualTo("country", "Japan", "gender", "Total", "year", "2014").stats.iterator().next().value
-				);*/
-
-		/*load("data/ex.csv", "population", new StatsHypercube.StatSelectionCriteria(){
-			@Override
-			public boolean keep(Stat stat) {
-				return "Total".equals(stat.dims.get("gender"));
-			}}).printInfo();*/
+				bw.write(","+s.value+"\n");
+			}
+			bw.close();
+		} catch (Exception e) {e.printStackTrace();}
 	}
 
 }
