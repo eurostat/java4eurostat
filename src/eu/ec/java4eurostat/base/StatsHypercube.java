@@ -8,6 +8,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 
+import eu.ec.java4eurostat.base.Selection.Criteria;
+import eu.ec.java4eurostat.base.Selection.DimValuesEqualTo;
+import eu.ec.java4eurostat.base.Selection.ValueEqualTo;
+import eu.ec.java4eurostat.base.Selection.ValueGreaterOrEqualThan;
+import eu.ec.java4eurostat.base.Selection.ValueGreaterThan;
+import eu.ec.java4eurostat.base.Selection.ValueLowerOrEqualThan;
+import eu.ec.java4eurostat.base.Selection.ValueLowerThan;
+
 /**
  * An hypercube of statistical values.
  * 
@@ -63,7 +71,7 @@ public class StatsHypercube {
 	 * @param sel The selection criterion
 	 * @return The extracted hypercube
 	 */
-	public StatsHypercube select(StatSelectionCriteria sel) {
+	public StatsHypercube select(Criteria sel) {
 		HashSet<Stat> stats_ = new HashSet<Stat>();
 		for(Stat stat : this.stats)
 			if(sel.keep(stat)) stats_.add(stat);
@@ -82,18 +90,18 @@ public class StatsHypercube {
 		return selectDimValueEqualTo(new String[]{dimLabel}, new String[]{dimValue});
 	}
 	public StatsHypercube selectDimValueEqualTo(String[] dimLabels, String[] dimValues){
-		return select(new StatSelectionCriteria.DimValuesEqualTo(dimLabels, dimValues));
+		return select(new DimValuesEqualTo(dimLabels, dimValues));
 	}
 
 	/**
 	 * Selection on values.
 	 * Ex: stat.value > 50
 	 */
-	public StatsHypercube selectValueEqualTo(double value){ return select(new StatSelectionCriteria.ValueEqualTo(value)); }
-	public StatsHypercube selectValueGreaterThan(double value){ return select(new StatSelectionCriteria.ValueGreaterThan(value)); }
-	public StatsHypercube selectValueLowerThan(double value){ return select(new StatSelectionCriteria.ValueLowerThan(value)); }
-	public StatsHypercube selectValueGreaterOrEqualThan(double value){ return select(new StatSelectionCriteria.ValueGreaterOrEqualThan(value)); }
-	public StatsHypercube selectValueLowerOrEqualThan(double value){ return select(new StatSelectionCriteria.ValueLowerOrEqualThan(value)); }
+	public StatsHypercube selectValueEqualTo(double value){ return select(new ValueEqualTo(value)); }
+	public StatsHypercube selectValueGreaterThan(double value){ return select(new ValueGreaterThan(value)); }
+	public StatsHypercube selectValueLowerThan(double value){ return select(new ValueLowerThan(value)); }
+	public StatsHypercube selectValueGreaterOrEqualThan(double value){ return select(new ValueGreaterOrEqualThan(value)); }
+	public StatsHypercube selectValueLowerOrEqualThan(double value){ return select(new ValueLowerOrEqualThan(value)); }
 
 	/**
 	 * Delete a dimension.

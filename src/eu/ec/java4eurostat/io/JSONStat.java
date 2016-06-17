@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import eu.ec.java4eurostat.base.Selection.Criteria;
 import eu.ec.java4eurostat.base.Stat;
 import eu.ec.java4eurostat.base.StatsHypercube;
 
@@ -18,7 +19,8 @@ import eu.ec.java4eurostat.base.StatsHypercube;
  */
 public class JSONStat {
 
-	public static StatsHypercube get(String data) {
+	public static StatsHypercube get(String data) { return get(data, null); }
+	public static StatsHypercube get(String data, Criteria ssc) {
 		//System.out.println(data);
 		StatsHypercube hc = new StatsHypercube();
 		JSONObject obj = new JSONObject(data);
@@ -66,6 +68,9 @@ public class JSONStat {
 				String dimValue = dimValues.get(dimLabel).getString(""+coords[coordI]);
 				s.dims.put(dimLabel, dimValue);
 			}
+
+			if(ssc!=null && !ssc.keep(s)) continue;
+
 			hc.stats.add(s);
 		}
 

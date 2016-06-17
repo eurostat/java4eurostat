@@ -10,8 +10,9 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import eu.ec.java4eurostat.base.Selection;
+import eu.ec.java4eurostat.base.Selection.Criteria;
 import eu.ec.java4eurostat.base.Stat;
-import eu.ec.java4eurostat.base.StatSelectionCriteria;
 import eu.ec.java4eurostat.base.StatsHypercube;
 
 /**
@@ -23,7 +24,7 @@ public class CSV {
 
 	public static StatsHypercube load(String inputFilePath, String valueLabel) { return load(inputFilePath, valueLabel, PAT, null); }
 	public static StatsHypercube load(String inputFilePath, String valueLabel, String patternString) { return load(inputFilePath, valueLabel, patternString, null); }
-	public static StatsHypercube load(String inputFilePath, String valueLabel, StatSelectionCriteria ssc) { return load(inputFilePath, valueLabel, PAT, ssc); }
+	public static StatsHypercube load(String inputFilePath, String valueLabel, Criteria ssc) { return load(inputFilePath, valueLabel, PAT, ssc); }
 
 	/**
 	 * Load a CSV file.
@@ -33,7 +34,7 @@ public class CSV {
 	 * @param patternString NB: for tab separated files, use "([^\t]*)"
 	 * @return
 	 */
-	public static StatsHypercube load(String inputFilePath, String valueLabel, String patternString, StatSelectionCriteria ssc) {
+	public static StatsHypercube load(String inputFilePath, String valueLabel, String patternString, Selection.Criteria ssc) {
 		StatsHypercube hc = new StatsHypercube();
 		BufferedReader br = null;
 		try {
