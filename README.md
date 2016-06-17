@@ -69,10 +69,12 @@ Information: 12 value(s) with 3 dimension(s).
 TODO: present selection, indexing.
 
 
-## Input format
+## Input formats
 TODO describe CSV, TSV, JSONStat
 
-## Data selection
+## Data manipulation
+### Selection/filtering/slicing/dicing
+TODO describe
 
 ## Time series analysis
 TODO describe gap and outlier detection
