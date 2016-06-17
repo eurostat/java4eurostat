@@ -172,6 +172,9 @@ TODO describe
 #### Filtering on loading
 TODO describe
 
+### Basic data structures
+TODO: Stat,Hypercube,(Index)
+
 ### Data manipulation
 #### Selection/filtering/slicing/dicing
 TODO describe
