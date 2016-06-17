@@ -151,12 +151,13 @@ StatsHypercube hc = CSV.load("example.csv", "population");
 //save
 CSV.save(hc, "C:\datafolder\", "dataset.csv");
 ```
-#### JSON-stat https://json-stat.org/
+#### JSON-stat
+See [here](https://json-stat.org/) for more information on this format.
 ```java
 //load
-TODO example
-//save
-TODO example
+String jsonStatString = '{"version":"2.0", "class":"dataset", "label":"Population data", "source":"", "id":[...], "size":[...], "dimension":{...}, "value":[...]}';
+StatsHypercube hc = JSONStat.load(jsonStatString);
+//save is not implemented
 ```
 #### Eurostat TSV
 ```java
