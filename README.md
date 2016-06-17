@@ -1,7 +1,7 @@
 # java4eurostat
 Java4eurostat is a Java library for statistical data manipulation. It provides a number of functions to load statistical data into an 'hypercube' structure and index it for fast in-memory computations. A number of specific functions are provided to easily access [Eurostat](http://ec.europa.eu/eurostat/) data.
 
-## Usage example
+## Quick start
 
 Let's start with a simple dataset:
 
@@ -87,59 +87,99 @@ Information: 2001 value(s) with 3 dimension(s).
       ...
 ```
 
-Once loaded, data can be filtered/selected. For example, ```hc.selectDimValueEqualTo("country", "Brasil")``` selects data for Brasil and ```hc.selectValueGreaterThan(147)``` selects values greater than 147. Selection criteria can be combined in cascade like ```TODO example``` or using logical 'AND' and 'OR' operators ```TODO example```. Generic selection criteria can be specified such as:
+Once loaded, data can be filtered/selected. For example, ```hc.selectDimValueEqualTo("country","Brasil")``` selects data for Brasil and ```hc.selectValueGreaterThan(147)``` selects data with values greater than 147. Selection criteria can be combined in cascade like ```hc.selectDimValueEqualTo("country","Brasil").selectDimValueGreaterThan("year",2012)``` for the selection of Brasil data after 2012. Logical operators 'AND', 'OR' and 'NOT' can also be used to build more complex selection criteria. Totally generic selection criteria can be specified such as:
 
 ```java
-TODO Show example of generic selection with Criteria class.
+hc.select(new Criteria(){
+	@Override
+	public boolean keep(Stat stat) {
+		return stat.dims.get("country").contains("r") && Math.sqrt(stat.value)>7;
+	}
+});
 ```
 
-A single value can be retrieved with for example ```hc.selectDimValueEqualTo("country", "Japan", "gender", "Total", "year", "2014")``` but the fastest way to retrieve a value or scan a dataset is to use the ```StatsIndex``` such as:
+which selects all statistics with country names containing a "r" character, and whose root square value is greater than 7.
+
+A single value can be retrieved with for example ```hc.selectDimValueEqualTo("country", "Japan", "gender", "Total", "year", "2014").stats.iterator().next().value``` but the fastest way to retrieve a value and scan a dataset is to use an index with:
 
 ```java
-TODO example
+StatsIndex index = new StatsIndex(hc,"gender","year","country");
+```
+This index is a tree structure based on the dimension values. This structure can be displayed with ```index.print();```:
+
+```
+Total
+   2014
+      Brasil -> 93.9
+      Japan -> 293.9
+   2013
+      Brasil -> 93.4
+      Japan -> 293.4
+Male
+   2014
+      Brasil -> 46.2
+      Japan -> 146.2
+   2013
+      Brasil -> 45.1
+      Japan -> 145.1
+Female
+   2014
+      Brasil -> 47.7
+      Japan -> 147.7
+   2013
+      Brasil -> 48.3
+      Japan -> 148.3
 ```
 
-Scanning a full dataset across its dimensions is very fast with:
+A statistical value is accessed quickly from the index and its dimension values: ```double value = index.getSingleValue("Total","2014","Japan");```. Scanning a full dataset across its dimensions is very fast with:
 
 ```java
-TODO example
+for(String gender : index.getKeys())
+	for(String year : index.getKeys(gender))
+		for(String country : index.getKeys(gender,year)) {
+			System.out.println(gender +" "+year+" "+country);
+			System.out.println(index.getSingleValue(gender,year,country));
+		}
 ```
 
-
-## Input formats
-### CSV
+## More information
+### Input formats
+#### CSV
 ```java
 //load
 StatsHypercube hc = CSV.load("example.csv", "population");
 //save
 TODO example
 ```
-### JSON-stat https://json-stat.org/
+#### JSON-stat https://json-stat.org/
 ```java
 //load
 TODO example
 //save
 TODO example
 ```
-### Eurostat TSV
+#### Eurostat TSV
 ```java
 //load
 TODO example
 //save
 TODO example
 ```
-### Web scraping
+#### Web scraping
 TODO describe
-### Eurostat web service
+#### Eurostat web service
 TODO describe
-### Filtering on loading
-TODO describe
-
-## Data manipulation
-### Selection/filtering/slicing/dicing
-TODO describe
-### Indexing
+#### Filtering on loading
 TODO describe
 
-## Time series analysis
+### Basic data structures
+TODO: Stat,Hypercube,(Index)
+
+### Data manipulation
+#### Selection/filtering/slicing/dicing
+TODO describe
+#### Indexing
+TODO describe
+
+### Time series analysis
 TODO describe gap and outlier detection
