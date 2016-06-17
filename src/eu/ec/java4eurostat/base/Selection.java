@@ -60,21 +60,21 @@ public class Selection {
 
 
 	/** Selection criteria for statistics having dimension values */
-	public static class DimValuesEqualTo implements Criteria {
+	public static class DimValueEqualTo implements Criteria {
 		String[] dimLabelValues;
-		public DimValuesEqualTo(String... dimLabelValues){ this.dimLabelValues = dimLabelValues; }
+		public DimValueEqualTo(String... dimLabelValues){ this.dimLabelValues = dimLabelValues; }
 
 		@Override
 		public boolean keep(Stat stat) {
-			for(int i=0; i<dimLabelValues.length/2; i+=2)
+			for(int i=0; i<dimLabelValues.length; i+=2)
 				if(!dimLabelValues[i+1].equals(stat.dims.get(dimLabelValues[i]))) return false;
 			return true;
 		}
 	}
 	/** Selection criteria on statistics dimension values */
-	public static class DimValuesGreaterThan implements Criteria {
+	public static class DimValueGreaterThan implements Criteria {
 		String dimLabel; double dimValue;
-		public DimValuesGreaterThan(String dimLabel, double dimValue){ this.dimLabel = dimLabel; this.dimValue = dimValue; }
+		public DimValueGreaterThan(String dimLabel, double dimValue){ this.dimLabel = dimLabel; this.dimValue = dimValue; }
 
 		@Override
 		public boolean keep(Stat stat) {
@@ -82,9 +82,9 @@ public class Selection {
 		}
 	}
 	/** Selection criteria on statistics dimension values */
-	public static class DimValuesLowerThan implements Criteria {
+	public static class DimValueLowerThan implements Criteria {
 		String dimLabel; double dimValue;
-		public DimValuesLowerThan(String dimLabel, double dimValue){ this.dimLabel = dimLabel; this.dimValue = dimValue; }
+		public DimValueLowerThan(String dimLabel, double dimValue){ this.dimLabel = dimLabel; this.dimValue = dimValue; }
 
 		@Override
 		public boolean keep(Stat stat) {
@@ -92,9 +92,9 @@ public class Selection {
 		}
 	}
 	/** Selection criteria on statistics dimension values */
-	public static class DimValuesGreaterOrEqualThan implements Criteria {
+	public static class DimValueGreaterOrEqualThan implements Criteria {
 		String dimLabel; double dimValue;
-		public DimValuesGreaterOrEqualThan(String dimLabel, double dimValue){ this.dimLabel = dimLabel; this.dimValue = dimValue; }
+		public DimValueGreaterOrEqualThan(String dimLabel, double dimValue){ this.dimLabel = dimLabel; this.dimValue = dimValue; }
 
 		@Override
 		public boolean keep(Stat stat) {
@@ -102,9 +102,9 @@ public class Selection {
 		}
 	}
 	/** Selection criteria on statistics dimension values */
-	public static class DimValuesLowerOrEqualThan implements Criteria {
+	public static class DimValueLowerOrEqualThan implements Criteria {
 		String dimLabel; double dimValue;
-		public DimValuesLowerOrEqualThan(String dimLabel, double dimValue){ this.dimLabel = dimLabel; this.dimValue = dimValue; }
+		public DimValueLowerOrEqualThan(String dimLabel, double dimValue){ this.dimLabel = dimLabel; this.dimValue = dimValue; }
 
 		@Override
 		public boolean keep(Stat stat) {
@@ -117,7 +117,7 @@ public class Selection {
 	 */
 	public static class Or implements Criteria {
 		Criteria[] cri;
-		public Or(Criteria[] cri){ this.cri = cri; }
+		public Or(Criteria... cri){ this.cri = cri; }
 		@Override
 		public boolean keep(Stat stat) {
 			for(int i=0; i<cri.length; i++) if(cri[i].keep(stat)) return true;
@@ -130,7 +130,7 @@ public class Selection {
 	 */
 	public static class And implements Criteria {
 		Criteria[] cri;
-		public And(Criteria[] cri){ this.cri = cri; }
+		public And(Criteria... cri){ this.cri = cri; }
 		@Override
 		public boolean keep(Stat stat) {
 			for(int i=0; i<cri.length; i++) if(!cri[i].keep(stat)) return false;

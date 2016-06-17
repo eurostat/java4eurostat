@@ -85,12 +85,37 @@ public class CSV {
 	//TODO save as CSV
 
 	public static void main(String[] args) {
+		//StatsHypercube hc = load("data/ex.csv", "population");
+		//load("data/ex.csv", "population").printInfo();
 		//load("data/ex.csv", "population").selectDimValueEqualTo("country", "Brasil").printInfo();
 		//load("data/ex.csv", "population").selectValueGreaterThan(147).printInfo();
-		//load("data/ex.csv", "population").s.printInfo();
+		//load("data/ex.csv", "population").selectDimValueEqualTo("country", "Japan", "gender", "Total", "year", "2014").printInfo();
+		//load("data/ex.csv", "population").selectDimValueEqualTo("country", "Brasil").selectDimValueGreaterThan("year",2012).printInfo();
+		//load("data/ex.csv", "population").selectDimValueEqualTo("country", "Brasil").selectDimValueGreaterThan("year",2012).printInfo();
 
-		test that
-		load("data/ex.csv", "population").selectDimValueEqualTo("country", "Japan", "gender", "Total", "year", "2014").printInfo();
+		/*
+		load("data/ex.csv", "population").select(new Criteria(){
+			@Override
+			public boolean keep(Stat stat) {
+				return stat.dims.get("country").contains("r") && Math.sqrt(stat.value)>7;
+			}
+		}).printInfo();*/
+		/*
+		StatsIndex index = new StatsIndex(hc,"gender","year","country");
+		//double value = index.getSingleValue("Total","2014","Japan");
+		//System.out.println(value);
+
+		for(String gender : index.getKeys())
+			for(String year : index.getKeys(gender))
+				for(String country : index.getKeys(gender,year)){
+					System.out.println(gender +" "+year+" "+country);
+					System.out.println(index.getSingleValue(gender,year,country));
+				}
+		 */
+
+		/*System.out.println(
+				load("data/ex.csv", "population").selectDimValueEqualTo("country", "Japan", "gender", "Total", "year", "2014").stats.iterator().next().value
+				);*/
 
 		/*load("data/ex.csv", "population", new StatsHypercube.StatSelectionCriteria(){
 			@Override

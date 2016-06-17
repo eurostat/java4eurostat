@@ -9,7 +9,11 @@ import java.util.Collections;
 import java.util.HashSet;
 
 import eu.ec.java4eurostat.base.Selection.Criteria;
-import eu.ec.java4eurostat.base.Selection.DimValuesEqualTo;
+import eu.ec.java4eurostat.base.Selection.DimValueEqualTo;
+import eu.ec.java4eurostat.base.Selection.DimValueGreaterOrEqualThan;
+import eu.ec.java4eurostat.base.Selection.DimValueGreaterThan;
+import eu.ec.java4eurostat.base.Selection.DimValueLowerOrEqualThan;
+import eu.ec.java4eurostat.base.Selection.DimValueLowerThan;
 import eu.ec.java4eurostat.base.Selection.ValueEqualTo;
 import eu.ec.java4eurostat.base.Selection.ValueGreaterOrEqualThan;
 import eu.ec.java4eurostat.base.Selection.ValueGreaterThan;
@@ -86,8 +90,12 @@ public class StatsHypercube {
 	 * @return
 	 */
 	public StatsHypercube selectDimValueEqualTo(String... dimLabelValues){
-		return select(new DimValuesEqualTo(dimLabelValues));
+		return select(new DimValueEqualTo(dimLabelValues));
 	}
+	public StatsHypercube selectDimValueGreaterThan(String dimLabel, double value){ return select(new DimValueGreaterThan(dimLabel, value)); }
+	public StatsHypercube selectDimValueLowerThan(String dimLabel, double value){ return select(new DimValueLowerThan(dimLabel, value)); }
+	public StatsHypercube selectDimValueGreaterOrEqualThan(String dimLabel, double value){ return select(new DimValueGreaterOrEqualThan(dimLabel, value)); }
+	public StatsHypercube selectDimValueLowerOrEqualThan(String dimLabel, double value){ return select(new DimValueLowerOrEqualThan(dimLabel, value)); }
 
 	/**
 	 * Selection on values.
