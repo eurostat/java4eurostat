@@ -86,7 +86,12 @@ public class CSV {
 
 	public static void main(String[] args) {
 		//load("data/ex.csv", "population").selectDimValueEqualTo("country", "Brasil").printInfo();
-		load("data/ex.csv", "population").selectValueGreaterThan(147).printInfo();
+		//load("data/ex.csv", "population").selectValueGreaterThan(147).printInfo();
+		//load("data/ex.csv", "population").s.printInfo();
+
+		test that
+		load("data/ex.csv", "population").selectDimValueEqualTo("country", "Japan", "gender", "Total", "year", "2014").printInfo();
+
 		/*load("data/ex.csv", "population", new StatsHypercube.StatSelectionCriteria(){
 			@Override
 			public boolean keep(Stat stat) {

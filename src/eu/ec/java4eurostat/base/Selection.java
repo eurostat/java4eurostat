@@ -21,22 +21,6 @@ public class Selection {
 		boolean keep(Stat stat);
 	}
 
-	/**
-	 * Selection criteria for statistics having dimension values
-	 */
-	public static class DimValuesEqualTo implements Criteria {
-		String[] dimLabelsEqual, dimValuesEqual;
-		public DimValuesEqualTo(String[] dimLabelsEqual, String[] dimValuesEqual){ this.dimLabelsEqual = dimLabelsEqual; this.dimValuesEqual = dimValuesEqual; }
-
-		@Override
-		public boolean keep(Stat stat) {
-			for(int i=0; i<dimLabelsEqual.length; i++)
-				if(!dimValuesEqual[i].equals(stat.dims.get(dimLabelsEqual[i]))) return false;
-			return true;
-		}
-	}
-
-
 	/** Selection criteria on values */
 	public static class ValueEqualTo implements Criteria {
 		double value;
@@ -74,6 +58,60 @@ public class Selection {
 	}
 
 
+
+	/** Selection criteria for statistics having dimension values */
+	public static class DimValuesEqualTo implements Criteria {
+		String[] dimLabelValues;
+		public DimValuesEqualTo(String... dimLabelValues){ this.dimLabelValues = dimLabelValues; }
+
+		@Override
+		public boolean keep(Stat stat) {
+			for(int i=0; i<dimLabelValues.length/2; i+=2)
+				if(!dimLabelValues[i+1].equals(stat.dims.get(dimLabelValues[i]))) return false;
+			return true;
+		}
+	}
+	/** Selection criteria on statistics dimension values */
+	public static class DimValuesGreaterThan implements Criteria {
+		String dimLabel; double dimValue;
+		public DimValuesGreaterThan(String dimLabel, double dimValue){ this.dimLabel = dimLabel; this.dimValue = dimValue; }
+
+		@Override
+		public boolean keep(Stat stat) {
+			try { return Double.parseDouble(stat.dims.get(dimLabel)) > this.dimValue; } catch (NumberFormatException e) { return false; }
+		}
+	}
+	/** Selection criteria on statistics dimension values */
+	public static class DimValuesLowerThan implements Criteria {
+		String dimLabel; double dimValue;
+		public DimValuesLowerThan(String dimLabel, double dimValue){ this.dimLabel = dimLabel; this.dimValue = dimValue; }
+
+		@Override
+		public boolean keep(Stat stat) {
+			try { return Double.parseDouble(stat.dims.get(dimLabel)) < this.dimValue; } catch (NumberFormatException e) { return false; }
+		}
+	}
+	/** Selection criteria on statistics dimension values */
+	public static class DimValuesGreaterOrEqualThan implements Criteria {
+		String dimLabel; double dimValue;
+		public DimValuesGreaterOrEqualThan(String dimLabel, double dimValue){ this.dimLabel = dimLabel; this.dimValue = dimValue; }
+
+		@Override
+		public boolean keep(Stat stat) {
+			try { return Double.parseDouble(stat.dims.get(dimLabel)) >= this.dimValue; } catch (NumberFormatException e) { return false; }
+		}
+	}
+	/** Selection criteria on statistics dimension values */
+	public static class DimValuesLowerOrEqualThan implements Criteria {
+		String dimLabel; double dimValue;
+		public DimValuesLowerOrEqualThan(String dimLabel, double dimValue){ this.dimLabel = dimLabel; this.dimValue = dimValue; }
+
+		@Override
+		public boolean keep(Stat stat) {
+			try { return Double.parseDouble(stat.dims.get(dimLabel)) <= this.dimValue; } catch (NumberFormatException e) { return false; }
+		}
+	}
+
 	/**
 	 *  A composite data criteria (or)
 	 */
@@ -97,6 +135,18 @@ public class Selection {
 		public boolean keep(Stat stat) {
 			for(int i=0; i<cri.length; i++) if(!cri[i].keep(stat)) return false;
 			return true;
+		}
+	}
+
+	/**
+	 *  A composite data criteria (not)
+	 */
+	public static class Not implements Criteria {
+		Criteria cri;
+		public Not(Criteria cri){ this.cri = cri; }
+		@Override
+		public boolean keep(Stat stat) {
+			return !cri.keep(stat);
 		}
 	}
 

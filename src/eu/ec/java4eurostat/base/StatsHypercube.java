@@ -82,15 +82,11 @@ public class StatsHypercube {
 	 * Extract an hypercube of stats having dimLabel=dimValue
 	 * Ex: gender=male, country=HU, etc.
 	 * 
-	 * @param dimLabel
-	 * @param dimValue
+	 * @param dimLabelValues List of couples (label,value) Example; "gender","male","country","HU"
 	 * @return
 	 */
-	public StatsHypercube selectDimValueEqualTo(String dimLabel, String dimValue){
-		return selectDimValueEqualTo(new String[]{dimLabel}, new String[]{dimValue});
-	}
-	public StatsHypercube selectDimValueEqualTo(String[] dimLabels, String[] dimValues){
-		return select(new DimValuesEqualTo(dimLabels, dimValues));
+	public StatsHypercube selectDimValueEqualTo(String... dimLabelValues){
+		return select(new DimValuesEqualTo(dimLabelValues));
 	}
 
 	/**
