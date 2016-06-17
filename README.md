@@ -44,13 +44,7 @@ This file can be loaded into an hypercube structure with:
 StatsHypercube hc = CSV.load("example.csv", "population");
 ```
 
-Information on the hypercube structure is shown with:
-
-```java
-hc.printInfo();
-```
-
-which returns:
+Information on the hypercube structure is shown with ```hc.printInfo();```, which returns:
 
 ```
 Information: 12 value(s) with 3 dimension(s).
@@ -93,7 +87,7 @@ Information: 2001 value(s) with 3 dimension(s).
       ...
 ```
 
-Once loaded, data can be filtered/selected. For example, ```hc.selectDimValueEqualTo("country", "Brasil")``` returns only the data for Brasil (slice operation) and ```hc.selectValueGreaterThan(147)``` returns only values greater than 147. Selection criteria can be combined in cascade like ```TODO example``` or using logical 'AND' and 'OR' operators ```TODO example```. Generic selection criteria can be specified such as:
+Once loaded, data can be filtered/selected. For example, ```hc.selectDimValueEqualTo("country", "Brasil")``` selects data for Brasil and ```hc.selectValueGreaterThan(147)``` selects values greater than 147. Selection criteria can be combined in cascade like ```TODO example``` or using logical 'AND' and 'OR' operators ```TODO example```. Generic selection criteria can be specified such as:
 
 ```java
 TODO Show example of generic selection with Criteria class.
