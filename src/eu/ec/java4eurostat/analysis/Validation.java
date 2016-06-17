@@ -15,6 +15,7 @@ import eu.ec.java4eurostat.base.StatsHypercube;
  *
  */
 public class Validation {
+	//TODO generic validation library?
 
 	/**
 	 * Check dimension values are within a list of valid values.
