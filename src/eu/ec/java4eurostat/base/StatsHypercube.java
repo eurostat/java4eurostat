@@ -6,9 +6,7 @@ package eu.ec.java4eurostat.base;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map.Entry;
 
 /**
  * An hypercube of statistical values.
@@ -153,33 +151,4 @@ public class StatsHypercube {
 		}
 	}
 
-	/**
-	 * Check dimension values are within a list of valid values.
-	 * 
-	 * @param dimLabel
-	 * @param expectedDimValues
-	 * @param print
-	 * @return
-	 */
-	public HashMap<String,Integer> checkDimensionValuesValidity(String dimLabel, Collection<String> expectedDimValues, boolean print) {
-		HashMap<String,Integer> unexpectedValues = new HashMap<String,Integer>();
-
-		//list and count unexpected values
-		for(Stat s : stats){
-			String DimValue = s.dims.get(dimLabel);
-			if(expectedDimValues.contains(DimValue)) continue;
-			if(unexpectedValues.get(DimValue)==null)
-				unexpectedValues.put(DimValue, 1);
-			else
-				unexpectedValues.put(DimValue, unexpectedValues.get(DimValue)+1);
-		}
-
-		if(print){
-			//show result
-			System.err.println(unexpectedValues.size()+" unexpected values");
-			for(Entry<String,Integer> missing : unexpectedValues.entrySet())
-				System.err.println("\t"+missing.getKey()+" (found "+missing.getValue()+" times)");
-		}
-		return unexpectedValues;
-	}
 }
