@@ -149,7 +149,7 @@ for(String gender : index.getKeys())
 //load
 StatsHypercube hc = CSV.load("example.csv", "population");
 //save
-TODO example
+CSV.save(hc, "C:\datafolder\", "dataset.csv");
 ```
 #### JSON-stat https://json-stat.org/
 ```java
