@@ -1,7 +1,7 @@
 # java4eurostat
 Java4eurostat is a Java library for statistical data manipulation. It provides a number of functions to load statistical data into an 'hypercube' structure and index it for fast in-memory computations. A number of specific functions are provided to easily access [Eurostat](http://ec.europa.eu/eurostat/) data.
 
-## Usage example
+## Quick start
 
 Let's start with a simple dataset:
 
@@ -142,40 +142,41 @@ for(String gender : index.getKeys())
 		}
 ```
 
-## Input formats
-### CSV
+## More information...
+### Input formats
+#### CSV
 ```java
 //load
 StatsHypercube hc = CSV.load("example.csv", "population");
 //save
 TODO example
 ```
-### JSON-stat https://json-stat.org/
+#### JSON-stat https://json-stat.org/
 ```java
 //load
 TODO example
 //save
 TODO example
 ```
-### Eurostat TSV
+#### Eurostat TSV
 ```java
 //load
 TODO example
 //save
 TODO example
 ```
-### Web scraping
+#### Web scraping
 TODO describe
-### Eurostat web service
+#### Eurostat web service
 TODO describe
-### Filtering on loading
-TODO describe
-
-## Data manipulation
-### Selection/filtering/slicing/dicing
-TODO describe
-### Indexing
+#### Filtering on loading
 TODO describe
 
-## Time series analysis
+### Data manipulation
+#### Selection/filtering/slicing/dicing
+TODO describe
+#### Indexing
+TODO describe
+
+### Time series analysis
 TODO describe gap and outlier detection
