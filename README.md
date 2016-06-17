@@ -66,7 +66,34 @@ Information: 12 value(s) with 3 dimension(s).
       Japan
 ```
 
-TODO: Eurostat loading example. Short example on selection.
+A number of input formats are supported to load data. It is for example possible to retrieve [Eurostat](http://ec.europa.eu/eurostat/) data directly from the web. For that, only the database code is required. For example, the database on *HICP - Country weights* (code *prc_hicp_cow*) can be retrieved with:
+
+```java
+StatsHypercube hc2 = EurobaseIO.getDataFromDBCode("prc_hicp_cow");
+```
+
+The structure returned with a ```hc2.printInfo();``` is:
+
+```
+Information: 2001 value(s) with 3 dimension(s).
+   Dimension: time (21 dimension values)
+      1996
+      1997
+      1998
+      ...
+   Dimension: geo (35 dimension values)
+      AT
+      BE
+      BG
+      ...
+   Dimension: statinfo (6 dimension values)
+      COWEA
+      COWEA18
+      COWEA19
+      ...
+```
+
+TODO: Describe short example on selection.
 
 ## Input formats
 TODO describe CSV, TSV, JSONStat
