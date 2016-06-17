@@ -100,13 +100,38 @@ hc.select(new Criteria(){
 
 which selects all statistics with country names containing a "r" character, and whose root square value is greater than 7.
 
-A single value can be retrieved with for example ```hc.selectDimValueEqualTo("country", "Japan", "gender", "Total", "year", "2014").stats.iterator().next().value``` but the fastest way to retrieve a value and scan a dataset is to use an index such as:
+A single value can be retrieved with for example ```hc.selectDimValueEqualTo("country", "Japan", "gender", "Total", "year", "2014").stats.iterator().next().value``` but the fastest way to retrieve a value and scan a dataset is to use an index with:
 
 ```java
-TODO example
+StatsIndex index = new StatsIndex(hc,"gender","year","country");
+```
+This index is a tree structure based on the dimension values. This structure can be displayed with ```index.print();```:
+
+```
+Total
+   2014
+      Brasil -> 93.9
+      Japan -> 293.9
+   2013
+      Brasil -> 93.4
+      Japan -> 293.4
+Male
+   2014
+      Brasil -> 46.2
+      Japan -> 146.2
+   2013
+      Brasil -> 45.1
+      Japan -> 145.1
+Female
+   2014
+      Brasil -> 47.7
+      Japan -> 147.7
+   2013
+      Brasil -> 48.3
+      Japan -> 148.3
 ```
 
-Scanning a full dataset across its dimensions is very fast with:
+A statistical value is accessed quickly from the index and its dimension values: ```double value = index.getSingleValue("Total","2014","Japan");```. Scanning a full dataset across its dimensions is very fast with:
 
 ```java
 TODO example
