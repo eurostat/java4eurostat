@@ -66,7 +66,7 @@ Information: 12 value(s) with 3 dimension(s).
       Japan
 ```
 
-A number of input formats are supported to load data. It is for example possible to retrieve [Eurostat](http://ec.europa.eu/eurostat/) data directly from the web. For that, only the database code is required. For example, the database on *HICP - Country weights* (code *prc_hicp_cow*) can be retrieved with:
+Several input formats are supported. For example, [Eurostat](http://ec.europa.eu/eurostat/) data can be loaded directly from the web. For that, only the database code given in [Eurostat databases catalog](http://ec.europa.eu/eurostat/data/database) is required. For example, the database on *HICP - Country weights* (code *prc_hicp_cow*) can be downloaded and loaded simply with:
 
 ```java
 StatsHypercube hc2 = EurobaseIO.getDataFromDBCode("prc_hicp_cow");
