@@ -19,8 +19,8 @@ import eu.ec.java4eurostat.base.StatsHypercube;
  */
 public class JSONStat {
 
-	public static StatsHypercube get(String data) { return get(data, null); }
-	public static StatsHypercube get(String data, Criteria ssc) {
+	public static StatsHypercube load(String data) { return load(data, null); }
+	public static StatsHypercube load(String data, Criteria ssc) {
 		//System.out.println(data);
 		StatsHypercube hc = new StatsHypercube();
 		JSONObject obj = new JSONObject(data);

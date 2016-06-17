@@ -16,7 +16,7 @@ public class EurobaseIO {
 	public static String eurobaseWSURLBase = "http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/";
 
 	public static StatsHypercube getDataFromURL(String url, Criteria ssc){
-		return JSONStat.get( IOUtil.getDataFromURL(url), ssc );
+		return JSONStat.load( IOUtil.getDataFromURL(url), ssc );
 	}
 	public static StatsHypercube getDataFromURL(String url){ return getDataFromURL(url, null); }
 

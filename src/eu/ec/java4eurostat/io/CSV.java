@@ -82,10 +82,11 @@ public class CSV {
 		return hc;		
 	}
 
-	//TODO save
+	//TODO save as CSV
 
 	public static void main(String[] args) {
-		load("data/ex.csv", "population").printInfo();
+		//load("data/ex.csv", "population").selectDimValueEqualTo("country", "Brasil").printInfo();
+		load("data/ex.csv", "population").selectValueGreaterThan(147).printInfo();
 		/*load("data/ex.csv", "population", new StatsHypercube.StatSelectionCriteria(){
 			@Override
 			public boolean keep(Stat stat) {

@@ -31,7 +31,7 @@ public class Selection {
 		@Override
 		public boolean keep(Stat stat) {
 			for(int i=0; i<dimLabelsEqual.length; i++)
-				if(dimValuesEqual[i].equals(stat.dims.get(dimLabelsEqual[i]))) return false;
+				if(!dimValuesEqual[i].equals(stat.dims.get(dimLabelsEqual[i]))) return false;
 			return true;
 		}
 	}
