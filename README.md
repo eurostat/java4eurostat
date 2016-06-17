@@ -38,7 +38,7 @@ Japan,Female,2014,147.7
 Japan,Total,2014,293.9
 ```
 
-This can be loaded into an hypercube structure with:
+This file can be loaded into an hypercube structure with:
 
 ```java
 StatsHypercube hc = CSV.load("example.csv", "population");
