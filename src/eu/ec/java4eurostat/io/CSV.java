@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import eu.ec.java4eurostat.base.Stat;
+import eu.ec.java4eurostat.base.StatSelectionCriteria;
 import eu.ec.java4eurostat.base.StatsHypercube;
 
 /**
@@ -22,7 +23,7 @@ public class CSV {
 
 	public static StatsHypercube load(String inputFilePath, String valueLabel) { return load(inputFilePath, valueLabel, PAT, null); }
 	public static StatsHypercube load(String inputFilePath, String valueLabel, String patternString) { return load(inputFilePath, valueLabel, patternString, null); }
-	public static StatsHypercube load(String inputFilePath, String valueLabel, StatsHypercube.StatSelectionCriteria ssc) { return load(inputFilePath, valueLabel, PAT, ssc); }
+	public static StatsHypercube load(String inputFilePath, String valueLabel, StatSelectionCriteria ssc) { return load(inputFilePath, valueLabel, PAT, ssc); }
 
 	/**
 	 * Load a CSV file.
@@ -32,7 +33,7 @@ public class CSV {
 	 * @param patternString NB: for tab separated files, use "([^\t]*)"
 	 * @return
 	 */
-	public static StatsHypercube load(String inputFilePath, String valueLabel, String patternString, StatsHypercube.StatSelectionCriteria ssc) {
+	public static StatsHypercube load(String inputFilePath, String valueLabel, String patternString, StatSelectionCriteria ssc) {
 		StatsHypercube hc = new StatsHypercube();
 		BufferedReader br = null;
 		try {
@@ -82,15 +83,13 @@ public class CSV {
 
 	//TODO save
 
-	/*
 	public static void main(String[] args) {
-		//load("data/ex.csv", "population").printInfo();
-		load("data/ex.csv", "population", new StatsHypercube.StatSelectionCriteria(){
+		load("data/ex.csv", "population").printInfo();
+		/*load("data/ex.csv", "population", new StatsHypercube.StatSelectionCriteria(){
 			@Override
 			public boolean keep(Stat stat) {
 				return "Total".equals(stat.dims.get("gender"));
-			}}).printInfo();
-
-	}*/
+			}}).printInfo();*/
+	}
 
 }

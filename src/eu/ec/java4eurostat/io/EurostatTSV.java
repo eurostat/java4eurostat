@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
 
 import eu.ec.java4eurostat.base.Flag;
 import eu.ec.java4eurostat.base.Stat;
+import eu.ec.java4eurostat.base.StatSelectionCriteria;
 import eu.ec.java4eurostat.base.StatsHypercube;
 
 /**
@@ -18,7 +19,7 @@ import eu.ec.java4eurostat.base.StatsHypercube;
 public class EurostatTSV {
 
 	public static StatsHypercube load(String inputFilePath){ return load( inputFilePath, null ); }
-	public static StatsHypercube load(String inputFilePath, StatsHypercube.StatSelectionCriteria ssc){
+	public static StatsHypercube load(String inputFilePath, StatSelectionCriteria ssc){
 		String sep="\t";
 		BufferedReader br = null;
 		StatsHypercube sh = new StatsHypercube();

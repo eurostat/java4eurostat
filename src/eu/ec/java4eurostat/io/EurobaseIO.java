@@ -45,7 +45,7 @@ public class EurobaseIO {
 	}
 
 	/*public static void main(String[] args) {
-		getData("prc_hicp_cow");
+		getDataFromDBCode("prc_hicp_cow").printInfo();
 		//getDataBulkDownload("acf_s_own","",true);
 		//getDataBulk("acf_s_own").printInfo();
 		//getDataBulk("prc_hicp_cow").printInfo();

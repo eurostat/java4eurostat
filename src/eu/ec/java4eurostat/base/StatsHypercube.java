@@ -60,15 +60,6 @@ public class StatsHypercube {
 	}
 
 	/**
-	 * A selection criteria to decide whether a statistical value should be kept of not.
-	 * Ex: All stats with gender=male, with value=0, with country starting with a 'A', etc.
-	 * 
-	 * @author Julien Gaffuri
-	 *
-	 */
-	public interface StatSelectionCriteria { boolean keep(Stat stat); }
-
-	/**
 	 * Extract an hypercube based on a selection criteria
 	 * 
 	 * @param sel The selection criterion
@@ -81,7 +72,6 @@ public class StatsHypercube {
 		return new StatsHypercube(stats_, new HashSet<String>(this.dimLabels));
 	}
 
-	//get all stats having a dim value
 	/**
 	 * Extract an hypercube of stats having dimLabel=dimValue
 	 * Ex: gender=male, country=HU, etc.
@@ -90,15 +80,22 @@ public class StatsHypercube {
 	 * @param dimValue
 	 * @return
 	 */
-	public StatsHypercube select(final String dimLabel, final String dimValue){
-		if(!dimLabels.contains(dimLabel)) System.err.println("No dimension label: " + dimLabel);
-		return select(new StatSelectionCriteria() {
-			@Override
-			public boolean keep(Stat stat) {
-				return dimValue.equals( stat.dims.get(dimLabel) );
-			}
-		});
+	public StatsHypercube selectDimValueEqualTo(String dimLabel, String dimValue){
+		return selectDimValueEqualTo(new String[]{dimLabel}, new String[]{dimValue});
 	}
+	public StatsHypercube selectDimValueEqualTo(String[] dimLabels, String[] dimValues){
+		return select(new StatSelectionCriteria.DimValuesEqualTo(dimLabels, dimValues));
+	}
+
+	/**
+	 * Selection on values.
+	 * Ex: stat.value > 50
+	 */
+	public StatsHypercube selectValueEqualTo(double value){ return select(new StatSelectionCriteria.ValueEqualTo(value)); }
+	public StatsHypercube selectValueGreaterThan(double value){ return select(new StatSelectionCriteria.ValueGreaterThan(value)); }
+	public StatsHypercube selectValueLowerThan(double value){ return select(new StatSelectionCriteria.ValueLowerThan(value)); }
+	public StatsHypercube selectValueGreaterOrEqualThan(double value){ return select(new StatSelectionCriteria.ValueGreaterOrEqualThan(value)); }
+	public StatsHypercube selectValueLowerOrEqualThan(double value){ return select(new StatSelectionCriteria.ValueLowerOrEqualThan(value)); }
 
 	/**
 	 * Delete a dimension.
@@ -122,7 +119,7 @@ public class StatsHypercube {
 	 * @param dimValue
 	 */
 	public void delete(String dimLabel, String dimValue){
-		stats.removeAll( select(dimLabel, dimValue).stats );
+		stats.removeAll( selectDimValueEqualTo(dimLabel, dimValue).stats );
 	}
 
 	/**
