@@ -15,6 +15,9 @@ import eu.ec.java4eurostat.base.StatsHypercube;
 public class EurobaseIO {
 	public static String eurobaseWSURLBase = "http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/";
 
+	//TODO last date of update
+	//TODO cache structure
+
 	public static StatsHypercube getDataFromURL(String url, Criteria ssc){
 		return JSONStat.load( IOUtil.getDataFromURL(url), ssc );
 	}
