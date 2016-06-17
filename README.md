@@ -142,7 +142,7 @@ for(String gender : index.getKeys())
 		}
 ```
 
-## More information...
+## More information
 ### Input formats
 #### CSV
 ```java
