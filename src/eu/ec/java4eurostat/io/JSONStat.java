@@ -85,4 +85,6 @@ public class JSONStat {
 		EurobaseIO.getData("prc_hicp_cow").printInfo();;
 	}*/
 
+	//TODO save
+
 }

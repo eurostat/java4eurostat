@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 import eu.ec.java4eurostat.base.Flag;
@@ -18,24 +17,15 @@ import eu.ec.java4eurostat.base.StatsHypercube;
  */
 public class EurostatTSV {
 
-	public static StatsHypercube load(String... inputFilePath){ return load( inputFilePath, null ); }
-
-	public static StatsHypercube load(String inputFilePath, StatsHypercube.StatSelectionCriteria ssc){ return load( inputFilePath, false, ssc ); }
-	public static StatsHypercube load(String inputFilePath, boolean mess, StatsHypercube.StatSelectionCriteria ssc){ return load( new String[]{inputFilePath}, mess, ssc ); }
-
-	public static StatsHypercube load(String[] inputFilePaths, StatsHypercube.StatSelectionCriteria ssc){ return load( inputFilePaths, false, ssc ); }
-	public static StatsHypercube load(String[] inputFilePaths, boolean mess, StatsHypercube.StatSelectionCriteria ssc){ return load( new ArrayList<String>(Arrays.asList(inputFilePaths)), mess, ssc ); }
-
-	public static StatsHypercube load(ArrayList<String> inputFilePaths, StatsHypercube.StatSelectionCriteria ssc){ return load( inputFilePaths, false, ssc ); }
-	public static StatsHypercube load(ArrayList<String> inputFilePaths, boolean mess, StatsHypercube.StatSelectionCriteria ssc){
-		if(inputFilePaths==null || inputFilePaths.size()==0) return null;
+	public static StatsHypercube load(String inputFilePath){ return load( inputFilePath, null ); }
+	public static StatsHypercube load(String inputFilePath, StatsHypercube.StatSelectionCriteria ssc){
 		String sep="\t";
 		BufferedReader br = null;
 		StatsHypercube sh = new StatsHypercube();
 		ArrayList<String> dimLabelsL = new ArrayList<String>();
 		try {
-			//read dimensions in first file
-			br = new BufferedReader(new FileReader(new File(inputFilePaths.get(0))));
+			//read dimensions
+			br = new BufferedReader(new FileReader(new File(inputFilePath)));
 
 			//read first line
 			String line = br.readLine();
@@ -53,69 +43,65 @@ public class EurostatTSV {
 
 
 			//read the files
+			br = new BufferedReader(new FileReader(new File(inputFilePath)));
 
-			for(String inputFilePath : inputFilePaths){
-				if(mess) System.out.println("   Loading " + inputFilePath);
-				br = new BufferedReader(new FileReader(new File(inputFilePath)));
+			//read the years
+			line = br.readLine();
+			st = new StringTokenizer(line,sep);
+			st.nextToken();
+			String[] years=new String[st.countTokens()];
+			int i=0;
+			while(st.hasMoreTokens())
+				years[i++] = st.nextToken();
 
-				//read the years
-				line = br.readLine();
+			while ((line = br.readLine()) != null) {
 				st = new StringTokenizer(line,sep);
-				st.nextToken();
-				String[] years=new String[st.countTokens()];
-				int i=0;
-				while(st.hasMoreTokens())
-					years[i++] = st.nextToken();
 
-				while ((line = br.readLine()) != null) {
-					st = new StringTokenizer(line,sep);
+				//read dims
+				String lbl = st.nextToken();
 
-					//read dims
-					String lbl = st.nextToken();
+				int yearIndex=-1;
+				while(st.hasMoreTokens()){
+					yearIndex++;
+					//TODO better manage flags
+					String val_ = st.nextToken().replace(" ", "");
+					if(val_.contains(":")) continue;
 
-					int yearIndex=-1;
-					while(st.hasMoreTokens()){
-						yearIndex++;
-						//TODO better manage flags
-						String val_ = st.nextToken().replace(" ", "");
-						if(val_.contains(":")) continue;
+					Stat s = new Stat();
 
-						Stat s = new Stat();
-
-						//flags
-						char[] flagCodes = val_.replaceAll("\\d","").replace(".", "").replace("-", "").toCharArray();
-						for(int k=0; k<flagCodes.length; k++){
-							char fc = flagCodes[k];
-							Flag.FlagType ft = Flag.code.get(""+fc);
-							if(ft == null){
-								System.err.println("Unknown flag: "+fc);
-								continue;
-							}
-							s.addFlag(ft);
+					//flags
+					char[] flagCodes = val_.replaceAll("\\d","").replace(".", "").replace("-", "").toCharArray();
+					for(int k=0; k<flagCodes.length; k++){
+						char fc = flagCodes[k];
+						Flag.FlagType ft = Flag.code.get(""+fc);
+						if(ft == null){
+							System.err.println("Unknown flag: "+fc);
+							continue;
 						}
-
-						//value
-						s.value = Double.parseDouble( val_.replaceAll("[A-Za-z]", "") );
-
-						//dims
-						stDims = new StringTokenizer(lbl,","); int dimIndex=0;
-						while(stDims.hasMoreTokens()){
-							String dimLabel = dimLabelsL.get(dimIndex++);
-							String dimValue = stDims.nextToken();
-							s.dims.put(dimLabel, dimValue);
-						}
-						//year
-						s.dims.put("time", years[yearIndex]);
-
-						if(ssc!=null && !ssc.keep(s)) continue;
-
-						sh.stats.add(s);
+						s.addFlag(ft);
 					}
-				}
 
-				if (br != null) br.close();
-				br = null;
+					//value
+					s.value = Double.parseDouble( val_.replaceAll("[A-Za-z]", "") );
+
+					//dims
+					stDims = new StringTokenizer(lbl,","); int dimIndex=0;
+					while(stDims.hasMoreTokens()){
+						String dimLabel = dimLabelsL.get(dimIndex++);
+						String dimValue = stDims.nextToken();
+						s.dims.put(dimLabel, dimValue);
+					}
+					//year
+					s.dims.put("time", years[yearIndex]);
+
+					if(ssc!=null && !ssc.keep(s)) continue;
+
+					sh.stats.add(s);
+				}
 			}
+
+			if (br != null) br.close();
+			br = null;
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -123,5 +109,8 @@ public class EurostatTSV {
 		}		
 		return sh;
 	}
+
+
+	//TODO save functions
 
 }

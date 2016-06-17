@@ -23,14 +23,25 @@ import java.util.regex.Pattern;
  * @author julien Gaffuri
  *
  */
-public class CSV {
+public class CSVAsHashMap {
 
-	//load a csv file
-	//NB: for tab separated files, use "([^\t]*)"
+	/**
+	 * Load a CSV file.
+	 * 
+	 * @param filePath
+	 * @return
+	 */
 	public static ArrayList<HashMap<String,String>> load(String filePath) {
 		return load(filePath, "\\s*(\"[^\"]*\"|[^,]*)\\s*");
 	}
 
+	/**
+	 * Load a CSV file.
+	 * 
+	 * @param filePath
+	 * @param patternString NB: for tab separated files, use "([^\t]*)"
+	 * @return
+	 */
 	public static ArrayList<HashMap<String,String>> load(String filePath, String patternString) {
 		ArrayList<HashMap<String,String>> data = new ArrayList<HashMap<String,String>>();
 		BufferedReader br = null;
@@ -54,10 +65,8 @@ public class CSV {
 				for(String key:keys){
 					m.find();
 					String value=m.group(1);
-					//System.out.println("******"+value + "------"+("".equals(value)));
 					if(!"".equals(value)) m.find();
 					obj.put(key, value);
-					//System.out.println(key+":"+value);
 				}
 				data.add(obj);
 			}
@@ -73,7 +82,13 @@ public class CSV {
 		return data;		
 	}
 
-	//save a csv file
+	/**
+	 * Store as csv file
+	 * 
+	 * @param data
+	 * @param outPath
+	 * @param outFile
+	 */
 	public static void save(ArrayList<HashMap<String, String>> data, String outPath, String outFile) { save(data, outPath, outFile, null); }
 	public static void save(ArrayList<HashMap<String, String>> data, String outPath, String outFile, Comparator<String> keysComparator) {
 		try {
@@ -115,6 +130,14 @@ public class CSV {
 		} catch (Exception e) {e.printStackTrace();}
 	}
 
+	/**
+	 * Get all unique values of a column.
+	 * 
+	 * @param data
+	 * @param key
+	 * @param print
+	 * @return
+	 */
 	public static HashSet<String> getUniqueValues(ArrayList<HashMap<String, String>> data, String key, boolean print) {
 		HashSet<String> values = new HashSet<String>();
 		for(HashMap<String, String> obj : data)
