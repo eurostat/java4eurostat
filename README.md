@@ -20,7 +20,7 @@ Let's start with a simple example on this dataset:
 |Japan|Female|2014|147.7|
 |Japan|Total|2014|293.9|
 
-stored as a CSV file `ex.csv`:
+stored as a CSV file `example.csv`:
 
 ```
 country,gender,year,population
@@ -41,7 +41,7 @@ Japan,Total,2014,293.9
 This can be loaded into an hypercube structure with:
 
 ```java
-StatsHypercube hc = CSV.load("ex.csv", "population");
+StatsHypercube hc = CSV.load("example.csv", "population");
 ```
 
 Information on the hypercube structure is shown with:
