@@ -157,14 +157,19 @@ See [here](https://json-stat.org/) for more information on this format.
 //load
 String jsonStatString = '{"version":"2.0", "class":"dataset", "label":"Population data", "source":"", "id":[...], "size":[...], "dimension":{...}, "value":[...]}';
 StatsHypercube hc = JSONStat.load(jsonStatString);
-//save is not implemented
+//save
+//  not implemented (yet)
 ```
 #### Eurostat TSV
+Eurostat TSV files can be downloaded manually from [the bulk download facility](http://ec.europa.eu/eurostat/data/bulkdownload).
+
 ```java
+//download from Eurostat bulk download facility
+EurobaseIO.getDataBulkDownload("eurobase_code","/home/datafolder/");
 //load
-TODO example
+StatsHypercube hc = EurostatTSV.load("/home/datafolder/eurobase_code.tsv");
 //save
-TODO example
+//  not implemented (yet)
 ```
 #### Web scraping
 TODO describe
