@@ -184,13 +184,14 @@ The base classes are ```Stat``` and  ```StatsHypercube```. A ```Stat``` object r
 
 A ```Stat``` object is characterised by its value of course, and a dictionnary of pairs (dimension label, dimension value), which represents its coordinates within the hypercube. [Flags](http://ec.europa.eu/eurostat/data/database/information) can also be attached to a statistical value. The class ```StatsHypercube``` is simply characterised by its collection of ```Stat``` elements and dimension names.
 
-TODO: HierarchicalCode
+TODO: describe HierarchicalCode
 
 ### Data manipulation
 
 Data from a hypercube are accessed using either the ```StatsHypercube.select()``` method or a ```StatsIndex``` object.
 
 #### Selection/filtering/slicing/dicing
+TODO describe
 #### Indexing
 TODO describe
 
