@@ -180,20 +180,22 @@ To ensure an efficient usage of memory, a selection criteria can be specified wh
 
 ### Basic data structures
 
-The base classes are ```Stat``` and  ```StatsHypercube```. A ```Stat``` object represents a statistical values, element of an ```StatsHypercube``` object.
+The base classes are ```Stat``` and  ```StatsHypercube```. A ```Stat``` object represents a statistical values, element of a ```StatsHypercube``` object.
 
-A ```Stat``` object is characterised by its value of course, and a dictionnary of pairs (dimension label, dimension value), which represents its coordinates within the hypercube. [Flags](http://ec.europa.eu/eurostat/data/database/information) can also be attached to a statistical value. The class ```StatsHypercube``` is simply characterised by its collection of ```Stat``` elements and dimension names.
+A ```Stat``` object is characterised by its value (of course) and a dictionnary of pairs *(dimension label, dimension value)*, which represents its coordinates within the hypercube. [Flags](http://ec.europa.eu/eurostat/data/database/information) can also be attached to a statistical value. The class ```StatsHypercube``` is simply characterised by its collection of ```Stat``` elements and dimension names.
 
 TODO: describe HierarchicalCode
 
-### Data manipulation
+### Data access
 
-Data from a hypercube are accessed using either the ```StatsHypercube.select()``` method or a ```StatsIndex``` object.
+Data of a hypercube are accessed using either the ```StatsHypercube.select()``` method or a ```StatsIndex``` object. Access with a ```StatsIndex``` is faster, but requires the construction of an index object, which can be resource consumming.
 
-#### Selection/filtering/slicing/dicing
-TODO describe
-#### Indexing
-TODO describe
+Basic operations based on selection and indexing are presented in the quick start section above.
+
+TODO: extend description.
 
 ### Time series analysis
-TODO describe gap and outlier detection
+
+The class ```TimeSeriesUtil``` provides several function for time series analysis such as the computation of moving averages, gap analysis and outlier values detection.
+
+TODO: extend description.
