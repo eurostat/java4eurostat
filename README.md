@@ -160,8 +160,11 @@ StatsHypercube hc = JSONStat.load(jsonStatString);
 //save
 //  not implemented (yet)
 ```
-#### Eurostat TSV
-Eurostat TSV files can be downloaded manually from [the bulk download facility](http://ec.europa.eu/eurostat/data/bulkdownload).
+#### Eurostat data
+
+The class ```EurobaseIO``` provide several functions to handle Eurostat data. For example, ```StatsHypercube hc = EurobaseIO.getDataFromDBCode("prc_hicp_cow");``` loads the database *prc_hicp_cow*.
+
+Eurostat TSV files can also be downloaded manually from [the bulk download facility](http://ec.europa.eu/eurostat/data/bulkdownload) or using:
 
 ```java
 //download from Eurostat bulk download facility
@@ -171,21 +174,31 @@ StatsHypercube hc = EurostatTSV.load("/home/datafolder/eurobase_code.tsv");
 //save
 //  not implemented (yet)
 ```
-#### Web scraping
-TODO describe
-#### Eurostat web service
-TODO describe
+
 #### Filtering on loading
-TODO describe
+To ensure an efficient usage of memory, a selection criteria can be specified when loading from a data source. For example, ```StatsHypercube hc = EurobaseIO.getDataFromDBCode("prc_hicp_cow", new DimValueEqualTo("geo","BG"))``` loads only data for country *BG*.
 
 ### Basic data structures
-TODO: Stat,Hypercube,(Index)
 
-### Data manipulation
-#### Selection/filtering/slicing/dicing
-TODO describe
-#### Indexing
-TODO describe
+The base classes are ```Stat``` and  ```StatsHypercube```. A ```Stat``` object represents a statistical values, element of a ```StatsHypercube``` object.
+
+A ```Stat``` object is characterised by its value (of course) and a dictionnary of pairs *(dimension label, dimension value)*, which represents its coordinates within the hypercube. [Flags](http://ec.europa.eu/eurostat/data/database/information) can also be attached to a statistical value. The class ```StatsHypercube``` is simply characterised by its collection of ```Stat``` elements and dimension names.
+
+[TODO: describe HierarchicalCode]
+
+### Data access
+
+Data of a hypercube are accessed using either the ```StatsHypercube.select()``` method or a ```StatsIndex``` object. Access with a ```StatsIndex``` is faster, but requires the construction of an index object, which can be resource consumming.
+
+Basic operations based on selection and indexing are presented in the quick start section above.
+
+[TODO: extend description.]
 
 ### Time series analysis
-TODO describe gap and outlier detection
+
+The class ```TimeSeriesUtil``` provides several function for time series analysis such as the computation of moving averages, gap analysis and outlier values detection.
+
+[TODO: extend description.]
+
+### R interface
+[TODO. based on [Rserve](https://rforge.net/Rserve/)]
