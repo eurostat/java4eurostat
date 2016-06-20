@@ -184,7 +184,7 @@ The base classes are ```Stat``` and  ```StatsHypercube```. A ```Stat``` object r
 
 A ```Stat``` object is characterised by its value (of course) and a dictionnary of pairs *(dimension label, dimension value)*, which represents its coordinates within the hypercube. [Flags](http://ec.europa.eu/eurostat/data/database/information) can also be attached to a statistical value. The class ```StatsHypercube``` is simply characterised by its collection of ```Stat``` elements and dimension names.
 
-TODO: describe HierarchicalCode
+[TODO: describe HierarchicalCode]
 
 ### Data access
 
@@ -192,10 +192,13 @@ Data of a hypercube are accessed using either the ```StatsHypercube.select()``` 
 
 Basic operations based on selection and indexing are presented in the quick start section above.
 
-TODO: extend description.
+[TODO: extend description.]
 
 ### Time series analysis
 
 The class ```TimeSeriesUtil``` provides several function for time series analysis such as the computation of moving averages, gap analysis and outlier values detection.
 
-TODO: extend description.
+[TODO: extend description.]
+
+### R interface
+[TODO. based on [Rserve](https://rforge.net/Rserve/)]
