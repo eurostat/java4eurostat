@@ -14,19 +14,26 @@ import eu.ec.java4eurostat.base.StatsHypercube;
  */
 public class EurobaseIO {
 	public static String eurobaseWSURLBase = "http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/";
+	public static String sinceTimePeriod = "sinceTimePeriod";
+	public static String lastTimePeriod = "lastTimePeriod";
 
 	//TODO last date of update
 	//TODO cache structure
 
-	public static StatsHypercube getDataFromURL(String url, Criteria ssc){
-		return JSONStat.load( IOUtil.getDataFromURL(url), ssc );
-	}
+	public static StatsHypercube getDataFromURL(String url, Criteria ssc){ return JSONStat.load( IOUtil.getDataFromURL(url), ssc ); }
 	public static StatsHypercube getDataFromURL(String url){ return getDataFromURL(url, null); }
 
-	public static StatsHypercube getDataFromDBCode(String eurobaseDatabaseCode, Criteria ssc){
-		return getDataFromURL(eurobaseWSURLBase + eurobaseDatabaseCode, ssc);
+	public static String getURL(String eurobaseDatabaseCode, String... paramData){
+		return IOUtil.getURL(eurobaseWSURLBase + eurobaseDatabaseCode, paramData);
 	}
-	public static StatsHypercube getDataFromDBCode(String eurobaseDatabaseCode){ return getDataFromDBCode(eurobaseDatabaseCode, null); }
+
+	public static StatsHypercube getData(String eurobaseDatabaseCode, Criteria ssc, String... paramData){
+		return getDataFromURL(getURL(eurobaseDatabaseCode, paramData), ssc);
+	}
+	public static StatsHypercube getData(String eurobaseDatabaseCode, String... paramData){
+		return getDataFromURL(getURL(eurobaseDatabaseCode, paramData));
+	}
+	public static StatsHypercube getData(String eurobaseDatabaseCode){ return getDataFromURL(getURL(eurobaseDatabaseCode)); }
 
 	public static String eurobaseBulkURLBase = "http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data%2F";
 	public static String eurobaseBulkURLSuf = ".tsv.gz";

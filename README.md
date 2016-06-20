@@ -63,7 +63,7 @@ Information: 12 value(s) with 3 dimension(s).
 Several input formats are supported. For example, [Eurostat](http://ec.europa.eu/eurostat/) data can be loaded directly from the web. For that, only the database code given in [Eurostat databases catalog](http://ec.europa.eu/eurostat/data/database) is required. For example, the database on *HICP - Country weights* (code *prc_hicp_cow*) can be downloaded and loaded simply with:
 
 ```java
-StatsHypercube hc2 = EurobaseIO.getDataFromDBCode("prc_hicp_cow");
+StatsHypercube hc2 = EurobaseIO.getData("prc_hicp_cow");
 ```
 
 The structure returned with a ```hc2.printInfo();``` is:
@@ -162,7 +162,7 @@ StatsHypercube hc = JSONStat.load(jsonStatString);
 ```
 #### Eurostat data
 
-The class ```EurobaseIO``` provide several functions to handle Eurostat data. For example, ```StatsHypercube hc = EurobaseIO.getDataFromDBCode("prc_hicp_cow");``` loads the database *prc_hicp_cow*.
+The class ```EurobaseIO``` provide several functions to handle Eurostat data. For example, ```StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");``` loads the database *prc_hicp_cow*.
 
 Eurostat TSV files can also be downloaded manually from [the bulk download facility](http://ec.europa.eu/eurostat/data/bulkdownload) or using:
 
@@ -176,7 +176,7 @@ StatsHypercube hc = EurostatTSV.load("/home/datafolder/eurobase_code.tsv");
 ```
 
 #### Filtering on loading
-To ensure an efficient usage of memory, a selection criteria can be specified when loading from a data source. For example, ```StatsHypercube hc = EurobaseIO.getDataFromDBCode("prc_hicp_cow", new DimValueEqualTo("geo","BG"))``` loads only data for country *BG*.
+To ensure an efficient usage of memory, a selection criteria can be specified when loading from a data source. For example, ```StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow", new DimValueEqualTo("geo","BG"))``` loads only data for country *BG*.
 
 ### Basic data structures
 

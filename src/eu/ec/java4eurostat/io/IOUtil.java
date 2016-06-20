@@ -16,6 +16,20 @@ import java.nio.channels.ReadableByteChannel;
  */
 public class IOUtil {
 
+	public static String getURLParametersPart(String... paramData){
+		StringBuffer sb = new StringBuffer();
+		for(int i=0; i<paramData.length; i+=2){
+			if("".equals(paramData[i])) continue;
+			if(i>0) sb.append("&");
+			sb.append(paramData[i]).append("=").append(paramData[i+1]);
+		}
+		return sb.toString();
+	}
+
+	public static String getURL(String urlBase, String... paramData){
+		return urlBase + (paramData == null? "" : "?" + getURLParametersPart(paramData));
+	}
+
 	public static String getDataFromURL(String url) {
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(new URL(url).openConnection().getInputStream()));
