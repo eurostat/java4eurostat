@@ -51,7 +51,7 @@ public class EurobaseIO {
 	public static StatsHypercube getDataBulk(String eurobaseDatabaseCode){ return getDataBulk(eurobaseDatabaseCode, null); }
 
 	/*public static void main(String[] args) {
-		getDataFromDBCode("prc_hicp_cow").printInfo();
+		getDataFromDBCode("prc_hicp_cow", new DimValueEqualTo("geo","BG")).printInfo();
 		//getDataBulkDownload("acf_s_own","",true);
 		//getDataBulk("acf_s_own").printInfo();
 		//getDataBulk("prc_hicp_cow").printInfo();
