@@ -19,8 +19,9 @@ import eu.ec.java4eurostat.base.StatsHypercube;
  */
 public class JSONStat {
 
-	public static StatsHypercube load(String data) { return load(data, null); }
-	public static StatsHypercube load(String data, Criteria ssc) {
+	public static StatsHypercube load(String data) { return load(data, true); }
+	public static StatsHypercube load(String data, boolean statusAsEurostatFlags) { return load(data, statusAsEurostatFlags, null); }
+	public static StatsHypercube load(String data, boolean statusAsEurostatFlags, Criteria ssc) {
 		//System.out.println(data);
 		StatsHypercube hc = new StatsHypercube();
 		JSONObject obj = new JSONObject(data);
@@ -45,12 +46,17 @@ public class JSONStat {
 		int nb = 1;
 		for(int i=0; i<sizes.length(); i++) nb = nb*sizes.getInt(i);
 
-		JSONObject values = obj.getJSONObject("value"); //NB: this might be an array
+		JSONObject values = obj.getJSONObject("value"); //TODO This might be an array
+		JSONObject status = obj.getJSONObject("status"); //TODO This might be a lot of other stuff...
 		for(int i=0; i<nb; i++){
 			Stat s = new Stat();
 
 			//get value. If none, continue.
 			try { s.value = values.getDouble(""+i); } catch (JSONException e) { continue; }
+
+			//get status/flags
+			if(statusAsEurostatFlags)
+				try { s.addAllFlags(status.getString(""+i)); } catch (Exception e) {}
 
 			//compute value coordinates in the hypercube
 			int[] coords = new int[sizes.length()];
@@ -74,8 +80,6 @@ public class JSONStat {
 			hc.stats.add(s);
 		}
 
-		//TODO read status for flags
-
 		return hc;
 	}
 
@@ -86,9 +90,13 @@ public class JSONStat {
 		return out;
 	}
 
-	/*public static void main(String[] args) {
-		EurobaseIO.getData("prc_hicp_cow").printInfo();;
-	}*/
+	public static void main(String[] args) {
+		//StatsHypercube hc = JSONStat.load( IOUtil.getDataFromURL("http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/prc_hicp_midx?geo=AT&unit=I15&coicop=CP00&sinceTimePeriod=2016M01") );
+		//hc.printInfo();
+		//for(Stat s : hc.stats) System.out.println(s);
+
+		//EurobaseIO.getData("prc_hicp_cow").printInfo();
+	}
 
 	//TODO save
 

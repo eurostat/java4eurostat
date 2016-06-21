@@ -27,7 +27,7 @@ public class EurobaseIO {
 	public static String sinceTimePeriod = "sinceTimePeriod";
 	public static String lastTimePeriod = "lastTimePeriod";
 
-	public static StatsHypercube getDataFromURL(String url, Criteria ssc){ return JSONStat.load( IOUtil.getDataFromURL(url), ssc ); }
+	public static StatsHypercube getDataFromURL(String url, Criteria ssc){ return JSONStat.load( IOUtil.getDataFromURL(url), true, ssc ); }
 	public static StatsHypercube getDataFromURL(String url){ return getDataFromURL(url, null); }
 
 	public static String getURL(String eurobaseDatabaseCode, String... paramData){
