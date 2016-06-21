@@ -143,7 +143,7 @@ for(String gender : index.getKeys())
 ```
 
 ## More information
-### Input formats
+### Input data
 #### CSV
 ```java
 //load
@@ -185,6 +185,7 @@ EurobaseIO.update("C:/my_data_folder/", "my_database_code1", "my_database_code2"
 
 retrieves new files *my_database_code1.tsv*, *my_database_code2.tsv* and *my_database_code3.tsv* only when they has been updated. This function creates a file ```update.txt``` in ```C:/my_data_folder/``` folder, which gives the last update dates of the files. 
 
+Code list dictionnaries are loaded with for example ```EurobaseIO.getDictionnary("geo")``` which retrieve the dictionnary of geographical locations (code *geo*). ```EurobaseIO.getDictionnary("geo").get("IT")``` returns "Italy". Last update dates are retreved with for example ```getDictionnaryUpdateDate("geo")```.
 
 #### Filtering on loading
 To ensure an efficient usage of memory, a selection criteria can be specified when loading from a data source. For example, ```StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow", new DimValueEqualTo("geo","BG"))``` loads only data for country *BG*.

@@ -22,11 +22,10 @@ import eu.ec.java4eurostat.base.StatsHypercube;
  */
 public class EurobaseIO {
 	public static String eurobaseWSURLBase = "http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/";
+	public static void updateEurobaseWSURLBase(String lg, String version){ eurobaseWSURLBase = "http://ec.europa.eu/eurostat/wdds/rest/data/v"+version+"/json/"+lg+"/"; }
+
 	public static String sinceTimePeriod = "sinceTimePeriod";
 	public static String lastTimePeriod = "lastTimePeriod";
-
-	//TODO last date of update
-	//TODO cache structure
 
 	public static StatsHypercube getDataFromURL(String url, Criteria ssc){ return JSONStat.load( IOUtil.getDataFromURL(url), ssc ); }
 	public static StatsHypercube getDataFromURL(String url){ return getDataFromURL(url, null); }
@@ -67,6 +66,11 @@ public class EurobaseIO {
 
 
 
+	/**
+	 * Get a database update date.
+	 * @param indic
+	 * @return
+	 */
 	public static Date getUpdateDate(String indic) {
 		return getUpdateDate(indic, "data"); //use "dic%2Fen" for codelists
 	}
@@ -96,6 +100,11 @@ public class EurobaseIO {
 		catch (Exception e) { e.printStackTrace(); return null; }
 	}
 
+	/**
+	 * Update TSV files located into a folder based on the last update date and newly published data
+	 * @param dataFolderPath The TSV file folder
+	 * @param databaseCodes The database codes to download/update
+	 */
 	public static void update(String dataFolderPath, String... databaseCodes){
 		try {
 			System.out.println("Start data update from Eurobase...");
@@ -148,7 +157,40 @@ public class EurobaseIO {
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 
+
+
+
+
+	public static String eurobaseDictionnaryURLBase = "http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=dic%2Fen%2F";
+
+	/**
+	 * Load a dictionnary from http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?dir=dic%2Fen
+	 * 
+	 * @param code the dictionnary code. Example: "geo" for geographical regions.
+	 * @return
+	 */
+	public static HashMap<String,String> getDictionnary(String code){
+		return DicUtil.loadFromURL(eurobaseDictionnaryURLBase + code + ".dic");
+	}
+
+	/**
+	 * Get a database update date.
+	 * @param indic
+	 * @return
+	 */
+	public static Date getDictionnaryUpdateDate(String indic) {
+		return getUpdateDate(indic, "dic%2Fen");
+	}
+
+
 	public static void main(String[] args) {
+		//System.out.println(getDictionnaryUpdateDate("coicop"));
+		//HashMap<String, String> dict = getDictionnary("coicop");
+		//System.out.println(dict.size());
+		//System.out.println(dict.get("CP0112"));
+
+		//System.out.println( IOUtil.getDataFromURL("http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=dic%2Fen%2Fcoicop.dic") );
+
 		//getData("prc_hicp_cow", "geo", "EU", "geo", "EA", "lastTimePeriod", "4").printInfo();
 		//getData("prc_hicp_cow", "geo", "EU", "geo", "EA", "sinceTimePeriod", "2005").printInfo();
 		//public static String sinceTimePeriod = "sinceTimePeriod";
