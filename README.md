@@ -175,6 +175,17 @@ StatsHypercube hc = EurostatTSV.load("/home/datafolder/eurobase_code.tsv");
 //  not implemented (yet)
 ```
 
+The last publication date of a database can be retrieved with ```getUpdateDate```: For example, ```EurobaseIO.getUpdateDate("prc_hicp_cow");``` returns the last publication date of the database with code *prc_hicp_cow*.
+
+In case of regular use of some Eurostat databases as TSV files, these files can be downloaded only when new data is published. For example:
+
+```java
+EurobaseIO.update("C:/my_data_folder/", "my_database_code1", "my_database_code2", "my_database_code3", ...);
+```
+
+retrieves new files *my_database_code1.tsv*, *my_database_code2.tsv* and *my_database_code3.tsv* only when they has been updated. This function stores a file ```update.txt``` in ```C:/my_data_folder/``` folder which gives the last update dates of the files. 
+
+
 #### Filtering on loading
 To ensure an efficient usage of memory, a selection criteria can be specified when loading from a data source. For example, ```StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow", new DimValueEqualTo("geo","BG"))``` loads only data for country *BG*.
 
