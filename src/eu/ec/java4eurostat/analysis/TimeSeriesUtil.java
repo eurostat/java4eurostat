@@ -160,9 +160,9 @@ public class TimeSeriesUtil {
 
 	/**
 	 * @param series The time series.
-	 * @param w The half-width of the smoothing window for the trend construction and the dispersion calculation.
-	 * @param thNbStd The number of STD used to consider a value as possible outlier.
-	 * @param diffTh The minimal difference to consider a value as possible outlier.
+	 * @param w The half-width of the smoothing window for the trend construction and the dispersion calculation. Advised value: 6 for monthly data.
+	 * @param thNbStd The number of STD used to consider a value as possible outlier. Advised value: 3.
+	 * @param diffTh The minimal difference to consider a value as possible outlier. Advised value: 0.
 	 * @param label A label to identify the time series.
 	 * @return List of outliers.
 	 */
@@ -189,7 +189,7 @@ public class TimeSeriesUtil {
 			double diff = seriesDiff.getSingleValue(time);
 			double std = seriesStd.getSingleValue(time);
 
-			if(diff <= diffTh) continue;
+			if(Math.abs(diff) <= diffTh) continue;
 			if(std <= diffTh/thNbStd) continue;
 
 			double gravity = Math.abs(diff)/std;
@@ -200,6 +200,9 @@ public class TimeSeriesUtil {
 
 		//Collections.sort(out);
 		return outliers;
+	}
+	public static ArrayList<Outlier> performOutlierDetection(StatsIndex series, int w, String label) {
+		return performOutlierDetection(series, w, 3, 0, label);
 	}
 
 	public static class Outlier implements Comparable<Outlier>{
