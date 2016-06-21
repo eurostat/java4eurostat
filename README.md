@@ -162,9 +162,9 @@ StatsHypercube hc = JSONStat.load(jsonStatString);
 ```
 #### Eurostat data
 
-The class ```EurobaseIO``` provide several functions to handle Eurostat data. For example, ```StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");``` loads the database *prc_hicp_cow*.
+The class ```EurobaseIO``` provide several functions to handle Eurostat data. For example: ```StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");``` loads the database *prc_hicp_cow*. Selection parameters may also be specified: ```getData("prc_hicp_cow", "geo", "EU", "geo", "EA", "time", "2016")``` returns loads database *prc_hicp_cow* figures for 2016, for both *EU* and *EA*. Additionnaly, ```getData("prc_hicp_cow", "lastTimePeriod", "4")``` return the figures for the 4 last time periods, while ```getData("prc_hicp_cow", "sinceTimePeriod", "2005")``` returns all figures since 2005.
 
-Eurostat TSV files can also be downloaded manually from [the bulk download facility](http://ec.europa.eu/eurostat/data/bulkdownload) or using:
+Eurostat TSV files can be downloaded manually from [the bulk download facility](http://ec.europa.eu/eurostat/data/bulkdownload) or using:
 
 ```java
 //download from Eurostat bulk download facility
@@ -177,13 +177,13 @@ StatsHypercube hc = EurostatTSV.load("/home/datafolder/eurobase_code.tsv");
 
 The last publication date of a database can be retrieved with ```getUpdateDate```: For example, ```EurobaseIO.getUpdateDate("prc_hicp_cow");``` returns the last publication date of the database with code *prc_hicp_cow*.
 
-In case of regular use of some Eurostat databases as TSV files, these files can be downloaded only when new data is published. For example:
+In case of regular use of some Eurostat databases as TSV files, these files can be downloaded and updated only when new data is published. For example:
 
 ```java
 EurobaseIO.update("C:/my_data_folder/", "my_database_code1", "my_database_code2", "my_database_code3", ...);
 ```
 
-retrieves new files *my_database_code1.tsv*, *my_database_code2.tsv* and *my_database_code3.tsv* only when they has been updated. This function stores a file ```update.txt``` in ```C:/my_data_folder/``` folder which gives the last update dates of the files. 
+retrieves new files *my_database_code1.tsv*, *my_database_code2.tsv* and *my_database_code3.tsv* only when they has been updated. This function creates a file ```update.txt``` in ```C:/my_data_folder/``` folder, which gives the last update dates of the files. 
 
 
 #### Filtering on loading

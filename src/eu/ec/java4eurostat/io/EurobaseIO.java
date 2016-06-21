@@ -149,7 +149,12 @@ public class EurobaseIO {
 	}
 
 	public static void main(String[] args) {
-		update("data/", "prc_hicp_cow", "prc_hicp_inw", "prc_hicp_midx", "prc_hicp_manr", "prc_hicp_mmor", "prc_hicp_mv12r", "prc_hicp_aind", "prc_hicp_cind", "prc_hicp_cann", "prc_hicp_cmon");
+		//getData("prc_hicp_cow", "geo", "EU", "geo", "EA", "lastTimePeriod", "4").printInfo();
+		//getData("prc_hicp_cow", "geo", "EU", "geo", "EA", "sinceTimePeriod", "2005").printInfo();
+		//public static String sinceTimePeriod = "sinceTimePeriod";
+
+		//getData("prc_hicp_cow", "time", "2016").printInfo();;
+		//update("data/", "prc_hicp_cow", "prc_hicp_inw", "prc_hicp_midx", "prc_hicp_manr", "prc_hicp_mmor", "prc_hicp_mv12r", "prc_hicp_aind", "prc_hicp_cind", "prc_hicp_cann", "prc_hicp_cmon");
 		//System.out.println( getUpdateDate("prc_hicp_midx") );
 		//System.out.println( getUpdateDate("prc_hicp_cow") );
 		//System.out.println( getUpdateDate("acf_s_own") );
