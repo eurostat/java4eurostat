@@ -162,7 +162,7 @@ StatsHypercube hc = JSONStat.load(jsonStatString);
 ```
 #### Eurostat data
 
-The class ```EurobaseIO``` provide several functions to handle Eurostat data. For example: ```StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");``` loads the database *prc_hicp_cow*. Selection parameters may also be specified: ```getData("prc_hicp_cow", "geo", "EU", "geo", "EA", "time", "2016")``` returns loads database *prc_hicp_cow* figures for 2016, for both *EU* and *EA*. Additionnaly, ```getData("prc_hicp_cow", "lastTimePeriod", "4")``` return the figures for the 4 last time periods, while ```getData("prc_hicp_cow", "sinceTimePeriod", "2005")``` returns all figures since 2005.
+The class ```EurobaseIO``` provides several functions to handle Eurostat data. For example: ```StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");``` loads the database *prc_hicp_cow*. Selection parameters may also be specified: ```getData("prc_hicp_cow", "geo", "EU", "geo", "EA", "time", "2016")``` returns loads database *prc_hicp_cow* figures for 2016, for both *EU* and *EA*. Additionnaly, ```getData("prc_hicp_cow", "lastTimePeriod", "4")``` return the figures for the 4 last time periods, while ```getData("prc_hicp_cow", "sinceTimePeriod", "2005")``` returns all figures since 2005.
 
 Eurostat TSV files can be downloaded manually from [the bulk download facility](http://ec.europa.eu/eurostat/data/bulkdownload) or using:
 
