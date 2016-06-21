@@ -162,7 +162,7 @@ StatsHypercube hc = JSONStat.load(jsonStatString);
 ```
 #### Eurostat data
 
-The class ```EurobaseIO``` provide several functions to handle Eurostat data. For example, ```StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");``` loads the database *prc_hicp_cow*.
+The class ```EurobaseIO``` provides several functions to handle Eurostat data. For example, ```StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");``` loads the database *prc_hicp_cow*.
 
 Eurostat TSV files can also be downloaded manually from [the bulk download facility](http://ec.europa.eu/eurostat/data/bulkdownload) or using:
 
