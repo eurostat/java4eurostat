@@ -13,7 +13,6 @@ import org.apache.commons.math3.stat.StatUtils;
 import eu.ec.java4eurostat.base.Stat;
 import eu.ec.java4eurostat.base.StatsHypercube;
 import eu.ec.java4eurostat.base.StatsIndex;
-import eu.ec.java4eurostat.eurobase.EBTimeUtil;
 import eu.ec.java4eurostat.util.Util;
 
 /**

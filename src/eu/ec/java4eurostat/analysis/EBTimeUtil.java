@@ -1,7 +1,7 @@
 /**
  * 
  */
-package eu.ec.java4eurostat.eurobase;
+package eu.ec.java4eurostat.analysis;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +17,7 @@ import java.util.StringTokenizer;
  * @author julien Gaffuri
  *
  */
+@Deprecated
 public class EBTimeUtil {
 
 	public static boolean isMonth(String hICPMDate) { return hICPMDate.contains("M"); }
@@ -83,11 +84,4 @@ public class EBTimeUtil {
 		return years_;
 	}
 
-
-	/*public static void main(String[] args) {
-		String in = "2016M04 ";
-		for (int w = -25; w <= 25; w++) {
-			System.out.println( in + "+" + w + " -> " + getMonth(in,w) );
-		}
-	}*/
 }
