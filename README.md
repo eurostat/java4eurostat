@@ -1,4 +1,6 @@
-# java4eurostat
+java4eurostat
+======
+
 Java4eurostat is a Java library for statistical data manipulation. It provides a number of functions to load statistical data into an 'hypercube' structure and index it for fast in-memory computations. A number of specific functions are provided to easily access [Eurostat](http://ec.europa.eu/eurostat/) data.
 
 ## Quick start
