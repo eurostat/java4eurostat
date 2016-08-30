@@ -23,7 +23,7 @@ import org.apache.commons.io.FileUtils;
  *
  */
 public class FileUtil {
-	
+
 	//get all files in a folder (recursivelly)
 	public static ArrayList<File> getFiles(String folderPath) {
 		return getFiles(new File(folderPath));
@@ -53,7 +53,7 @@ public class FileUtil {
 		return i;
 	}
 
-	
+
 
 	public static void findReplace(String inFilePath, String outFilePath, String find, String replace) {
 		try {
