@@ -216,3 +216,7 @@ The class ```TimeSeriesUtil``` provides several function for time series analysi
 
 ### R interface
 [TODO. based on [Rserve](https://rforge.net/Rserve/)]
+
+## Support and contribution
+
+Feel free to [ask support](https://github.com/jgaffuri/java4eurostat/issues/new), fork the project or simply star it (it's always a pleasure).
