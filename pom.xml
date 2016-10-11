@@ -8,6 +8,33 @@
 	<name>java4eurostat</name>
 	<url>https://github.com/jgaffuri/java4eurostat</url>
 
+	<issueManagement>
+		<url>https://github.com/jgaffuri/java4eurostat/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+
+	<licenses>
+		<license>
+			<name>European Union Public Licence V. 1.1</name>
+			<url>https://opensource.org/licenses/EUPL-1.1</url>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/jgaffuri/java4eurostat</url>
+		<connection>scm:git:git://github.com/jgaffuri/java4eurostat.git</connection>
+		<developerConnection>scm:git:git@github.com:jgaffuri/java4eurostat.git</developerConnection>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>jgaffuri</id>
+			<name>Julien Gaffuri</name>
+			<url>https://github.com/jgaffuri</url>
+		</developer>
+	</developers>
+
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
