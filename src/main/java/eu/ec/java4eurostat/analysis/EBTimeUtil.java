@@ -70,7 +70,6 @@ public class EBTimeUtil {
 	}
 
 	public static Comparator<String> HICPMDateComparator = new Comparator<String>(){
-		@Override
 		public int compare(String time1, String time2) { return -getDuration(time1, time2); }
 	};
 	public static boolean isStrictlyBefore(String time1, String time2) { return HICPMDateComparator.compare(time1, time2) < 0; }

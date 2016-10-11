@@ -33,7 +33,6 @@ public class TimeSeriesUtil {
 	public static ArrayList<Stat> sort(Collection<Stat> series){
 		ArrayList<Stat> series_ = new ArrayList<Stat>(series);
 		Collections.sort(series_, new Comparator<Stat>() {
-			@Override
 			public int compare(Stat s1, Stat s2) { return s1.dims.get("time").compareTo(s2.dims.get("time")); }
 		});
 		return series_;
@@ -131,7 +130,6 @@ public class TimeSeriesUtil {
 		public String label;
 		public String t1, t2;
 		public Gap(String label, String t1, String t2) { this.label = label; this.t1 = t1; this.t2 = t2; }
-		@Override
 		public int compareTo(Gap g) { return g.getDuration()-this.getDuration(); }
 		public int getDuration() { return EBTimeUtil.getDuration(t1,t2); }
 		public void print() {
@@ -209,7 +207,6 @@ public class TimeSeriesUtil {
 		public String time;
 		public double diff,std,gravity;
 		public Outlier(String label, String time, double diff, double std) { this.label = label; this.time = time; this.diff = diff; this.std = std; this.gravity = diff/std; }
-		@Override
 		public int compareTo(Outlier o) { return (int)Math.round(100000*(o.gravity-this.gravity)); }
 		public void print() {
 			System.out.println(this.label+","+this.time+","+this.gravity+","+this.diff+","+this.std);

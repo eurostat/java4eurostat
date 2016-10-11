@@ -142,7 +142,6 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 
 
 
-	@Override
 	public int compareTo(HierarchicalCode hc) {
 		return code.compareTo(hc.code);
 	}
@@ -159,7 +158,6 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 	 */
 	public static void sort(List<? extends HierarchicalCode> hcs){
 		Collections.sort(hcs, new Comparator<HierarchicalCode>() {
-			@Override
 			public int compare(HierarchicalCode hc1, HierarchicalCode hc2) { return hc1.compareTo(hc2); }
 		});
 		for(Object obj : hcs){
