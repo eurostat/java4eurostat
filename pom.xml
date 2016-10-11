@@ -28,7 +28,7 @@
 
    <distributionManagement>
        <repository>
-         <id>local</id>
+         <id>releases_folder</id>
          <name>releases</name>
          <url>file:///home/juju/workspace/java4eurostat/releases/</url>
        </repository>
