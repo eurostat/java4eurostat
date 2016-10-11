@@ -3,7 +3,7 @@
 	<groupId>eu.ec</groupId>
 	<artifactId>java4eurostat</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.2-SNAPSHOT</version>
 	<name>java4eurostat</name>
 	<url>https://github.com/jgaffuri/java4eurostat</url>
 
@@ -23,7 +23,7 @@
 		<url>https://github.com/jgaffuri/java4eurostat</url>
 		<connection>scm:git:git://github.com/jgaffuri/java4eurostat.git</connection>
 		<developerConnection>scm:git:git@github.com:jgaffuri/java4eurostat.git</developerConnection>
-	  <tag>HEAD</tag>
+	  <tag>java4eurostat-1.0</tag>
 	</scm>
 
    <distributionManagement>
