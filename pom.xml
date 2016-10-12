@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.ec</groupId>
 	<artifactId>java4eurostat</artifactId>
@@ -23,16 +24,17 @@
 		<url>https://github.com/jgaffuri/java4eurostat</url>
 		<connection>scm:git:git://github.com/jgaffuri/java4eurostat.git</connection>
 		<developerConnection>scm:git:git@github.com:jgaffuri/java4eurostat.git</developerConnection>
-	  <tag>java4eurostat-1.0</tag>
+		<tag>java4eurostat-1.0</tag>
 	</scm>
 
-   <distributionManagement>
-       <repository>
-         <id>releases_folder</id>
-         <name>releases</name>
-         <url>file:///home/juju/workspace/java4eurostat/releases/</url>
-       </repository>
-   </distributionManagement>
+	<distributionManagement>
+		<repository>
+			<id>local_repository</id>
+			<name>local_repository</name>
+			<!-- -->
+			<url>file:H:/.m2/repository/</url>
+		</repository>
+	</distributionManagement>
 
 	<developers>
 		<developer>
@@ -56,6 +58,10 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.5.1</version>
 				<configuration>
+					<!-- -->
+					<verbose>true</verbose>
+					<fork>true</fork>
+					<executable>C:\Program Files\Java\jdk1.8.0_71\bin\javac.exe</executable>
 					<compilerVersion>1.7</compilerVersion>
 				</configuration>
 			</plugin>
