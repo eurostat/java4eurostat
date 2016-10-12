@@ -1,7 +1,7 @@
 /**
  * 
  */
-package eu.ec.java4eurostat.io;
+package eu.ec.estat.java4eurostat.io;
 
 import java.io.File;
 import java.io.FileInputStream;

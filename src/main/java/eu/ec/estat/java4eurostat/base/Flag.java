@@ -1,7 +1,7 @@
 /**
  * 
  */
-package eu.ec.java4eurostat.base;
+package eu.ec.estat.java4eurostat.base;
 
 import java.util.HashMap;
 

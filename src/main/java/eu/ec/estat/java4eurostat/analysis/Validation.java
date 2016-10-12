@@ -1,14 +1,14 @@
 /**
  * 
  */
-package eu.ec.java4eurostat.analysis;
+package eu.ec.estat.java4eurostat.analysis;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import eu.ec.java4eurostat.base.Stat;
-import eu.ec.java4eurostat.base.StatsHypercube;
+import eu.ec.estat.java4eurostat.base.Stat;
+import eu.ec.estat.java4eurostat.base.StatsHypercube;
 
 /**
  * @author julien Gaffuri

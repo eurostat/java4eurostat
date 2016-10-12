@@ -1,7 +1,7 @@
 /**
  * 
  */
-package eu.ec.java4eurostat.analysis;
+package eu.ec.estat.java4eurostat.analysis;
 
 import java.util.ArrayList;
 import java.util.Collections;

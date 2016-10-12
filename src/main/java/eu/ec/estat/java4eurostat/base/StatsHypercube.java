@@ -1,24 +1,24 @@
 /**
  * 
  */
-package eu.ec.java4eurostat.base;
+package eu.ec.estat.java4eurostat.base;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 
-import eu.ec.java4eurostat.base.Selection.Criteria;
-import eu.ec.java4eurostat.base.Selection.DimValueEqualTo;
-import eu.ec.java4eurostat.base.Selection.DimValueGreaterOrEqualThan;
-import eu.ec.java4eurostat.base.Selection.DimValueGreaterThan;
-import eu.ec.java4eurostat.base.Selection.DimValueLowerOrEqualThan;
-import eu.ec.java4eurostat.base.Selection.DimValueLowerThan;
-import eu.ec.java4eurostat.base.Selection.ValueEqualTo;
-import eu.ec.java4eurostat.base.Selection.ValueGreaterOrEqualThan;
-import eu.ec.java4eurostat.base.Selection.ValueGreaterThan;
-import eu.ec.java4eurostat.base.Selection.ValueLowerOrEqualThan;
-import eu.ec.java4eurostat.base.Selection.ValueLowerThan;
+import eu.ec.estat.java4eurostat.base.Selection.Criteria;
+import eu.ec.estat.java4eurostat.base.Selection.DimValueEqualTo;
+import eu.ec.estat.java4eurostat.base.Selection.DimValueGreaterOrEqualThan;
+import eu.ec.estat.java4eurostat.base.Selection.DimValueGreaterThan;
+import eu.ec.estat.java4eurostat.base.Selection.DimValueLowerOrEqualThan;
+import eu.ec.estat.java4eurostat.base.Selection.DimValueLowerThan;
+import eu.ec.estat.java4eurostat.base.Selection.ValueEqualTo;
+import eu.ec.estat.java4eurostat.base.Selection.ValueGreaterOrEqualThan;
+import eu.ec.estat.java4eurostat.base.Selection.ValueGreaterThan;
+import eu.ec.estat.java4eurostat.base.Selection.ValueLowerOrEqualThan;
+import eu.ec.estat.java4eurostat.base.Selection.ValueLowerThan;
 
 /**
  * An hypercube of statistical values.
