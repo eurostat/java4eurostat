@@ -48,6 +48,7 @@ public class EurobaseIO {
 	public static void getDataBulkDownload(String eurobaseDatabaseCode){ getDataBulkDownload(eurobaseDatabaseCode,""); }
 	public static void getDataBulkDownload(String eurobaseDatabaseCode, String path){ getDataBulkDownload(eurobaseDatabaseCode,path,true); }
 	public static void getDataBulkDownload(String eurobaseDatabaseCode, String path, boolean unzip){
+		if(!new File(path).exists()) new File(path).mkdirs();
 		String dFilePath = path + File.separator + eurobaseDatabaseCode + eurobaseBulkURLSuf;
 		IOUtil.downloadFile(eurobaseBulkURLBase + eurobaseDatabaseCode + eurobaseBulkURLSuf, dFilePath);
 		if(unzip){
@@ -107,6 +108,8 @@ public class EurobaseIO {
 	 */
 	public static void update(String dataFolderPath, String... databaseCodes){
 		try {
+			if(!new File(dataFolderPath).exists()) new File(dataFolderPath).mkdirs();
+
 			System.out.println("Start data update from Eurobase...");
 
 			String baseUrl1 = "http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=";
