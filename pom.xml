@@ -58,7 +58,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.5.1</version>
 				<configuration>
-					<verbose>true</verbose>
+					<!-- <verbose>true</verbose> -->
 					<fork>true</fork>
 					<executable>C:\Program Files\Java\jdk1.8.0_71\bin\javac.exe</executable>
 					<compilerVersion>1.7</compilerVersion>
