@@ -17,6 +17,21 @@ import java.util.Map.Entry;
 public class Stat {
 
 	/**
+	 * 
+	 */
+	public Stat(){}
+
+	/**
+	 * @param value The statistical value
+	 * @param dims The dimension data: list of pairs: dimLabel1,dimValue1,dimLabel2,dimValue2,...
+	 */
+	public Stat(double value, String... dims){
+		this();
+		this.value = value;
+		for(int i=0; i<dims.length; i=i+2) this.dims.put(dims[i], dims[i+1]);
+	}
+
+	/**
 	 * The value
 	 */
 	public double value;
