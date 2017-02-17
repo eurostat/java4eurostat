@@ -113,13 +113,14 @@ public class StatsHypercube {
 	 * 
 	 * @param dimLabel
 	 */
-	public void delete(String dimLabel){
+	public StatsHypercube delete(String dimLabel){
 		for(Stat s:stats){
 			String out = s.dims.remove(dimLabel);
 			if(out==null)
 				System.err.println("Error: dimension "+dimLabel+" not defined for "+s);
 		}
 		dimLabels.remove(dimLabel);
+		return this;
 	}
 
 	/**
@@ -128,8 +129,9 @@ public class StatsHypercube {
 	 * @param dimLabel
 	 * @param dimValue
 	 */
-	public void delete(String dimLabel, String dimValue){
+	public StatsHypercube delete(String dimLabel, String dimValue){
 		stats.removeAll( selectDimValueEqualTo(dimLabel, dimValue).stats );
+		return this;
 	}
 
 	/**
@@ -138,12 +140,13 @@ public class StatsHypercube {
 	 * @param dimLabel
 	 * @param size
 	 */
-	public void delete(String dimLabel, int size) {
+	public StatsHypercube delete(String dimLabel, int size) {
 		HashSet<String> values = getDimValues(dimLabel);
 		for(String v:values){
 			if(v.length() != size) continue;
 			delete(dimLabel,v);
 		}
+		return this;
 	}
 
 	/**
