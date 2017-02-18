@@ -3,12 +3,14 @@
  */
 package eu.ec.estat.java4eurostat.analysis;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
 import eu.ec.estat.java4eurostat.base.Stat;
 import eu.ec.estat.java4eurostat.base.StatsHypercube;
+import eu.ec.estat.java4eurostat.util.StatsUtil;
 
 /**
  * @author julien Gaffuri
@@ -47,5 +49,22 @@ public class Validation {
 		}
 		return unexpectedValues;
 	}
+
+
+	/**
+	 * Print some statistics on an hypercube values
+	 * 
+	 * @param hc
+	 */
+	public static void printBasicStatistics(StatsHypercube hc){
+		ArrayList<Double> vals = new ArrayList<Double>();
+		for(Stat s : hc.stats){
+			if(Double.isNaN(s.value)) continue;
+			vals.add(s.value);
+		}
+		double[] vals_ = new double[vals.size()]; for(int i=0; i<vals.size(); i++) vals_[i]=vals.get(i);
+		StatsUtil.printStats(vals_);
+	}
+
 
 }

@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 import eu.ec.estat.java4eurostat.base.Selection;
 import eu.ec.estat.java4eurostat.base.Stat;
 import eu.ec.estat.java4eurostat.base.StatsHypercube;
+import eu.ec.estat.java4eurostat.base.StatsIndex;
 import eu.ec.estat.java4eurostat.base.Selection.Criteria;
 
 /**
@@ -127,6 +128,26 @@ public class CSV {
 			}
 			bw.close();
 		} catch (Exception e) {e.printStackTrace();}
+	}
+
+
+
+
+	//TODO: document
+	public static void save(StatsIndex hcI, String idName, String outFile) {
+		try {
+			File outFile_ = new File(outFile);
+			if(outFile_.exists()) outFile_.delete();
+			BufferedWriter bw = new BufferedWriter(new FileWriter(outFile_, true));
+			//write header
+			bw.write(idName+",value"); bw.newLine();
+			//write file
+			for(String geo : hcI.getKeys()){
+				bw.write(geo+","+hcI.getSingleValue(geo));
+				bw.newLine();
+			}
+			bw.close();
+		} catch (IOException e) { e.printStackTrace(); }
 	}
 
 }
