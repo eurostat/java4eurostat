@@ -37,7 +37,7 @@ public class StatsHypercube {
 	 * Ex: gender,time,country
 	 */
 	public Collection<String> dimLabels;
-
+	public String[] getDimLabels(){ return dimLabels.toArray(new String[dimLabels.size()]); }
 
 	public StatsHypercube(String... dimLabels){
 		this();
