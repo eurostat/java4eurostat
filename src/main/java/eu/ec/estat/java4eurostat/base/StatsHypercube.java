@@ -6,6 +6,7 @@ package eu.ec.estat.java4eurostat.base;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import eu.ec.estat.java4eurostat.base.Selection.Criteria;
@@ -164,6 +165,18 @@ public class StatsHypercube {
 			for(String val : vals)
 				if(printDimValues) System.out.println("      "+val);
 		}
+	}
+
+
+	/**
+	 * Transform an hypercube with only one dimension into a hashmap.
+	 * @return 
+	 */
+	public HashMap<String, Double> toMap(){
+		HashMap<String, Double> map = new HashMap<String, Double>();
+		String dimLabel = dimLabels.iterator().next();
+		for(Stat s : stats) map.put(s.dims.get(dimLabel), s.value);
+		return map;
 	}
 
 }
