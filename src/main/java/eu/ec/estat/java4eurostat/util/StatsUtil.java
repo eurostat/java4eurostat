@@ -20,10 +20,10 @@ public class StatsUtil {
 		System.out.println("Min = " + StatUtils.min(vals));
 		System.out.println("Mean = " + StatUtils.mean(vals));
 		System.out.println("Median = " + StatUtils.percentile(vals, 50));
-		//System.out.println("RMS = " + Math.sqrt(StatUtils.sumSq(vals)));
 		System.out.println("Q1 = " + StatUtils.percentile(vals, 25));
 		System.out.println("Q2 = " + StatUtils.percentile(vals, 75));
 		System.out.println("Std = " + Math.sqrt(StatUtils.variance(vals)));
+		System.out.println("RMS = " + Math.sqrt(StatUtils.sumSq(vals)/vals.length));
 	}
 
 	public static void writeStats(BufferedWriter bw, double[] vals) throws MathIllegalArgumentException, IOException {
@@ -31,10 +31,10 @@ public class StatsUtil {
 		bw.write("Min," + StatUtils.min(vals) + "\n");
 		bw.write("Mean," + StatUtils.mean(vals) + "\n");
 		bw.write("Median," + StatUtils.percentile(vals, 50) + "\n");
-		//bw.write("RMS," + Math.sqrt(StatUtils.sumSq(vals)) + "\n");
 		bw.write("Q1," + StatUtils.percentile(vals, 25) + "\n");
 		bw.write("Q2," + StatUtils.percentile(vals, 75) + "\n");
 		bw.write("Std," + Math.sqrt(StatUtils.variance(vals)) + "\n");
+		bw.write("RMS," + Math.sqrt(StatUtils.sumSq(vals)/vals.length) + "\n");
 	}
 
 }
