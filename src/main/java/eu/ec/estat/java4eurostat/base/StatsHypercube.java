@@ -20,6 +20,7 @@ import eu.ec.estat.java4eurostat.base.Selection.ValueGreaterOrEqualThan;
 import eu.ec.estat.java4eurostat.base.Selection.ValueGreaterThan;
 import eu.ec.estat.java4eurostat.base.Selection.ValueLowerOrEqualThan;
 import eu.ec.estat.java4eurostat.base.Selection.ValueLowerThan;
+import eu.ec.estat.java4eurostat.util.StatsUtil;
 
 /**
  * An hypercube of statistical values.
@@ -167,6 +168,21 @@ public class StatsHypercube {
 		}
 	}
 
+
+	/**
+	 * Print basic statistics from the hypercube values
+	 */
+	public void printBasicStats() {
+		Collection<Double> vals = new HashSet<Double>();
+		for(Stat s : this.stats) if(!Double.isNaN(s.value)) vals.add(s.value);
+		StatsUtil.printStats(vals);
+	}
+
+	public void printQuantiles(int nb) {
+		Collection<Double> vals = new HashSet<Double>();
+		for(Stat s : this.stats) if(!Double.isNaN(s.value)) vals.add(s.value);
+		StatsUtil.printQuantiles(vals, nb);
+	}
 
 	/**
 	 * Transform an hypercube with only one dimension into a hashmap.

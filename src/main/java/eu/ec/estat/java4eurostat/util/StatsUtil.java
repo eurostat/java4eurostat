@@ -5,7 +5,9 @@ package eu.ec.estat.java4eurostat.util;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.Collection;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.stat.StatUtils;
 
@@ -36,5 +38,17 @@ public class StatsUtil {
 		bw.write("Std," + Math.sqrt(StatUtils.variance(vals)) + "\n");
 		bw.write("RMS," + Math.sqrt(StatUtils.sumSq(vals)/vals.length) + "\n");
 	}
+
+	public static void printStats(Double[] vals) { printStats(ArrayUtils.toPrimitive(vals)); }
+	public static void printStats(Collection<Double> vals) { printStats(vals.toArray(new Double[vals.size()])); }
+
+
+	private static void printQuantiles(double[] vals, int nb) {
+		for(int quantile=1; quantile<=nb; quantile++)
+			System.out.println("Quantile " + quantile + "/" + nb + ": " + StatUtils.percentile(vals, quantile*100/nb));
+	}
+
+	private static void printQuantiles(Double[] vals, int nb) { printQuantiles(ArrayUtils.toPrimitive(vals), nb); }
+	public static void printQuantiles(Collection<Double> vals, int nb) { printQuantiles(vals.toArray(new Double[vals.size()]), nb); }
 
 }
