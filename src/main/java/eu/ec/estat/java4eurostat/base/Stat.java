@@ -32,6 +32,15 @@ public class Stat {
 	}
 
 	/**
+	 * Clone a stat object
+	 */
+	public Stat(Stat s){
+		this();
+		this.value = s.value;
+		for(String key : s.dims.keySet()) this.dims.put(key, s.dims.get(key));
+	}
+
+	/**
 	 * The value
 	 */
 	public double value;
