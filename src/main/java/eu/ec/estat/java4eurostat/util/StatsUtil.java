@@ -53,7 +53,8 @@ public class StatsUtil {
 
 	private static double[] getQuantiles(double[] vals, int nb) {
 		double[] out = new double[nb];
-		for(int quantile=1; quantile<=nb; quantile++) out[quantile-1] = StatUtils.percentile(vals, quantile*100/nb);
+		for(int quantile=0; quantile<nb; quantile++)
+			out[quantile] = StatUtils.percentile(vals, 100*(quantile+1)/(nb+1));
 		return out;
 	}
 	public static double[] getQuantiles(Double[] vals, int nb) { return getQuantiles(ArrayUtils.toPrimitive(vals), nb); }
