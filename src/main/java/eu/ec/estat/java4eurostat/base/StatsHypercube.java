@@ -178,6 +178,12 @@ public class StatsHypercube {
 		StatsUtil.printStats(vals);
 	}
 
+	public double[] getQuantiles(int nb) {
+		Collection<Double> vals = new HashSet<Double>();
+		for(Stat s : this.stats) if(!Double.isNaN(s.value)) vals.add(s.value);
+		return StatsUtil.getQuantiles(vals, nb);
+	}
+
 	public void printQuantiles(int nb) {
 		Collection<Double> vals = new HashSet<Double>();
 		for(Stat s : this.stats) if(!Double.isNaN(s.value)) vals.add(s.value);

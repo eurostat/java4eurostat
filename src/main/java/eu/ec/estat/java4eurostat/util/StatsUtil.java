@@ -51,4 +51,12 @@ public class StatsUtil {
 	private static void printQuantiles(Double[] vals, int nb) { printQuantiles(ArrayUtils.toPrimitive(vals), nb); }
 	public static void printQuantiles(Collection<Double> vals, int nb) { printQuantiles(vals.toArray(new Double[vals.size()]), nb); }
 
+	private static double[] getQuantiles(double[] vals, int nb) {
+		double[] out = new double[nb];
+		for(int quantile=1; quantile<=nb; quantile++) out[quantile-1] = StatUtils.percentile(vals, quantile*100/nb);
+		return out;
+	}
+	public static double[] getQuantiles(Double[] vals, int nb) { return getQuantiles(ArrayUtils.toPrimitive(vals), nb); }
+	public static double[] getQuantiles(Collection<Double> vals, int nb) { return getQuantiles(vals.toArray(new Double[vals.size()]), nb); }
+
 }
