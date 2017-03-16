@@ -126,6 +126,17 @@ public class StatsHypercube {
 	}
 
 	/**
+	 * Remove dimensions with no or a single value.
+	 * @return
+	 */
+	public StatsHypercube shrinkDims() {
+		Collection<String> toDelete = new ArrayList<String>();
+		for(String dimLabel : this.dimLabels) if(getDimValues(dimLabel).size() <= 1) toDelete.add(dimLabel);
+		for(String dimLabel : toDelete) this.delete(dimLabel);
+		return this;
+	}
+
+	/**
 	 * Delete all stats having a given value for a dimension
 	 * 
 	 * @param dimLabel
