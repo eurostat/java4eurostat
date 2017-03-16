@@ -79,7 +79,6 @@ public class JSONStat {
 
 			hc.stats.add(s);
 		}
-
 		return hc;
 	}
 
