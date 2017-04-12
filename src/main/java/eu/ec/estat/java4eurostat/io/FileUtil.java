@@ -171,4 +171,15 @@ public class FileUtil {
 		return file.getAbsolutePath().replace(file.getName(),"");
 	}
 
+
+
+	public static BufferedWriter createFile(String path, boolean override){
+		File f = new File(path);
+		if(override && f.exists()) f.delete();
+		try {
+			return new BufferedWriter(new FileWriter(f, true));
+		} catch (IOException e) { e.printStackTrace(); }
+		return null;
+	}
+
 }
