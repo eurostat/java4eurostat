@@ -17,10 +17,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import eu.ec.estat.java4eurostat.base.Selection;
+import eu.ec.estat.java4eurostat.base.Selection.Criteria;
 import eu.ec.estat.java4eurostat.base.Stat;
 import eu.ec.estat.java4eurostat.base.StatsHypercube;
 import eu.ec.estat.java4eurostat.base.StatsIndex;
-import eu.ec.estat.java4eurostat.base.Selection.Criteria;
 
 /**
  * @author julien Gaffuri

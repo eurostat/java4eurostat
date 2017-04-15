@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import eu.ec.estat.java4eurostat.base.Flag;
+import eu.ec.estat.java4eurostat.base.Selection.Criteria;
 import eu.ec.estat.java4eurostat.base.Stat;
 import eu.ec.estat.java4eurostat.base.StatsHypercube;
-import eu.ec.estat.java4eurostat.base.Selection.Criteria;
 
 /**
  * @author julien Gaffuri
@@ -111,7 +111,10 @@ public class EurostatTSV {
 		return sh;
 	}
 
+	public static void save(StatsHypercube hc, String filePath){
+		//TODO
+		
+	}
 
-	//TODO save as TSV
 
 }
