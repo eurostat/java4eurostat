@@ -50,10 +50,10 @@ public class EurostatTSV {
 			line = br.readLine();
 			st = new StringTokenizer(line,sep);
 			st.nextToken();
-			String[] years=new String[st.countTokens()];
+			String[] times=new String[st.countTokens()];
 			int i=0;
 			while(st.hasMoreTokens())
-				years[i++] = st.nextToken();
+				times[i++] = st.nextToken().replace(" ", "");
 
 			while ((line = br.readLine()) != null) {
 				st = new StringTokenizer(line,sep);
@@ -61,9 +61,9 @@ public class EurostatTSV {
 				//read dims
 				String lbl = st.nextToken();
 
-				int yearIndex=-1;
+				int timeIndex=-1;
 				while(st.hasMoreTokens()){
-					yearIndex++;
+					timeIndex++;
 					//TODO better manage flags
 					String val_ = st.nextToken().replace(" ", "");
 					if(val_.contains(":")) continue;
@@ -93,7 +93,7 @@ public class EurostatTSV {
 						s.dims.put(dimLabel, dimValue);
 					}
 					//year
-					s.dims.put("time", years[yearIndex]);
+					s.dims.put("time", times[timeIndex]);
 
 					if(ssc!=null && !ssc.keep(s)) continue;
 
