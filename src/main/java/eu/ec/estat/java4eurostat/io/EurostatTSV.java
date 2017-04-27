@@ -113,8 +113,16 @@ public class EurostatTSV {
 
 	public static void save(StatsHypercube hc, String filePath){
 		//TODO
-		
-	}
 
+		//write header  ---   indic_to,unit,nace_r2,geo\time	2015 	2014 	2013 	2012 	2011 	2010 	2009 	2008 	2007 
+		//write dimension labels, finishing with geo and time.
+		//store all time labels, ordered
+		//write all time label values, ordered
+
+		//write lines  ---    B004,NR,I551,BE24	571068 	: 	518368 	470992 	457292 	408248 	355218 	397598 	350601 	246675
+		//index dataset, finishing with geo and time
+		//walk through index tree.
+
+	}
 
 }
