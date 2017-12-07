@@ -219,4 +219,4 @@ The class ```TimeSeriesUtil``` provides several function for time series analysi
 
 ## Support and contribution
 
-Feel free to [ask support](https://github.com/jgaffuri/java4eurostat/issues/new), fork the project or simply star it (it's always a pleasure).
+Feel free to [ask support](https://github.com/eurostat/java4eurostat/issues/new), fork the project or simply star it (it's always a pleasure).
