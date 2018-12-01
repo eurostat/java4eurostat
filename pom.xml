@@ -6,10 +6,10 @@
 	<packaging>jar</packaging>
 	<version>1.3-SNAPSHOT</version>
 	<name>java4eurostat</name>
-	<url>https://github.com/jgaffuri/java4eurostat</url>
+	<url>https://github.com/eurostat/java4eurostat</url>
 
 	<issueManagement>
-		<url>https://github.com/jgaffuri/java4eurostat/issues</url>
+		<url>https://github.com/eurostat/java4eurostat/issues</url>
 		<system>GitHub Issues</system>
 	</issueManagement>
 
@@ -21,8 +21,8 @@
 	</licenses>
 
 	<scm>
-		<url>https://github.com/jgaffuri/java4eurostat</url>
-		<connection>scm:git:git://github.com/jgaffuri/java4eurostat.git</connection>
+		<url>https://github.com/eurostat/java4eurostat</url>
+		<connection>scm:git:git://github.com/eurostat/java4eurostat.git</connection>
 		<developerConnection>scm:git:git@github.com:jgaffuri/java4eurostat.git</developerConnection>
 		<tag>java4eurostat-1.0</tag>
 	</scm>
