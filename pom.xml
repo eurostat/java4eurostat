@@ -8,11 +8,6 @@
 	<name>java4eurostat</name>
 	<url>https://github.com/eurostat/java4eurostat</url>
 
-	<issueManagement>
-		<url>https://github.com/eurostat/java4eurostat/issues</url>
-		<system>GitHub Issues</system>
-	</issueManagement>
-
 	<licenses>
 		<license>
 			<name>European Union Public Licence V. 1.1</name>
@@ -23,26 +18,14 @@
 	<scm>
 		<url>https://github.com/eurostat/java4eurostat</url>
 		<connection>scm:git:git://github.com/eurostat/java4eurostat.git</connection>
-		<developerConnection>scm:git:git@github.com:jgaffuri/java4eurostat.git</developerConnection>
+		<developerConnection>scm:git:git@github.com:eurostat/java4eurostat.git</developerConnection>
 		<tag>java4eurostat-1.0</tag>
 	</scm>
 
-<!-- 	<distributionManagement> -->
-<!-- 		<repository> -->
-<!-- 			<id>local_repository</id> -->
-<!-- 			<name>local_repository</name> -->
-<!-- 			<url>file:H:/.m2/repository/</url> -->
-<!-- 			<url>file:~/.m2/repository/</url> -->
-<!-- 		</repository> -->
-<!-- 	</distributionManagement> -->
-
-	<developers>
-		<developer>
-			<id>jgaffuri</id>
-			<name>Julien Gaffuri</name>
-			<url>https://github.com/jgaffuri</url>
-		</developer>
-	</developers>
+	<issueManagement>
+		<url>https://github.com/eurostat/java4eurostat/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
 
 	<properties>
 		<maven.compiler.target>1.6</maven.compiler.target>
@@ -50,24 +33,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
-
-<!-- 	<build> -->
-<!-- 		<plugins> -->
-
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 				<artifactId>maven-compiler-plugin</artifactId> -->
-<!-- 				<version>3.5.1</version> -->
-<!-- 				<configuration> -->
-<!-- 					<verbose>true</verbose> -->
-<!-- 					<fork>true</fork> -->
-<!-- 					<executable>C:\Program Files\Java\jdk1.8.0_71\bin\javac.exe</executable> -->
-<!-- 					<compilerVersion>1.7</compilerVersion> -->
-<!-- 				</configuration> -->
-<!-- 			</plugin> -->
-
-<!-- 		</plugins> -->
-<!-- 	</build> -->
 
 	<dependencies>
 		<dependency>
