@@ -27,14 +27,14 @@
 		<tag>java4eurostat-1.0</tag>
 	</scm>
 
-	<distributionManagement>
-		<repository>
-			<id>local_repository</id>
-			<name>local_repository</name>
-			<url>file:H:/.m2/repository/</url>
-			<!-- <url>file:~/.m2/repository/</url> -->
-		</repository>
-	</distributionManagement>
+<!-- 	<distributionManagement> -->
+<!-- 		<repository> -->
+<!-- 			<id>local_repository</id> -->
+<!-- 			<name>local_repository</name> -->
+<!-- 			<url>file:H:/.m2/repository/</url> -->
+<!-- 			<url>file:~/.m2/repository/</url> -->
+<!-- 		</repository> -->
+<!-- 	</distributionManagement> -->
 
 	<developers>
 		<developer>
@@ -44,64 +44,58 @@
 		</developer>
 	</developers>
 
-
 	<properties>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<maven.compiler.source>1.6</maven.compiler.source>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
-	<build>
-		<plugins>
+<!-- 	<build> -->
+<!-- 		<plugins> -->
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version>
-				<configuration>
-					<!-- <verbose>true</verbose> -->
-					<fork>true</fork>
-					<executable>C:\Program Files\Java\jdk1.8.0_71\bin\javac.exe</executable>
-					<compilerVersion>1.7</compilerVersion>
-				</configuration>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-compiler-plugin</artifactId> -->
+<!-- 				<version>3.5.1</version> -->
+<!-- 				<configuration> -->
+<!-- 					<verbose>true</verbose> -->
+<!-- 					<fork>true</fork> -->
+<!-- 					<executable>C:\Program Files\Java\jdk1.8.0_71\bin\javac.exe</executable> -->
+<!-- 					<compilerVersion>1.7</compilerVersion> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
 
-		</plugins>
-	</build>
+<!-- 		</plugins> -->
+<!-- 	</build> -->
 
 	<dependencies>
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
 		</dependency>
-
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
 		</dependency>
-
-
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-math3</artifactId>
 			<version>3.5</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20140107</version>
 		</dependency>
-
 	</dependencies>
 
 </project>
