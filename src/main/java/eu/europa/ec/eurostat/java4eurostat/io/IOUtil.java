@@ -1,7 +1,7 @@
 /**
  * 
  */
-package eu.ec.estat.java4eurostat.io;
+package eu.europa.ec.eurostat.java4eurostat.io;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;

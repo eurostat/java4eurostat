@@ -1,17 +1,17 @@
 /**
  * 
  */
-package eu.ec.estat.java4eurostat.analysis;
+package eu.europa.ec.eurostat.java4eurostat.analysis;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import eu.ec.estat.java4eurostat.base.Stat;
-import eu.ec.estat.java4eurostat.base.StatsHypercube;
-import eu.ec.estat.java4eurostat.base.StatsIndex;
-import eu.ec.estat.java4eurostat.util.StatsUtil;
+import eu.europa.ec.eurostat.java4eurostat.base.Stat;
+import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
+import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
+import eu.europa.ec.eurostat.java4eurostat.util.StatsUtil;
 
 /**
  * @author julien Gaffuri

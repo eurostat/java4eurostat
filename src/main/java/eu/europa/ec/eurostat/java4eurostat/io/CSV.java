@@ -1,7 +1,7 @@
 /**
  * 
  */
-package eu.ec.estat.java4eurostat.io;
+package eu.europa.ec.eurostat.java4eurostat.io;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,11 +16,11 @@ import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import eu.ec.estat.java4eurostat.base.Selection;
-import eu.ec.estat.java4eurostat.base.Selection.Criteria;
-import eu.ec.estat.java4eurostat.base.Stat;
-import eu.ec.estat.java4eurostat.base.StatsHypercube;
-import eu.ec.estat.java4eurostat.base.StatsIndex;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection;
+import eu.europa.ec.eurostat.java4eurostat.base.Stat;
+import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
+import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.Criteria;
 
 /**
  * @author julien Gaffuri

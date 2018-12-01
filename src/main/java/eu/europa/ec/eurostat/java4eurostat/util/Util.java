@@ -1,4 +1,4 @@
-package eu.ec.estat.java4eurostat.util;
+package eu.europa.ec.eurostat.java4eurostat.util;
 
 import java.text.DateFormat;
 import java.text.Normalizer;

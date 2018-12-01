@@ -1,7 +1,7 @@
 /**
  * 
  */
-package eu.ec.estat.java4eurostat.io;
+package eu.europa.ec.eurostat.java4eurostat.io;
 
 import java.util.HashMap;
 
@@ -9,9 +9,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import eu.ec.estat.java4eurostat.base.Selection.Criteria;
-import eu.ec.estat.java4eurostat.base.Stat;
-import eu.ec.estat.java4eurostat.base.StatsHypercube;
+import eu.europa.ec.eurostat.java4eurostat.base.Stat;
+import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.Criteria;
 
 /**
  * @author julien Gaffuri

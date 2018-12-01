@@ -1,7 +1,7 @@
 /**
  * 
  */
-package eu.ec.estat.java4eurostat.util;
+package eu.europa.ec.eurostat.java4eurostat.util;
 
 import java.awt.Color;
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package eu.ec.estat.java4eurostat.base;
+package eu.europa.ec.eurostat.java4eurostat.base;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,18 +9,18 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import eu.ec.estat.java4eurostat.base.Selection.Criteria;
-import eu.ec.estat.java4eurostat.base.Selection.DimValueEqualTo;
-import eu.ec.estat.java4eurostat.base.Selection.DimValueGreaterOrEqualThan;
-import eu.ec.estat.java4eurostat.base.Selection.DimValueGreaterThan;
-import eu.ec.estat.java4eurostat.base.Selection.DimValueLowerOrEqualThan;
-import eu.ec.estat.java4eurostat.base.Selection.DimValueLowerThan;
-import eu.ec.estat.java4eurostat.base.Selection.ValueEqualTo;
-import eu.ec.estat.java4eurostat.base.Selection.ValueGreaterOrEqualThan;
-import eu.ec.estat.java4eurostat.base.Selection.ValueGreaterThan;
-import eu.ec.estat.java4eurostat.base.Selection.ValueLowerOrEqualThan;
-import eu.ec.estat.java4eurostat.base.Selection.ValueLowerThan;
-import eu.ec.estat.java4eurostat.util.StatsUtil;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.Criteria;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueEqualTo;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueGreaterOrEqualThan;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueGreaterThan;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueLowerOrEqualThan;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueLowerThan;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.ValueEqualTo;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.ValueGreaterOrEqualThan;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.ValueGreaterThan;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.ValueLowerOrEqualThan;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.ValueLowerThan;
+import eu.europa.ec.eurostat.java4eurostat.util.StatsUtil;
 
 /**
  * An hypercube of statistical values.

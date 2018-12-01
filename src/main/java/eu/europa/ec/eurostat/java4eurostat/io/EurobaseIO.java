@@ -1,7 +1,7 @@
 /**
  * 
  */
-package eu.ec.estat.java4eurostat.io;
+package eu.europa.ec.eurostat.java4eurostat.io;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,9 +12,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-import eu.ec.estat.java4eurostat.base.Selection.Criteria;
-import eu.ec.estat.java4eurostat.base.StatsHypercube;
-import eu.ec.estat.java4eurostat.util.Util;
+import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.Criteria;
+import eu.europa.ec.eurostat.java4eurostat.util.Util;
 
 /**
  * @author julien Gaffuri
