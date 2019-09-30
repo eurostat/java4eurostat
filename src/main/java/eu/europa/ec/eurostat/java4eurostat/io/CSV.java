@@ -36,9 +36,10 @@ public class CSV {
 	/**
 	 * Load a CSV file.
 	 * 
-	 * @param filePath
+	 * @param inputFilePath
 	 * @param valueLabel The label of the column with values
 	 * @param patternString NB: for tab separated files, use "([^\t]*)"
+	 * @param ssc Selection criteria
 	 * @return
 	 */
 	public static StatsHypercube load(String inputFilePath, String valueLabel, String patternString, Selection.Criteria ssc) {

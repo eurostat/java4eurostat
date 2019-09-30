@@ -47,7 +47,7 @@ public class Stat {
 
 	/**
 	 * The dimensions
-	 * Ex: gender -> male ; time -> 2015 ; country -> PL
+	 * Ex: gender - male ; time - 2015 ; country - PL
 	 */
 	public HashMap<String,String> dims = new HashMap<String,String>();
 

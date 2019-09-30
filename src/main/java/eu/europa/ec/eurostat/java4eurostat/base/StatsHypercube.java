@@ -101,7 +101,7 @@ public class StatsHypercube {
 
 	/**
 	 * Selection on values.
-	 * Ex: stat.value > 50
+	 * Ex: stat.value greater than 50
 	 */
 	public StatsHypercube selectValueEqualTo(double value){ return select(new ValueEqualTo(value)); }
 	public StatsHypercube selectValueGreaterThan(double value){ return select(new ValueGreaterThan(value)); }
