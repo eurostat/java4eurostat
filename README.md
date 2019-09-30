@@ -214,8 +214,9 @@ The class ```TimeSeriesUtil``` provides several function for time series analysi
 
 [TODO: extend description.]
 
-### R interface
-[TODO. based on [Rserve](https://rforge.net/Rserve/)]
+### Further documentation
+
+See the [Javadoc](https://eurostat.github.io/searoute/apidocs/).
 
 ## Support and contribution
 
