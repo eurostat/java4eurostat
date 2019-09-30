@@ -216,7 +216,7 @@ The class ```TimeSeriesUtil``` provides several function for time series analysi
 
 ### Further documentation
 
-See the [Javadoc](https://eurostat.github.io/searoute/apidocs/).
+See the [Javadoc](https://eurostat.github.io/java4eurostat/apidocs/).
 
 ## Support and contribution
 
