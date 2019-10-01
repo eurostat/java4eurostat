@@ -147,7 +147,7 @@ for(String gender : index.getKeys())
 
 ### Setup
 
-To quickly setup a development environment, see [these instructions](https://eurostat.github.io/README/docs/howto/java_eclipse_maven_git_quick_guide).
+To quickly setup a development environment, see [these instructions](https://eurostat.github.io/README/howto/java_eclipse_maven_git_quick_guide).
 
 Download and install [Java4eurostat](https://github.com/eurostat/java4eurostat) with:
 
