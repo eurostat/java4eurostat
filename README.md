@@ -1,7 +1,6 @@
-java4eurostat
-======
+# java4eurostat
 
-Java4eurostat is a Java library for statistical data manipulation. It provides a number of functions to load statistical data into an 'hypercube' structure and index it for fast in-memory computations. A number of specific functions are provided to easily access [Eurostat](http://ec.europa.eu/eurostat/) data.
+[Java4eurostat](https://github.com/eurostat/java4eurostat) is a Java library for statistical data manipulation. It provides a number of functions to load statistical data into an 'hypercube' structure and index it for easy and fast in-memory computations. A number of specific functions are provided to easily access [Eurostat](http://ec.europa.eu/eurostat/) data.
 
 ## Quick start
 
@@ -145,6 +144,32 @@ for(String gender : index.getKeys())
 ```
 
 ## More information
+
+### Setup
+
+To quickly setup a development environment, see [these instructions](https://eurostat.github.io/README/howto/java_eclipse_maven_git_quick_guide).
+
+Download and install [Java4eurostat](https://github.com/eurostat/java4eurostat) with:
+
+```
+git clone https://github.com/eurostat/java4eurostat.git
+cd java4eurostat
+mvn clean install
+```
+
+and then use it in your Java project as a dependency by adding it to the *pom.xml* file:
+
+```
+<dependencies>
+	...
+	<dependency>
+		<groupId>eu.europa.ec.eurostat</groupId>
+		<artifactId>java4eurostat</artifactId>
+		<version>1.3</version>
+	</dependency>
+</dependencies>
+```
+
 ### Input data
 #### CSV
 ```java
@@ -216,7 +241,7 @@ The class ```TimeSeriesUtil``` provides several function for time series analysi
 
 ### Further documentation
 
-See the [Javadoc](https://eurostat.github.io/java4eurostat/apidocs/).
+See [the documentation](https://eurostat.github.io/GridMaker/apidocs/) for more information.
 
 ## Support and contribution
 
