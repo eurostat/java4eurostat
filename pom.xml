@@ -4,7 +4,7 @@
 	<groupId>eu.europa.ec.eurostat</groupId>
 	<artifactId>java4eurostat</artifactId>
 	<packaging>jar</packaging>
-	<version>1.3</version>
+	<version>1.4-SNAPSHOT</version>
 	<name>java4eurostat</name>
 	<url>https://github.com/eurostat/java4eurostat</url>
 
