@@ -17,10 +17,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import eu.europa.ec.eurostat.java4eurostat.base.Selection;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.Criteria;
 import eu.europa.ec.eurostat.java4eurostat.base.Stat;
 import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
 import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
-import eu.europa.ec.eurostat.java4eurostat.base.Selection.Criteria;
+import eu.europa.ec.eurostat.java4eurostat.util.Util;
 
 /**
  * @author julien Gaffuri
@@ -90,13 +91,11 @@ public class CSV {
 		return hc;		
 	}
 
-	public static void save(StatsHypercube hc, String valueLabel, String outPath, String outFile) { save(hc,valueLabel,outPath,outFile,","); }
-	public static void save(StatsHypercube hc, String valueLabel, String outPath, String outFile, String separator) { save(hc,valueLabel,outPath,outFile,",",null); }
-	public static void save(StatsHypercube hc, String valueLabel, String outPath, String outFile, String separator, Comparator<String> keysComparator) {
+	public static void save(StatsHypercube hc, String valueLabel, String outFile) { save(hc,valueLabel,outFile,","); }
+	public static void save(StatsHypercube hc, String valueLabel, String outFile, String separator) { save(hc,valueLabel,outFile,",",null); }
+	public static void save(StatsHypercube hc, String valueLabel, String outFile, String separator, Comparator<String> keysComparator) {
 		try {
-			new File(outPath).mkdirs();
-			File f=new File(outPath+outFile);
-			if(f.exists()) f.delete();
+			File f = Util.getFile(outFile, true, true);
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));
 
 			//write header
