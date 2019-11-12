@@ -124,7 +124,11 @@ public class CSV {
 					if(i<dimLabels.size()-1) bw.write(",");
 					i++;
 				}
-				bw.write(","+s.value+"\n");
+				bw.write(",");
+				//write value as a double or as an int (to avoid writing the ".0") in the end.
+				if( (s.value % 1) == 0 ) bw.write(""+(int)s.value);
+				else bw.write(""+s.value);
+				bw.write("\n");
 			}
 			bw.close();
 		} catch (Exception e) {e.printStackTrace();}
