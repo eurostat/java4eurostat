@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import eu.europa.ec.eurostat.java4eurostat.base.Flag;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.Criteria;
 import eu.europa.ec.eurostat.java4eurostat.base.Stat;
 import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
-import eu.europa.ec.eurostat.java4eurostat.base.Selection.Criteria;
 
 /**
  * @author julien Gaffuri

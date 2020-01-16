@@ -145,6 +145,7 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 	public int compareTo(HierarchicalCode hc) {
 		return code.compareTo(hc.code);
 	}
+
 	/**
 	 * Sort children.
 	 */
@@ -184,6 +185,7 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 		//return code+"\t"+description+":" + (fathers.size()==0?"ROOT":fathers.size()==1?fathers.get(0).code:fathers.size()) + ":"+children.size();
 		return code;
 	}
+
 	public static void printHierarchy(Collection<?> hcs) {
 		for(Object obj : hcs){
 			HierarchicalCode hc = (HierarchicalCode)obj;
