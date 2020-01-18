@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.europa.ec.eurostat</groupId>
 	<artifactId>java4eurostat</artifactId>
@@ -6,6 +8,7 @@
 	<version>1.7-SNAPSHOT</version>
 	<name>java4eurostat</name>
 	<url>https://github.com/eurostat/java4eurostat</url>
+	<description>Multi-dimensional data manipulation and easy access to Eurostat data</description>
 
 	<licenses>
 		<license>
@@ -26,6 +29,17 @@
 		<system>GitHub Issues</system>
 	</issueManagement>
 
+	<developers>
+		<developer>
+			<id>jgaffuri</id>
+			<name>Julien Gaffuri</name>
+			<url>https://github.com/jgaffuri</url>
+			<email>julien.gaffuri@ec.europa.eu</email>
+			<organization>Eurostat</organization>
+			<organizationUrl>https://ec.europa.eu/eurostat/</organizationUrl>
+		</developer>
+	</developers>
+
 	<properties>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<maven.compiler.source>1.6</maven.compiler.source>
@@ -40,7 +54,7 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.1.1</version>
 				<configuration>
-					<reportOutputDirectory>${basedir}/docs</reportOutputDirectory>
+					<javadocExecutable>/usr/lib/jvm/default-java/bin/javadoc</javadocExecutable>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -152,35 +166,35 @@
 
 
 
-<profiles>
-<!-- GPG Signature on release -->
-<profile>
-<id>release-sign-artifacts</id>
-<activation>
-<property>
-<name>performRelease</name>
-<value>true</value>
-</property>
-</activation>
-<build>
-<plugins>
-<plugin>
-<groupId>org.apache.maven.plugins</groupId>
-<artifactId>maven-gpg-plugin</artifactId>
-<version>1.6</version>
-<executions>
-<execution>
-<id>sign-artifacts</id>
-<phase>verify</phase>
-<goals>
-<goal>sign</goal>
-</goals>
-</execution>
-</executions>
-</plugin>
-</plugins>
-</build>
-</profile>
-</profiles>
+	<profiles>
+		<!-- GPG Signature on release -->
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
