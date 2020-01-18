@@ -87,12 +87,25 @@ public class Util {
 		return true;
 	}
 
+	/**
+	 * Check if a text represent a numerical value.
+	 * 
+	 * @param s
+	 * @return
+	 */
 	public static boolean isNumeric(String s){
 		try { Double.parseDouble(s); }
 		catch(NumberFormatException e) { return false; }
 		return true;
 	}
 
+	/**
+	 * Count the number of occurences of a character in a string
+	 * 
+	 * @param st
+	 * @param thing
+	 * @return
+	 */
 	public static int getOccurencesNumber(String st, String thing){
 		return st.length() - st.replace(thing, "").length();
 	}
