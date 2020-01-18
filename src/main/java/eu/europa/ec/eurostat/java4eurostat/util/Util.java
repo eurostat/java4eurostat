@@ -23,14 +23,25 @@ public class Util {
 	}
 
 
-	//print progress in %
+	/**
+	 * Print progress in %
+	 * 
+	 * @param nbDone
+	 * @param nbTot
+	 */
 	public static void printProgress(int nbDone, int nbTot) {
 		int ratio = 100*nbDone/nbTot;
 		int ratioP = 100*(nbDone-1)/nbTot;
 		if(ratio != ratioP) System.out.println(ratio + "% done");
 	}
 
-	//round a double
+	/**
+	 * Round a number
+	 * 
+	 * @param x
+	 * @param decimalNB
+	 * @return
+	 */
 	public static double round(double x, int decimalNB) {
 		double pow = Math.pow(10, decimalNB);
 		return ( (int)(x * pow + 0.5) ) / pow;
