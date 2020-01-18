@@ -3,7 +3,7 @@
 	<groupId>eu.europa.ec.eurostat</groupId>
 	<artifactId>java4eurostat</artifactId>
 	<packaging>jar</packaging>
-	<version>1.8</version>
+	<version>1.9-SNAPSHOT</version>
 	<name>java4eurostat</name>
 	<url>https://github.com/eurostat/java4eurostat</url>
 	<description>Multi-dimensional data manipulation and easy access to Eurostat data</description>
