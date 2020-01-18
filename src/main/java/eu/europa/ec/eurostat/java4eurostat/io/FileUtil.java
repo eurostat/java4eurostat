@@ -182,4 +182,19 @@ public class FileUtil {
 		return null;
 	}
 
+	public static File getFile(String filePath, boolean createFolders, boolean eraseOnExist){
+		if(createFolders) createFolders(filePath);
+		File file = new File(filePath);
+		if(eraseOnExist && file.exists()) file.delete();
+		return file;
+	}
+
+	public static void createFolders(String filePath){
+		File parent = new File(filePath).getParentFile();
+		if (!parent.exists() && !parent.mkdirs())
+			throw new IllegalStateException("Couldn't create dir: " + parent);
+	}
+
+	
+
 }

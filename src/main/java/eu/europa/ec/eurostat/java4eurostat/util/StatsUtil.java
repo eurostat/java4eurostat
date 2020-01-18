@@ -12,11 +12,23 @@ import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.stat.StatUtils;
 
 /**
+ * Some additional utilities on statistical data
+ * 
  * @author julien Gaffuri
  *
  */
 public class StatsUtil {
 
+	private static double[] getQuantiles(double[] vals, int nb) {
+		double[] out = new double[nb];
+		for(int quantile=0; quantile<nb; quantile++)
+			out[quantile] = StatUtils.percentile(vals, 100*(quantile+1)/(nb+1));
+		return out;
+	}
+	public static double[] getQuantiles(Double[] vals, int nb) { return getQuantiles(ArrayUtils.toPrimitive(vals), nb); }
+	public static double[] getQuantiles(Collection<Double> vals, int nb) { return getQuantiles(vals.toArray(new Double[vals.size()]), nb); }
+
+	
 	public static void printStats(double[] vals){
 		System.out.println("Max = " + StatUtils.max(vals));
 		System.out.println("Min = " + StatUtils.min(vals));
@@ -50,14 +62,5 @@ public class StatsUtil {
 
 	private static void printQuantiles(Double[] vals, int nb) { printQuantiles(ArrayUtils.toPrimitive(vals), nb); }
 	public static void printQuantiles(Collection<Double> vals, int nb) { printQuantiles(vals.toArray(new Double[vals.size()]), nb); }
-
-	private static double[] getQuantiles(double[] vals, int nb) {
-		double[] out = new double[nb];
-		for(int quantile=0; quantile<nb; quantile++)
-			out[quantile] = StatUtils.percentile(vals, 100*(quantile+1)/(nb+1));
-		return out;
-	}
-	public static double[] getQuantiles(Double[] vals, int nb) { return getQuantiles(ArrayUtils.toPrimitive(vals), nb); }
-	public static double[] getQuantiles(Collection<Double> vals, int nb) { return getQuantiles(vals.toArray(new Double[vals.size()]), nb); }
 
 }

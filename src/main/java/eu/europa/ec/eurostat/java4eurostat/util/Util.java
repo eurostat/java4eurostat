@@ -1,6 +1,5 @@
 package eu.europa.ec.eurostat.java4eurostat.util;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
@@ -10,6 +9,9 @@ import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
 /**
+ * 
+ * Some general purpose functions.
+ * 
  * @author julien Gaffuri
  *
  */
@@ -126,20 +128,6 @@ public class Util {
 		if(nb>=nbDec) return d_;
 		for(int i=0; i<nbDec-nb; i++) d_ += "0";
 		return d_;
-	}
-
-
-	public static File getFile(String filePath, boolean createFolders, boolean eraseOnExist){
-		if(createFolders) createFolders(filePath);
-		File file = new File(filePath);
-		if(eraseOnExist && file.exists()) file.delete();
-		return file;
-	}
-
-	public static void createFolders(String filePath){
-		File parent = new File(filePath).getParentFile();
-		if (!parent.exists() && !parent.mkdirs())
-			throw new IllegalStateException("Couldn't create dir: " + parent);
 	}
 
 }

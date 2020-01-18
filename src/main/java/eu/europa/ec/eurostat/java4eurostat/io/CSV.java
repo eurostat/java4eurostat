@@ -21,7 +21,6 @@ import eu.europa.ec.eurostat.java4eurostat.base.Selection.Criteria;
 import eu.europa.ec.eurostat.java4eurostat.base.Stat;
 import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
 import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
-import eu.europa.ec.eurostat.java4eurostat.util.Util;
 
 /**
  * @author julien Gaffuri
@@ -95,7 +94,7 @@ public class CSV {
 	public static void save(StatsHypercube hc, String valueLabel, String outFile, String separator) { save(hc,valueLabel,outFile,",",null); }
 	public static void save(StatsHypercube hc, String valueLabel, String outFile, String separator, Comparator<String> keysComparator) {
 		try {
-			File f = Util.getFile(outFile, true, true);
+			File f = FileUtil.getFile(outFile, true, true);
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));
 
 			//write header
