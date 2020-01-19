@@ -147,17 +147,7 @@ for(String gender : index.getKeys())
 
 ### Setup
 
-To quickly setup a development environment, see [these instructions](https://eurostat.github.io/README/howto/java_eclipse_maven_git_quick_guide).
-
-Download and install [Java4eurostat](https://github.com/eurostat/java4eurostat) with:
-
-```
-git clone https://github.com/eurostat/java4eurostat.git
-cd java4eurostat
-mvn clean install
-```
-
-and then use it in your Java project as a dependency by adding it to the *pom.xml* file:
+Simply add java4eurostat as a Maven dependency to your *pom.xml* file:
 
 ```
 <dependencies>
@@ -165,10 +155,11 @@ and then use it in your Java project as a dependency by adding it to the *pom.xm
 	<dependency>
 		<groupId>eu.europa.ec.eurostat</groupId>
 		<artifactId>java4eurostat</artifactId>
-		<version>1.3</version>
+		<version>1.15</version>
 	</dependency>
 </dependencies>
 ```
+
 
 ### Input data
 #### CSV
