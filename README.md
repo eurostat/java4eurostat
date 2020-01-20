@@ -147,7 +147,7 @@ for(String gender : index.getKeys())
 
 ### Setup
 
-java4eurostat uses [Apache Maven](http://maven.apache.org/). To use java4eurostat in a Java-Maven project, add it as a dependency to the *pom.xml* file:
+[Java4eurostat](https://github.com/eurostat/java4eurostat) uses [Apache Maven](http://maven.apache.org/). To use java4eurostat, add it as a dependency to the *pom.xml* file:
 
 ```
 <dependency>
