@@ -147,19 +147,15 @@ for(String gender : index.getKeys())
 
 ### Setup
 
-Simply add java4eurostat as a Maven dependency to your *pom.xml* file:
+java4eurostat uses [Apache Maven](http://maven.apache.org/). To use java4eurostat in a Java-Maven project, add it as a dependency to the *pom.xml* file:
 
 ```
-<dependencies>
-	...
-	<dependency>
-		<groupId>eu.europa.ec.eurostat</groupId>
-		<artifactId>java4eurostat</artifactId>
-		<version>1.15</version>
-	</dependency>
-</dependencies>
+<dependency>
+	<groupId>eu.europa.ec.eurostat</groupId>
+	<artifactId>java4eurostat</artifactId>
+	<version>1.15</version>
+</dependency>
 ```
-
 
 ### Input data
 #### CSV
