@@ -228,7 +228,7 @@ The class ```TimeSeriesUtil``` provides several function for time series analysi
 
 ### Further documentation
 
-See [the documentation](https://eurostat.github.io/java4eurostat/apidocs/) for more information.
+See the [Javadoc API](https://eurostat.github.io/java4eurostat/src/site/apidocs/).
 
 ## Support and contribution
 
