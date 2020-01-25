@@ -182,25 +182,43 @@ public class StatsHypercube {
 	}
 
 
-	//operations
-	//TODO document
+	/**
+	 * Apply an operation on the values.
+	 * 
+	 * @param op
+	 * @return the object itself
+	 */
 	public StatsHypercube apply(UnaryOperator<Double> op) {
 		for(Stat s : stats) s.value = op.apply(s.value);
 		return this;
 	}
 
-	public StatsHypercube abs(UnaryOperator<Double> op) {
+	/**
+	 * Apply absolute value.
+	 * @return the object itself
+	 */
+	public StatsHypercube abs() {
 		return apply(new UnaryOperator<Double>() {
 			@Override
 			public Double apply(Double val) { return Math.abs(val); }});
 	}
-	public StatsHypercube mult(double valueToMult){
+	/**
+	 * Multiply the values by a factor.
+	 * @param factor
+	 * @return the object itself
+	 */
+	public StatsHypercube mult(double factor){
 		return apply(new UnaryOperator<Double>() {
 			@Override
 			public Double apply(Double val) {
-				return val * valueToMult;
+				return val * factor;
 			}});
 	}
+	/**
+	 * Add a qualtity to the values.
+	 * @param valueToSum
+	 * @return the object itself
+	 */
 	public StatsHypercube sum(double valueToSum){
 		return apply(new UnaryOperator<Double>() {
 			@Override
@@ -208,6 +226,11 @@ public class StatsHypercube {
 				return val + valueToSum;
 			}});
 	}
+	/**
+	 * Apply a power to the values.
+	 * @param exp
+	 * @return the object itself
+	 */
 	public StatsHypercube pow(double exp){
 		return apply(new UnaryOperator<Double>() {
 			@Override
@@ -215,13 +238,41 @@ public class StatsHypercube {
 				return Math.pow(val, exp);
 			}});
 	}
-	public StatsHypercube inv(UnaryOperator<Double> op) { return pow(-1); }
-	public StatsHypercube sqrt(UnaryOperator<Double> op) { return pow(0.5); }
+	/**
+	 * Invert the values.
+	 * @return the object itself
+	 */
+	public StatsHypercube inv() { return pow(-1); }
+	/**
+	 * Apply root square of the values
+	 * @return the object itself
+	 */
+	public StatsHypercube sqrt() { return pow(0.5); }
+	/**
+	 * Remove a quantity to the values.
+	 * @param valueToDiff
+	 * @return the object itself
+	 */
 	public StatsHypercube diff(double valueToDiff){ return sum(-valueToDiff); }
-	public StatsHypercube div(StatsHypercube hc, double valueToDiv){ return mult(1/valueToDiv); }
+	/**
+	 * Divide all values by a quantity.
+	 * @param valueToDiv
+	 * @return the object itself
+	 */
+	public StatsHypercube div(double valueToDiv){ return mult(1/valueToDiv); }
+	/**
+	 * Change the sign of the values.
+	 * @return the object itself
+	 */
 	public StatsHypercube opp(){ return mult(-1); }
 
 
+	/**
+	 * Apply an operation to the values, using values of another hypercube.
+	 * @param op
+	 * @param hc
+	 * @return the object itself
+	 */
 	public StatsHypercube apply(BinaryOperator<Double> op, StatsHypercube hc) {
 		String[] dimLabels = getDimLabels();
 		StatsIndex hcI = new StatsIndex(hc, dimLabels);
@@ -242,6 +293,11 @@ public class StatsHypercube {
 		return this;
 	}
 
+	/**
+	 * Add the values of another hypercube.
+	 * @param hc
+	 * @return the object itself
+	 */
 	public StatsHypercube sum(StatsHypercube hc){
 		return apply(new BinaryOperator<Double>() {
 			@Override
@@ -249,6 +305,11 @@ public class StatsHypercube {
 				return val1+val2;
 			}}, hc);
 	}
+	/**
+	 * Remove the values of another hypercube.
+	 * @param hc
+	 * @return the object itself
+	 */
 	public StatsHypercube diff(StatsHypercube hc){
 		return apply(new BinaryOperator<Double>() {
 			@Override
@@ -256,6 +317,11 @@ public class StatsHypercube {
 				return val1-val2;
 			}}, hc);
 	}
+	/**
+	 * Divide by the values of another hypercube.
+	 * @param hc
+	 * @return the object itself
+	 */
 	public StatsHypercube div(StatsHypercube hc){
 		return apply(new BinaryOperator<Double>() {
 			@Override
@@ -263,6 +329,11 @@ public class StatsHypercube {
 				return val1/val2;
 			}}, hc);
 	}
+	/**
+	 * Multiply by the values of another hypercube.
+	 * @param hc
+	 * @return the object itself
+	 */
 	public StatsHypercube mult(StatsHypercube hc){
 		return apply(new BinaryOperator<Double>() {
 			@Override
