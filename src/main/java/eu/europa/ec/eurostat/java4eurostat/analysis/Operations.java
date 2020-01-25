@@ -53,6 +53,20 @@ public class Operations {
 	}
 
 	/**
+	 * Apply a unary operation.
+	 * 
+	 * @param hc
+	 * @param uop
+	 */
+	public static void apply(StatsHypercube hc, UnaryOperation uop){
+		for(Stat s : hc.stats){
+			double val = s.value;
+			if(Double.isNaN(val)) continue;
+			s.value = uop.compute(val);
+		}
+	}
+
+	/**
 	 * A binary operation
 	 * 
 	 * @author julien Gaffuri
@@ -145,9 +159,9 @@ public class Operations {
 	}
 
 
-	
-	
-	
+
+
+
 	public static StatsHypercube sum(StatsHypercube hc1, StatsHypercube hc2){
 		return compute(hc1, hc2, new BinaryOperation() {
 			@Override
