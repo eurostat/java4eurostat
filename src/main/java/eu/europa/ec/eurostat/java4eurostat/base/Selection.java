@@ -28,6 +28,12 @@ public class Selection {
 		public boolean keep(Stat stat) { return stat.value == value; }
 	}
 	/** Selection criteria on values */
+	public static class ValueDifferentFrom implements Criteria {
+		double value;
+		public ValueDifferentFrom(double value){ this.value = value; }
+		public boolean keep(Stat stat) { return stat.value != value; }
+	}
+	/** Selection criteria on values */
 	public static class ValueGreaterThan implements Criteria {
 		double value;
 		public ValueGreaterThan(double value){ this.value = value; }
