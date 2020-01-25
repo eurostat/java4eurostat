@@ -3,6 +3,8 @@
  */
 package eu.europa.ec.eurostat.java4eurostat.analysis;
 
+import java.util.function.UnaryOperator;
+
 import eu.europa.ec.eurostat.java4eurostat.base.Stat;
 import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
 import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
@@ -16,23 +18,13 @@ import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
 public class Operations {
 
 	/**
-	 * A unary operation
-	 * 
-	 * @author julien Gaffuri
-	 *
-	 */
-	public interface UnaryOperation {
-		double compute(double val);
-	}
-
-	/**
 	 * Compute a unary operation.
 	 * 
 	 * @param hc
 	 * @param uop
 	 * @return
 	 */
-	public static StatsHypercube compute(StatsHypercube hc, UnaryOperation uop){
+	public static StatsHypercube compute(StatsHypercube hc, UnaryOperator<Double> uop){
 		String[] dimLabels = hc.getDimLabels();
 		StatsHypercube out = new StatsHypercube(dimLabels);
 		for(Stat s : hc.stats){
@@ -41,7 +33,7 @@ public class Operations {
 			if(Double.isNaN(val)) continue;
 
 			//compute comparison figure
-			double outVal = uop.compute(val);
+			double outVal = uop.apply(val);
 			if(Double.isNaN(val)) continue;
 
 			//store comparison figures
@@ -50,20 +42,6 @@ public class Operations {
 			out.stats.add(sc);
 		}
 		return out;
-	}
-
-	/**
-	 * Apply a unary operation.
-	 * 
-	 * @param hc
-	 * @param uop
-	 */
-	public static void apply(StatsHypercube hc, UnaryOperation uop){
-		for(Stat s : hc.stats){
-			double val = s.value;
-			if(Double.isNaN(val)) continue;
-			s.value = uop.compute(val);
-		}
 	}
 
 	/**
@@ -110,54 +88,6 @@ public class Operations {
 		}
 		return out;
 	}
-
-
-
-
-
-	public static StatsHypercube opp(StatsHypercube hc){
-		return compute(hc, new UnaryOperation() {
-			@Override
-			public double compute(double val) {
-				return -val;
-			}});
-	}
-	public static StatsHypercube abs(StatsHypercube hc){
-		return compute(hc, new UnaryOperation() {
-			@Override
-			public double compute(double val) {
-				return Math.abs(val);
-			}});
-	}
-	public static StatsHypercube sum(StatsHypercube hc, double valueToSum){
-		return compute(hc, new UnaryOperation() {
-			@Override
-			public double compute(double val) {
-				return val + valueToSum;
-			}});
-	}
-	public static StatsHypercube diff(StatsHypercube hc, double valueToDiff){
-		return compute(hc, new UnaryOperation() {
-			@Override
-			public double compute(double val) {
-				return val - valueToDiff;
-			}});
-	}
-	public static StatsHypercube mult(StatsHypercube hc, double valueToMult){
-		return compute(hc, new UnaryOperation() {
-			@Override
-			public double compute(double val) {
-				return val * valueToMult;
-			}});
-	}
-	public static StatsHypercube div(StatsHypercube hc, double valueToDiv){
-		return compute(hc, new UnaryOperation() {
-			@Override
-			public double compute(double val) {
-				return val / valueToDiv;
-			}});
-	}
-
 
 
 

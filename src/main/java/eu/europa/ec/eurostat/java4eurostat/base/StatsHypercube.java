@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.function.UnaryOperator;
 
 import eu.europa.ec.eurostat.java4eurostat.base.Selection.Criteria;
 import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueDifferentFrom;
@@ -165,13 +166,47 @@ public class StatsHypercube {
 	}
 
 	//TODO change dim value
+
+
+
+	//operations
+	public StatsHypercube apply(UnaryOperator<Double> op) {
+		for(Stat s : stats) s.value = op.apply(s.value);
+		return this;
+	}
+
+	public StatsHypercube abs(UnaryOperator<Double> op) {
+		return apply(new UnaryOperator<Double>() {
+			@Override
+			public Double apply(Double val) { return Math.abs(val); }});
+	}
+	public StatsHypercube mult(double valueToMult){
+		return apply(new UnaryOperator<Double>() {
+			@Override
+			public Double apply(Double val) {
+				return val * valueToMult;
+			}});
+	}
+	public StatsHypercube sum(double valueToSum){
+		return apply(new UnaryOperator<Double>() {
+			@Override
+			public Double apply(Double val) {
+				return val + valueToSum;
+			}});
+	}
+	public StatsHypercube diff(double valueToDiff){ return sum(-valueToDiff); }
+	public StatsHypercube div(StatsHypercube hc, double valueToDiv){ return mult(1/valueToDiv); }
+	public StatsHypercube opp(){ return mult(-1); }
+
+
 	
 	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	/**
 	 * Print hypercube structure.
 	 */
