@@ -10,11 +10,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import eu.europa.ec.eurostat.java4eurostat.base.Selection.Criteria;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueDifferentFrom;
 import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueEqualTo;
 import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueGreaterOrEqualThan;
 import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueGreaterThan;
 import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueLowerOrEqualThan;
 import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueLowerThan;
+import eu.europa.ec.eurostat.java4eurostat.base.Selection.ValueDifferentFrom;
 import eu.europa.ec.eurostat.java4eurostat.base.Selection.ValueEqualTo;
 import eu.europa.ec.eurostat.java4eurostat.base.Selection.ValueGreaterOrEqualThan;
 import eu.europa.ec.eurostat.java4eurostat.base.Selection.ValueGreaterThan;
@@ -91,9 +93,8 @@ public class StatsHypercube {
 	 * @param dimLabelValues List of couples (label,value) Example; "gender","male","country","HU"
 	 * @return
 	 */
-	public StatsHypercube selectDimValueEqualTo(String... dimLabelValues){
-		return select(new DimValueEqualTo(dimLabelValues));
-	}
+	public StatsHypercube selectDimValueEqualTo(String... dimLabelValues){ return select(new DimValueEqualTo(dimLabelValues)); }
+	public StatsHypercube selectDimValueDifferentFrom(String... dimLabelValues){ return select(new DimValueDifferentFrom(dimLabelValues)); }
 	public StatsHypercube selectDimValueGreaterThan(String dimLabel, double value){ return select(new DimValueGreaterThan(dimLabel, value)); }
 	public StatsHypercube selectDimValueLowerThan(String dimLabel, double value){ return select(new DimValueLowerThan(dimLabel, value)); }
 	public StatsHypercube selectDimValueGreaterOrEqualThan(String dimLabel, double value){ return select(new DimValueGreaterOrEqualThan(dimLabel, value)); }
@@ -104,6 +105,7 @@ public class StatsHypercube {
 	 * Ex: stat.value greater than 50
 	 */
 	public StatsHypercube selectValueEqualTo(double value){ return select(new ValueEqualTo(value)); }
+	public StatsHypercube selectValueDifferentFrom(double value){ return select(new ValueDifferentFrom(value)); }
 	public StatsHypercube selectValueGreaterThan(double value){ return select(new ValueGreaterThan(value)); }
 	public StatsHypercube selectValueLowerThan(double value){ return select(new ValueLowerThan(value)); }
 	public StatsHypercube selectValueGreaterOrEqualThan(double value){ return select(new ValueGreaterOrEqualThan(value)); }
