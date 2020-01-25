@@ -71,6 +71,17 @@ public class Selection {
 			return true;
 		}
 	}
+	/** Selection criteria for statistics having dimension values */
+	public static class DimValueDifferentFrom implements Criteria {
+		String[] dimLabelValues;
+		public DimValueDifferentFrom(String... dimLabelValues){ this.dimLabelValues = dimLabelValues; }
+
+		public boolean keep(Stat stat) {
+			for(int i=0; i<dimLabelValues.length; i+=2)
+				if(dimLabelValues[i+1].equals(stat.dims.get(dimLabelValues[i]))) return false;
+			return true;
+		}
+	}
 	/** Selection criteria on statistics dimension values */
 	public static class DimValueGreaterThan implements Criteria {
 		String dimLabel; double dimValue;
