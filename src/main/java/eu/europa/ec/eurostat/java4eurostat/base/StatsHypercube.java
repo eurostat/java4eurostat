@@ -171,6 +171,7 @@ public class StatsHypercube {
 
 
 	//operations
+	//TODO document
 	public StatsHypercube apply(UnaryOperator<Double> op) {
 		for(Stat s : stats) s.value = op.apply(s.value);
 		return this;
@@ -218,7 +219,7 @@ public class StatsHypercube {
 			if(Double.isNaN(val1)) continue;
 
 			//retrieve other value
-			//TODO
+			//TODO extract
 			String[] dimValues = new String[dimLabels.length];
 			for(int i=0; i<dimLabels.length; i++) dimValues[i] = s.dims.get(dimLabels[i]);
 			double val2 = hcI.getSingleValue(dimValues);
