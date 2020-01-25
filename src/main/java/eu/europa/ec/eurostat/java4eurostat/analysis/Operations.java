@@ -81,6 +81,9 @@ public class Operations {
 	}
 
 
+	
+	//TODO make it a generic aggregator function ?
+	
 	/**
 	 * Compute the total of all values along a dimension
 	 * 
