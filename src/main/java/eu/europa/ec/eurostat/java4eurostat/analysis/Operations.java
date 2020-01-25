@@ -122,7 +122,32 @@ public class Operations {
 				return val + valueToSum;
 			}});
 	}
+	public static StatsHypercube diff(StatsHypercube hc, double valueToDiff){
+		return compute(hc, new UnaryOperation() {
+			@Override
+			public double compute(double val) {
+				return val - valueToDiff;
+			}});
+	}
+	public static StatsHypercube mult(StatsHypercube hc, double valueToMult){
+		return compute(hc, new UnaryOperation() {
+			@Override
+			public double compute(double val) {
+				return val * valueToMult;
+			}});
+	}
+	public static StatsHypercube div(StatsHypercube hc, double valueToDiv){
+		return compute(hc, new UnaryOperation() {
+			@Override
+			public double compute(double val) {
+				return val / valueToDiv;
+			}});
+	}
 
+
+	
+	
+	
 	public static StatsHypercube sum(StatsHypercube hc1, StatsHypercube hc2){
 		return compute(hc1, hc2, new BinaryOperation() {
 			@Override
