@@ -47,4 +47,8 @@ public class Validation {
 		return unexpectedValues;
 	}
 
+	
+	//TODO check unicity
+	//check that for each combination of dimension values, a single stat value is present
+
 }

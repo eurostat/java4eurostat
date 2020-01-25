@@ -205,4 +205,6 @@ public class Operations {
 		//TODO create new stat with total value
 	}
 
+	//TODO copy
+
 }

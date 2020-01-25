@@ -164,6 +164,14 @@ public class StatsHypercube {
 		return this;
 	}
 
+	//TODO change dim value
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Print hypercube structure.
 	 */
