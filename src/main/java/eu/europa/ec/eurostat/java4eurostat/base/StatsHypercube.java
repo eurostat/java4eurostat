@@ -166,8 +166,20 @@ public class StatsHypercube {
 		return this;
 	}
 
-	//TODO change dim value
 
+	/**
+	 * Change a dimension value.
+	 * 
+	 * @param dimLabel The dimension of the value
+	 * @param dimValueOld The old value, to change
+	 * @param dimValueNew The new value, to use
+	 */
+	public void changeDimValue(String dimLabel, String dimValueOld, String dimValueNew) {
+		for(Stat s : stats) {
+			String dv = s.dims.get(dimLabel);
+			if( dimValueOld.equals(dv) ) s.dims.put(dimLabel, dimValueNew);
+		}
+	}
 
 
 	//operations
