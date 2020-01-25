@@ -109,4 +109,15 @@ public class Stat {
 		return sb.toString();
 	}
 
+
+	/**
+	 * Return an array of dimension values.
+	 * @param dimLabels The dimension labels.
+	 * @return
+	 */
+	public String[] getDimValues(String[] dimLabels) {
+		String[] dimValues = new String[dimLabels.length];
+		for(int i=0; i<dimLabels.length; i++) dimValues[i] = dims.get(dimLabels[i]);
+		return dimValues;
+	}
 }
