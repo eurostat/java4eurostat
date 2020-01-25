@@ -276,16 +276,13 @@ public class StatsHypercube {
 	public StatsHypercube apply(BinaryOperator<Double> op, StatsHypercube hc) {
 		String[] dimLabels = getDimLabels();
 		StatsIndex hcI = new StatsIndex(hc, dimLabels);
-		for(Stat s : stats){
+		for(Stat s : stats) {
 			//get stat value
 			double val1 = s.value;
 			if(Double.isNaN(val1)) continue;
 
 			//retrieve other value
-			//TODO extract
-			String[] dimValues = new String[dimLabels.length];
-			for(int i=0; i<dimLabels.length; i++) dimValues[i] = s.dims.get(dimLabels[i]);
-			double val2 = hcI.getSingleValue(dimValues);
+			double val2 = hcI.getSingleValue(s.getDimValues(dimLabels));
 
 			//compute and apply new figure
 			s.value = op.apply(val1, val2);
