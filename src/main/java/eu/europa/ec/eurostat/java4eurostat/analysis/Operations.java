@@ -3,6 +3,7 @@
  */
 package eu.europa.ec.eurostat.java4eurostat.analysis;
 
+import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
 
 import eu.europa.ec.eurostat.java4eurostat.base.Stat;
@@ -45,16 +46,6 @@ public class Operations {
 	}
 
 	/**
-	 * A binary operation
-	 * 
-	 * @author julien Gaffuri
-	 *
-	 */
-	public interface BinaryOperation {
-		double compute(double val1, double val2);
-	}
-
-	/**
 	 * Compute a binary operation.
 	 * 
 	 * @param hc1
@@ -62,7 +53,7 @@ public class Operations {
 	 * @param bop
 	 * @return
 	 */
-	public static StatsHypercube compute(StatsHypercube hc1, StatsHypercube hc2, BinaryOperation bop){
+	public static StatsHypercube compute(StatsHypercube hc1, StatsHypercube hc2, BinaryOperator<Double> bop){
 		String[] dimLabels = hc1.getDimLabels();
 		StatsHypercube out = new StatsHypercube(dimLabels);
 		StatsIndex hcI2 = new StatsIndex(hc2, dimLabels);
@@ -78,7 +69,7 @@ public class Operations {
 			if(Double.isNaN(val2)) continue;
 
 			//compute comparison figure
-			double outVal = bop.compute(val1, val2);
+			double outVal = bop.apply(val1, val2);
 			if(Double.isNaN(outVal)) continue;
 
 			//store comparison figures
@@ -89,37 +80,6 @@ public class Operations {
 		return out;
 	}
 
-
-
-
-	public static StatsHypercube sum(StatsHypercube hc1, StatsHypercube hc2){
-		return compute(hc1, hc2, new BinaryOperation() {
-			@Override
-			public double compute(double val1, double val2) {
-				return val1+val2;
-			}});
-	}
-	public static StatsHypercube diff(StatsHypercube hc1, StatsHypercube hc2){
-		return compute(hc1, hc2, new BinaryOperation() {
-			@Override
-			public double compute(double val1, double val2) {
-				return val1-val2;
-			}});
-	}
-	public static StatsHypercube div(StatsHypercube hc1, StatsHypercube hc2){
-		return compute(hc1, hc2, new BinaryOperation() {
-			@Override
-			public double compute(double val1, double val2) {
-				return val1/val2;
-			}});
-	}
-	public static StatsHypercube mult(StatsHypercube hc1, StatsHypercube hc2){
-		return compute(hc1, hc2, new BinaryOperation() {
-			@Override
-			public double compute(double val1, double val2) {
-				return val1*val2;
-			}});
-	}
 
 	/**
 	 * Compute the total of all values along a dimension

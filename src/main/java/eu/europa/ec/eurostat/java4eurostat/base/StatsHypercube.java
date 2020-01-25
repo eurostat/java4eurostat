@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
 
 import eu.europa.ec.eurostat.java4eurostat.base.Selection.Criteria;
@@ -194,13 +195,70 @@ public class StatsHypercube {
 				return val + valueToSum;
 			}});
 	}
+	public StatsHypercube pow(double exp){
+		return apply(new UnaryOperator<Double>() {
+			@Override
+			public Double apply(Double val) {
+				return Math.pow(val, exp);
+			}});
+	}
+	public StatsHypercube inv(UnaryOperator<Double> op) { return pow(-1); }
+	public StatsHypercube sqrt(UnaryOperator<Double> op) { return pow(0.5); }
 	public StatsHypercube diff(double valueToDiff){ return sum(-valueToDiff); }
 	public StatsHypercube div(StatsHypercube hc, double valueToDiv){ return mult(1/valueToDiv); }
 	public StatsHypercube opp(){ return mult(-1); }
 
 
-	
-	
+	public StatsHypercube apply(BinaryOperator<Double> op, StatsHypercube hc) {
+		String[] dimLabels = getDimLabels();
+		StatsIndex hcI = new StatsIndex(hc, dimLabels);
+		for(Stat s : stats){
+			//get stat value
+			double val1 = s.value;
+			if(Double.isNaN(val1)) continue;
+
+			//retrieve other value
+			//TODO
+			String[] dimValues = new String[dimLabels.length];
+			for(int i=0; i<dimLabels.length; i++) dimValues[i] = s.dims.get(dimLabels[i]);
+			double val2 = hcI.getSingleValue(dimValues);
+
+			//compute and apply new figure
+			s.value = op.apply(val1, val2);
+		}
+		return this;
+	}
+
+	public StatsHypercube sum(StatsHypercube hc){
+		return apply(new BinaryOperator<Double>() {
+			@Override
+			public Double apply(Double val1, Double val2) {
+				return val1+val2;
+			}}, hc);
+	}
+	public StatsHypercube diff(StatsHypercube hc){
+		return apply(new BinaryOperator<Double>() {
+			@Override
+			public Double apply(Double val1, Double val2) {
+				return val1-val2;
+			}}, hc);
+	}
+	public StatsHypercube div(StatsHypercube hc){
+		return apply(new BinaryOperator<Double>() {
+			@Override
+			public Double apply(Double val1, Double val2) {
+				return val1/val2;
+			}}, hc);
+	}
+	public StatsHypercube mult(StatsHypercube hc){
+		return apply(new BinaryOperator<Double>() {
+			@Override
+			public Double apply(Double val1, Double val2) {
+				return val1*val2;
+			}}, hc);
+	}
+
+
 
 
 
