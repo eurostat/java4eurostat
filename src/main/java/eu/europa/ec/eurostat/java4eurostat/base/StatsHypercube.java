@@ -401,4 +401,6 @@ public class StatsHypercube {
 		return map;
 	}
 
+
+	//TODO copy hypercube
 }

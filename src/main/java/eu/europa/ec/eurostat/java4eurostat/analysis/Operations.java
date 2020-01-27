@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
 
+import org.apache.commons.math3.stat.StatUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -136,15 +137,82 @@ public class Operations {
 		return computeAggregation(hc, new Aggregator() {
 			@Override
 			public double compute(double[] vals) {
-				double sum = 0.0;
-				for(double v : vals) sum += v;
-				return sum;
+				return StatUtils.sum(vals);
 			}
-
 		}, dimLabel, aggDimValue);
 	}
 
-	//TODO mean, average, etc.
+	public static Collection<Stat> computeMaxDim(StatsHypercube hc, String dimLabel, String aggDimValue) {
+		return computeAggregation(hc, new Aggregator() {
+			@Override
+			public double compute(double[] vals) {
+				if(vals.length == 0) return Double.NaN;
+				return StatUtils.max(vals);
+			}
+		}, dimLabel, aggDimValue);
+	}
+
+	public static Collection<Stat> computeMinDim(StatsHypercube hc, String dimLabel, String aggDimValue) {
+		return computeAggregation(hc, new Aggregator() {
+			@Override
+			public double compute(double[] vals) {
+				if(vals.length == 0) return Double.NaN;
+				return StatUtils.min(vals);
+			}
+		}, dimLabel, aggDimValue);
+	}
+
+	public static Collection<Stat> computeMeanDim(StatsHypercube hc, String dimLabel, String aggDimValue) {
+		return computeAggregation(hc, new Aggregator() {
+			@Override
+			public double compute(double[] vals) {
+				if(vals.length == 0) return Double.NaN;
+				return StatUtils.mean(vals);
+			}
+		}, dimLabel, aggDimValue);
+	}
+
+	public static Collection<Stat> computePercentileDim(StatsHypercube hc, int percentile, String dimLabel, String aggDimValue) {
+		return computeAggregation(hc, new Aggregator() {
+			@Override
+			public double compute(double[] vals) {
+				if(vals.length == 0) return Double.NaN;
+				return StatUtils.percentile(vals, percentile);
+			}
+		}, dimLabel, aggDimValue);
+	}
+
+	public static Collection<Stat> computeMedianDim(StatsHypercube hc, String dimLabel, String aggDimValue) {
+		return computePercentileDim(hc, 50, dimLabel, aggDimValue);
+	}
+
+	public static Collection<Stat> computeQuartile1Dim(StatsHypercube hc, String dimLabel, String aggDimValue) {
+		return computePercentileDim(hc, 25, dimLabel, aggDimValue);
+	}
+
+	public static Collection<Stat> computeQuartile2Dim(StatsHypercube hc, String dimLabel, String aggDimValue) {
+		return computePercentileDim(hc, 75, dimLabel, aggDimValue);
+	}
+
+	public static Collection<Stat> computeStdDim(StatsHypercube hc, String dimLabel, String aggDimValue) {
+		return computeAggregation(hc, new Aggregator() {
+			@Override
+			public double compute(double[] vals) {
+				if(vals.length == 0) return Double.NaN;
+				return Math.sqrt(StatUtils.variance(vals));
+			}
+		}, dimLabel, aggDimValue);
+	}
+
+	public static Collection<Stat> computeRMSDim(StatsHypercube hc, String dimLabel, String aggDimValue) {
+		return computeAggregation(hc, new Aggregator() {
+			@Override
+			public double compute(double[] vals) {
+				if(vals.length == 0) return Double.NaN;
+				return Math.sqrt(StatUtils.sumSq(vals)/vals.length);
+			}
+		}, dimLabel, aggDimValue);
+	}
 
 
 	public static void main(String[] args) {
@@ -157,6 +225,4 @@ public class Operations {
 		System.out.println(stats);
 	}
 
-
-	//TODO copy hypercube
 }
