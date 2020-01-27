@@ -3,12 +3,18 @@
  */
 package eu.europa.ec.eurostat.java4eurostat.analysis;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import eu.europa.ec.eurostat.java4eurostat.base.Stat;
 import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
 import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
+import eu.europa.ec.eurostat.java4eurostat.io.CSV;
 
 /**
  * Operations hypercube structures
@@ -17,6 +23,7 @@ import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
  *
  */
 public class Operations {
+	public final static Logger LOGGER = LogManager.getLogger(Operations.class.getName());
 
 	/**
 	 * Compute a unary operation.
@@ -81,23 +88,75 @@ public class Operations {
 	}
 
 
-	
-	//TODO make it a generic aggregator function ?
-	
+
 	/**
-	 * Compute the total of all values along a dimension
+	 * Compute an aggregated value of all values along a dimension.
 	 * 
 	 * @param hc
-	 * @param dim
-	 * @param totalDimValue
+	 * @param agg
+	 * @param dimLabel
+	 * @param aggDimValue
+	 * @return
 	 */
-	public void computeTotalDim(StatsHypercube hc, String dim, String totalDimValue) {
-		//TODO index along the other dimensions
-		//TODO go accros all other dimensions
-		//TODO compute total
-		//TODO create new stat with total value
+	public static Collection<Stat> computeAggregation(StatsHypercube hc, Aggregator agg, String dimLabel, String aggDimValue) {
+		Collection<Stat> out = new ArrayList<Stat>();
+
+		//index along the other dimensions
+		ArrayList<String> lbls = new ArrayList<>(hc.dimLabels);
+		boolean b = lbls.remove(dimLabel);
+		if(!b) LOGGER.error("Cannot compute aggregate " + aggDimValue + " along non-existing dimension: " + dimLabel);
+		StatsIndex index = new StatsIndex(hc, lbls.toArray(new String[lbls.size()]));
+
+		//get through index leaves
+		for(Collection<Stat> leaf : index.getLeaves()) {
+
+			if(leaf.size()==0) {
+				LOGGER.warn("Unexpected empty leaf in stat index encourtered " + dimLabel + " - " + aggDimValue);
+				continue;
+			}
+
+			//prepare aggregated stat
+			Stat s = new Stat(leaf.iterator().next());
+			s.dims.put(dimLabel, aggDimValue);
+			if(LOGGER.isDebugEnabled()) LOGGER.debug("Compute total for "+s.dims);
+
+			//compute aggregated value
+			double[] vals = new double[leaf.size()]; int i=0;
+			for(Stat s_ : leaf) vals[i++] = s_.value;
+			s.value = agg.compute(vals);
+
+			out.add(s);
+		}
+		return out;
+	}
+	public interface Aggregator { double compute(double[] values); }
+
+
+	public static Collection<Stat> computeTotalDim(StatsHypercube hc, String dimLabel, String aggDimValue) {
+		return computeAggregation(hc, new Aggregator() {
+			@Override
+			public double compute(double[] vals) {
+				double sum = 0.0;
+				for(double v : vals) sum += v;
+				return sum;
+			}
+
+		}, dimLabel, aggDimValue);
 	}
 
-	//TODO copy
+	//TODO mean, average, etc.
 
+
+	public static void main(String[] args) {
+		String path = "./src/test/resources/";
+		StatsHypercube hc = CSV.load(path+"ex.csv", "population");
+
+		//hc.printInfo();
+
+		Collection<Stat> stats = computeTotalDim(hc, "country", "Total");
+		System.out.println(stats);
+	}
+
+
+	//TODO copy hypercube
 }

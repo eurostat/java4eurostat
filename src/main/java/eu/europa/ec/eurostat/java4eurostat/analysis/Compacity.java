@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 import eu.europa.ec.eurostat.java4eurostat.base.Stat;
 import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
 import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
-import eu.europa.ec.eurostat.java4eurostat.io.CSV;
 
 /**
  * Compute the compacity of the 
@@ -55,43 +54,9 @@ public class Compacity {
 
 	//TODO analyse compacity per dimension/value.
 	//TODO make compact - by adding missing values
-
-
-
-	/**
-	 * Check that there is a unique value for each position in the hypercube.
-	 * 
-	 * @param hc
-	 * @return
-	 */
-	public static HashMap<String,Integer> checkUnicity(StatsHypercube hc) {
-		return checkUnicity( new StatsIndex(hc, hc.getDimLabels()));
-	}
-
-	/**
-	 * Check that there is a unique value for each position in the hypercube.
-	 * 
-	 * @param index
-	 * @return
-	 */
-	public static HashMap<String,Integer> checkUnicity(StatsIndex index) {
-		HashMap<String, Integer> out = new HashMap<String, Integer>();
-		Set<String> keys = index.getKeys();
-		if(keys == null || keys.size() == 0) {
-			Collection<Stat> vals = index.getCollection();
-			if(vals.size() == 1) return out;
-			out.put(vals.iterator().next().dims.toString(), vals.size());
-			return out;
-		}
-		//recursive call
-		for(String key : keys)
-			out.putAll( checkUnicity(index.getSubIndex(key)) );
-		return out;
-	}
-
 	//TODO clean - remove overlaps
 
-
+	/*
 	public static void main(String[] args) {
 		String path = "./src/test/resources/";
 		StatsHypercube hc = CSV.load(path+"ex.csv", "population");
@@ -123,5 +88,5 @@ public class Compacity {
 		//System.out.println(checkUnicity(hcOv)); //2+2
 		//System.out.println(checkUnicity(hcDirty)); //2+3
 	}
-
+	 */
 }

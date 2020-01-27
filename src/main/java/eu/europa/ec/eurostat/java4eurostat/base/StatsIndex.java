@@ -23,7 +23,7 @@ public class StatsIndex {
 	public final static Logger LOGGER = LogManager.getLogger(StatsIndex.class.getName());
 
 	/**
-	 * The index recusrssive element: Can be:
+	 * The index recurssive element: Can be:
 	 *    - HashMap<String, StatsIndex>
 	 *    - Collection<Stat>
 	 *    - Stat
@@ -217,6 +217,26 @@ public class StatsIndex {
 				}
 			}
 		}
+	}
+
+	/**
+	 * @return The leaves of the index, as collections
+	 */
+	public Collection<Collection<Stat>> getLeaves() {
+		Collection<Collection<Stat>> out = new ArrayList<>();
+		if(data instanceof Stat) {
+			ArrayList<Stat> s = new ArrayList<>();
+			s.add((Stat)data);
+			out.add(s);
+		} else if(data instanceof Collection) {
+			out.add((Collection<Stat>) data);
+		} else if(data instanceof HashMap) {
+			HashMap<String, StatsIndex> data_ = (HashMap<String, StatsIndex>) data;
+			for(StatsIndex si : data_.values())
+				out.addAll(si.getLeaves());
+		} else
+			LOGGER.error("Unexpected type for statindex data: "+data.getClass().getSimpleName());
+		return out;
 	}
 
 }
