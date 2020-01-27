@@ -16,6 +16,9 @@ import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import eu.europa.ec.eurostat.java4eurostat.base.Selection;
 import eu.europa.ec.eurostat.java4eurostat.base.Selection.Criteria;
 import eu.europa.ec.eurostat.java4eurostat.base.Stat;
@@ -27,6 +30,8 @@ import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
  *
  */
 public class CSV {
+	public final static Logger LOGGER = LogManager.getLogger(CSV.class.getName());
+
 	private static final String PAT = "\\s*(\"[^\"]*\"|[^,]*)\\s*";
 
 	public static StatsHypercube load(String inputFilePath, String valueLabel) { return load(inputFilePath, valueLabel, PAT, null); }
@@ -68,8 +73,14 @@ public class CSV {
 					m.find();
 					String value = m.group(1);
 					if(!"".equals(value)) m.find();
-					if(key.equals(valueLabel))
-						s.value = Double.parseDouble(value);
+					if(key.equals(valueLabel)) {
+						try {
+							s.value = Double.parseDouble(value);
+						} catch (NumberFormatException e) {
+							LOGGER.warn("Could not parse statistical value: "+value);
+							s.value = Double.NaN;
+						}
+					}
 					else
 						s.dims.put(key, value);
 				}
