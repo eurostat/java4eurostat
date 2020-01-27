@@ -12,11 +12,15 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * @author julien Gaffuri
  *
  */
 public class StatsIndex {
+	public final static Logger LOGGER = LogManager.getLogger(StatsIndex.class.getName());
 
 	/**
 	 * The index recusrssive element: Can be:
@@ -83,7 +87,7 @@ public class StatsIndex {
 		StatsIndex out = this;
 		for(String label : dimLabels){
 			if(out.data instanceof Collection || out.data instanceof Stat){
-				System.out.println("Problem in index values retrieval. Too many dimension labels? " + dimLabels);
+				LOGGER.warn("Problem in index values retrieval. Too many dimension labels? " + dimLabels);
 				return null;
 			}
 			HashMap<String, StatsIndex> data_ = (HashMap<String, StatsIndex>)out.data;
@@ -135,7 +139,7 @@ public class StatsIndex {
 		StatsIndex si = getSubIndex(dimLabels);
 		if(si==null) return null;
 		if(si.data instanceof Stat) return ((Stat)si.data);
-		System.err.println("Unexpected data in statindex: Single value expected instead of " + si.data);
+		LOGGER.error("Unexpected data in statindex: Single value expected instead of " + si.data);
 		return null;
 	}
 

@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * 
  * A statistical value, described by dimension-coordinates in the hypercube, and possibly flags.
@@ -15,6 +18,7 @@ import java.util.Map.Entry;
  *
  */
 public class Stat {
+	public final static Logger LOGGER = LogManager.getLogger(Stat.class.getName());
 
 	/**
 	 * 
@@ -74,7 +78,7 @@ public class Stat {
 		for (int i=0; i<flags.length(); i++){
 			Flag.FlagType flag = Flag.code.get(""+flags.charAt(i));
 			if(flag == null) {
-				System.err.println("Unexpected flag: "+flags.charAt(i)+" for "+this);
+				LOGGER.error("Unexpected flag: "+flags.charAt(i)+" for "+this);
 				continue;
 			}
 			addFlag(flag);

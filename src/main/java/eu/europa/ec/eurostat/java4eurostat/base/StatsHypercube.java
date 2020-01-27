@@ -11,6 +11,9 @@ import java.util.HashSet;
 import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import eu.europa.ec.eurostat.java4eurostat.base.Selection.Criteria;
 import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueDifferentFrom;
 import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueEqualTo;
@@ -33,6 +36,8 @@ import eu.europa.ec.eurostat.java4eurostat.util.StatsUtil;
  *
  */
 public class StatsHypercube {
+	public final static Logger LOGGER = LogManager.getLogger(StatsHypercube.class.getName());
+
 	/**
 	 * The statistical values.
 	 */
@@ -123,7 +128,7 @@ public class StatsHypercube {
 		for(Stat s:stats){
 			String out = s.dims.remove(dimLabel);
 			if(out==null)
-				System.err.println("Error: dimension "+dimLabel+" not defined for "+s);
+				LOGGER.error("Error: dimension "+dimLabel+" not defined for "+s);
 		}
 		dimLabels.remove(dimLabel);
 		return this;
