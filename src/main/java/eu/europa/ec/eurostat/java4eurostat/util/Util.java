@@ -55,9 +55,10 @@ public class Util {
 	public static final Pattern DIACRITICS_AND_FRIENDS = Pattern.compile("[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+");
 
 	public static String stripDiacritics(String str) {
-		str = Normalizer.normalize(str, Normalizer.Form.NFD);
-		str = DIACRITICS_AND_FRIENDS.matcher(str).replaceAll("");
-		return str;
+		String str_ = str;
+		str_ = Normalizer.normalize(str_, Normalizer.Form.NFD);
+		str_ = DIACRITICS_AND_FRIENDS.matcher(str_).replaceAll("");
+		return str_;
 	}
 
 	public static String stripWeirdCaracters(String str) {
@@ -97,7 +98,7 @@ public class Util {
 	 */
 	public static boolean isNumeric(String s){
 		try { Double.parseDouble(s); }
-		catch(NumberFormatException e) { return false; }
+		catch(@SuppressWarnings("unused") NumberFormatException e) { return false; }
 		return true;
 	}
 
@@ -113,7 +114,7 @@ public class Util {
 	}
 
 	public static HashMap<String,String> reverseMap(Map<String,String> map){
-		HashMap<String,String> mapOut = new HashMap<String,String>();
+		HashMap<String,String> mapOut = new HashMap<>();
 		for(Entry<String,String> e : map.entrySet())
 			mapOut.put(e.getValue(), e.getKey());
 		return mapOut;

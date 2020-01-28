@@ -36,7 +36,7 @@ public class Operations {
 		StatsHypercube out = new StatsHypercube(hc.getDimLabels());
 		for(Stat s : hc.stats){
 			Stat s_ = new Stat(s);
-			s_.value = uop.apply(s.value);
+			s_.value = uop.apply(new Double(s.value)).doubleValue();
 			out.stats.add(s_);
 		}
 		return out;
@@ -61,7 +61,7 @@ public class Operations {
 
 			//compute new value
 			Stat s_ = new Stat(s);
-			s_.value = bop.apply(v1, v2);
+			s_.value = bop.apply(new Double(v1), new Double(v2)).doubleValue();
 			out.stats.add(s_);
 		}
 		return out;
@@ -79,7 +79,7 @@ public class Operations {
 	 * @return
 	 */
 	public static Collection<Stat> computeAggregation(StatsHypercube hc, Aggregator agg, String dimLabel, String aggDimValue) {
-		Collection<Stat> out = new ArrayList<Stat>();
+		Collection<Stat> out = new ArrayList<>();
 
 		//index along the other dimensions
 		ArrayList<String> lbls = new ArrayList<>(hc.dimLabels);
@@ -117,6 +117,7 @@ public class Operations {
 
 	/**
 	 * Compute the sum of all values along a dimension.
+	 * 
 	 * @param hc
 	 * @param dimLabel
 	 * @param sumDimValue The dimension value for the new value.
@@ -131,6 +132,14 @@ public class Operations {
 		}, dimLabel, sumDimValue);
 	}
 
+	/**
+	 * Compute the maximum of all values along a dimension.
+	 * 
+	 * @param hc
+	 * @param dimLabel
+	 * @param maxDimValue The dimension value for the new value.
+	 * @return
+	 */
 	public static Collection<Stat> computeMaxDim(StatsHypercube hc, String dimLabel, String maxDimValue) {
 		return computeAggregation(hc, new Aggregator() {
 			@Override
@@ -141,6 +150,14 @@ public class Operations {
 		}, dimLabel, maxDimValue);
 	}
 
+	/**
+	 * Compute the minimum of all values along a dimension.
+	 * 
+	 * @param hc
+	 * @param dimLabel
+	 * @param minDimValue The dimension value for the new value.
+	 * @return
+	 */
 	public static Collection<Stat> computeMinDim(StatsHypercube hc, String dimLabel, String minDimValue) {
 		return computeAggregation(hc, new Aggregator() {
 			@Override
@@ -151,6 +168,14 @@ public class Operations {
 		}, dimLabel, minDimValue);
 	}
 
+	/**
+	 * Compute the mean of all values along a dimension.
+	 * 
+	 * @param hc
+	 * @param dimLabel
+	 * @param meanDimValue The dimension value for the new value.
+	 * @return
+	 */
 	public static Collection<Stat> computeMeanDim(StatsHypercube hc, String dimLabel, String meanDimValue) {
 		return computeAggregation(hc, new Aggregator() {
 			@Override
@@ -161,6 +186,16 @@ public class Operations {
 		}, dimLabel, meanDimValue);
 	}
 
+
+	/**
+	 * Compute a percentile of all values along a dimension.
+	 * 
+	 * @param hc
+	 * @param percentile
+	 * @param dimLabel
+	 * @param percentileDimValue The dimension value for the new value.
+	 * @return
+	 */
 	public static Collection<Stat> computePercentileDim(StatsHypercube hc, int percentile, String dimLabel, String percentileDimValue) {
 		return computeAggregation(hc, new Aggregator() {
 			@Override
@@ -171,6 +206,14 @@ public class Operations {
 		}, dimLabel, percentileDimValue);
 	}
 
+	/**
+	 * Compute the median of all values along a dimension.
+	 * 
+	 * @param hc
+	 * @param dimLabel
+	 * @param medianDimValue The dimension value for the new value.
+	 * @return
+	 */
 	public static Collection<Stat> computeMedianDim(StatsHypercube hc, String dimLabel, String medianDimValue) {
 		return computePercentileDim(hc, 50, dimLabel, medianDimValue);
 	}

@@ -48,7 +48,7 @@ public class StatsHypercube {
 	 * Ex: gender,time,country
 	 */
 	public Collection<String> dimLabels;
-	public String[] getDimLabels(){ return dimLabels.toArray(new String[dimLabels.size()]); }
+	public String[] getDimLabels(){ return this.dimLabels.toArray(new String[this.dimLabels.size()]); }
 
 	public StatsHypercube(String... dimLabels){
 		this();
@@ -74,8 +74,8 @@ public class StatsHypercube {
 	 * @return
 	 */
 	public HashSet<String> getDimValues(String dimLabel) {
-		HashSet<String> dimValues = new HashSet<String>();
-		for(Stat s : stats)
+		HashSet<String> dimValues = new HashSet<>();
+		for(Stat s : this.stats)
 			dimValues.add(s.dims.get(dimLabel));
 		return dimValues;
 	}
@@ -87,10 +87,10 @@ public class StatsHypercube {
 	 * @return The extracted hypercube
 	 */
 	public StatsHypercube select(Criteria sel) {
-		HashSet<Stat> stats_ = new HashSet<Stat>();
+		HashSet<Stat> stats_ = new HashSet<>();
 		for(Stat stat : this.stats)
 			if(sel.keep(stat)) stats_.add(stat);
-		return new StatsHypercube(stats_, new HashSet<String>(this.dimLabels));
+		return new StatsHypercube(stats_, new HashSet<>(this.dimLabels));
 	}
 
 	/**
@@ -125,12 +125,12 @@ public class StatsHypercube {
 	 * @param dimLabel
 	 */
 	public StatsHypercube delete(String dimLabel){
-		for(Stat s:stats){
+		for(Stat s : this.stats){
 			String out = s.dims.remove(dimLabel);
 			if(out==null)
 				LOGGER.error("Error: dimension "+dimLabel+" not defined for "+s);
 		}
-		dimLabels.remove(dimLabel);
+		this.dimLabels.remove(dimLabel);
 		return this;
 	}
 
@@ -139,7 +139,7 @@ public class StatsHypercube {
 	 * @return
 	 */
 	public StatsHypercube shrinkDims() {
-		Collection<String> toDelete = new ArrayList<String>();
+		Collection<String> toDelete = new ArrayList<>();
 		for(String dimLabel : this.dimLabels) if(getDimValues(dimLabel).size() <= 1) toDelete.add(dimLabel);
 		for(String dimLabel : toDelete) this.delete(dimLabel);
 		return this;
@@ -152,7 +152,7 @@ public class StatsHypercube {
 	 * @param dimValue
 	 */
 	public StatsHypercube delete(String dimLabel, String dimValue){
-		stats.removeAll( selectDimValueEqualTo(dimLabel, dimValue).stats );
+		this.stats.removeAll( selectDimValueEqualTo(dimLabel, dimValue).stats );
 		return this;
 	}
 
@@ -180,7 +180,7 @@ public class StatsHypercube {
 	 * @param dimValueNew The new value, to use
 	 */
 	public void changeDimValue(String dimLabel, String dimValueOld, String dimValueNew) {
-		for(Stat s : stats) {
+		for(Stat s : this.stats) {
 			String dv = s.dims.get(dimLabel);
 			if( dimValueOld.equals(dv) ) s.dims.put(dimLabel, dimValueNew);
 		}
@@ -194,7 +194,7 @@ public class StatsHypercube {
 	 * @return the object itself
 	 */
 	public StatsHypercube apply(UnaryOperator<Double> op) {
-		for(Stat s : stats) s.value = op.apply(s.value);
+		for(Stat s : this.stats) s.value = op.apply(new Double(s.value)).doubleValue();
 		return this;
 	}
 
@@ -205,8 +205,9 @@ public class StatsHypercube {
 	public StatsHypercube abs() {
 		return apply(new UnaryOperator<Double>() {
 			@Override
-			public Double apply(Double val) { return Math.abs(val); }});
+			public Double apply(Double val) { return new Double(Math.abs(val.doubleValue())); }});
 	}
+
 	/**
 	 * Multiply the values by a factor.
 	 * @param factor
@@ -216,7 +217,7 @@ public class StatsHypercube {
 		return apply(new UnaryOperator<Double>() {
 			@Override
 			public Double apply(Double val) {
-				return val * factor;
+				return new Double(val.doubleValue() * factor);
 			}});
 	}
 	/**
@@ -228,7 +229,7 @@ public class StatsHypercube {
 		return apply(new UnaryOperator<Double>() {
 			@Override
 			public Double apply(Double val) {
-				return val + valueToSum;
+				return new Double(val.doubleValue() + valueToSum);
 			}});
 	}
 	/**
@@ -240,7 +241,7 @@ public class StatsHypercube {
 		return apply(new UnaryOperator<Double>() {
 			@Override
 			public Double apply(Double val) {
-				return Math.pow(val, exp);
+				return new Double(Math.pow(val.doubleValue(), exp));
 			}});
 	}
 	/**
@@ -281,16 +282,13 @@ public class StatsHypercube {
 	public StatsHypercube apply(BinaryOperator<Double> op, StatsHypercube hc) {
 		String[] dimLabels = getDimLabels();
 		StatsIndex hcI = new StatsIndex(hc, dimLabels);
-		for(Stat s : stats) {
-			//get stat value
-			double val1 = s.value;
-			if(Double.isNaN(val1)) continue;
-
-			//retrieve other value
-			double val2 = hcI.getSingleValue(s.getDimValues(dimLabels));
+		for(Stat s : this.stats) {
+			//get values
+			Double val1 = new Double(s.value);
+			Double val2 = new Double(hcI.getSingleValue(s.getDimValues(dimLabels)));
 
 			//compute and apply new figure
-			s.value = op.apply(val1, val2);
+			s.value = op.apply(val1, val2).doubleValue();
 		}
 		return this;
 	}
@@ -304,7 +302,7 @@ public class StatsHypercube {
 		return apply(new BinaryOperator<Double>() {
 			@Override
 			public Double apply(Double val1, Double val2) {
-				return val1+val2;
+				return new Double(val1.doubleValue() + val2.doubleValue());
 			}}, hc);
 	}
 	/**
@@ -316,7 +314,7 @@ public class StatsHypercube {
 		return apply(new BinaryOperator<Double>() {
 			@Override
 			public Double apply(Double val1, Double val2) {
-				return val1-val2;
+				return new Double(val1.doubleValue() - val2.doubleValue());
 			}}, hc);
 	}
 	/**
@@ -328,7 +326,7 @@ public class StatsHypercube {
 		return apply(new BinaryOperator<Double>() {
 			@Override
 			public Double apply(Double val1, Double val2) {
-				return val1/val2;
+				return new Double(val1.doubleValue() / val2.doubleValue());
 			}}, hc);
 	}
 	/**
@@ -340,7 +338,7 @@ public class StatsHypercube {
 		return apply(new BinaryOperator<Double>() {
 			@Override
 			public Double apply(Double val1, Double val2) {
-				return val1*val2;
+				return new Double(val1.doubleValue() * val2.doubleValue());
 			}}, hc);
 	}
 
@@ -358,9 +356,9 @@ public class StatsHypercube {
 		printInfo(true);
 	}
 	public void printInfo(boolean printDimValues) {
-		System.out.println("Information: "+stats.size()+" value(s) with "+dimLabels.size()+" dimension(s).");
-		for(String lbl : dimLabels){
-			ArrayList<String> vals = new ArrayList<String>((getDimValues(lbl)));
+		System.out.println("Information: " + this.stats.size() + " value(s) with " + this.dimLabels.size() + " dimension(s).");
+		for(String lbl : this.dimLabels){
+			ArrayList<String> vals = new ArrayList<>((getDimValues(lbl)));
 			System.out.println("   Dimension: "+lbl + " ("+vals.size()+" dimension values)");
 			Collections.sort(vals);
 			for(String val : vals)
@@ -373,19 +371,19 @@ public class StatsHypercube {
 	 * Print basic statistics from the hypercube values
 	 */
 	public void printBasicStats() {
-		Collection<Double> vals = new HashSet<Double>();
-		for(Stat s : this.stats) if(!Double.isNaN(s.value)) vals.add(s.value);
+		Collection<Double> vals = new HashSet<>();
+		for(Stat s : this.stats) if(!Double.isNaN(s.value)) vals.add(new Double(s.value));
 		StatsUtil.printStats(vals);
 	}
 
 	public double[] getQuantiles(int nb) {
-		Collection<Double> vals = new HashSet<Double>();
-		for(Stat s : this.stats) if(!Double.isNaN(s.value)) vals.add(s.value);
+		Collection<Double> vals = new HashSet<>();
+		for(Stat s : this.stats) if(!Double.isNaN(s.value)) vals.add(new Double(s.value));
 		return StatsUtil.getQuantiles(vals, nb);
 	}
 
 	public void printQuantiles(int nb) {
-		Collection<Double> vals = new HashSet<Double>();
+		Collection<Double> vals = new HashSet<>();
 		for(Stat s : this.stats) if(!Double.isNaN(s.value)) vals.add(s.value);
 		StatsUtil.printQuantiles(vals, nb);
 	}
@@ -395,9 +393,9 @@ public class StatsHypercube {
 	 * @return 
 	 */
 	public HashMap<String, Double> toMap(){
-		HashMap<String, Double> map = new HashMap<String, Double>();
-		String dimLabel = dimLabels.iterator().next();
-		for(Stat s : stats) map.put(s.dims.get(dimLabel), s.value);
+		HashMap<String, Double> map = new HashMap<>();
+		String dimLabel = this.dimLabels.iterator().next();
+		for(Stat s : this.stats) map.put(s.dims.get(dimLabel), s.value);
 		return map;
 	}
 

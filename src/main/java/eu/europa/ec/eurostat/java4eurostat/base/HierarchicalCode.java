@@ -30,12 +30,12 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 	/**
 	 * The father codes (if any)
 	 */
-	public ArrayList<HierarchicalCode>  fathers = new ArrayList<HierarchicalCode>();
+	public ArrayList<HierarchicalCode>  fathers = new ArrayList<>();
 
 	/**
 	 * The child codes (if any)
 	 */
-	public ArrayList<HierarchicalCode> children = new ArrayList<HierarchicalCode>();
+	public ArrayList<HierarchicalCode> children = new ArrayList<>();
 
 	public HierarchicalCode(String code, String description) {
 		this.code = code;
@@ -45,18 +45,18 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 	/**
 	 * @return True if the code has no father, false otherwise.
 	 */
-	public boolean isRoot() { return fathers == null || fathers.size() == 0; }
+	public boolean isRoot() { return this.fathers == null || this.fathers.size() == 0; }
 
 	/**
 	 * @return True if the code has no child, false otherwise.
 	 */
-	public boolean isLeaf() { return children == null || children.size() == 0; }
+	public boolean isLeaf() { return this.children == null || this.children.size() == 0; }
 
 	/**
 	 * @return The descendants collection.
 	 */
 	public HashSet<HierarchicalCode> getDescendants() {
-		HashSet<HierarchicalCode> out = new HashSet<HierarchicalCode>();
+		HashSet<HierarchicalCode> out = new HashSet<>();
 		if(this.children == null || this.children.size()==0) return out;
 		out.addAll(this.children);
 		for(HierarchicalCode ch : this.children)
@@ -68,7 +68,7 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 	 * @return The ancestors collection.
 	 */
 	public HashSet<HierarchicalCode> getAncestors() {
-		HashSet<HierarchicalCode> out = new HashSet<HierarchicalCode>();
+		HashSet<HierarchicalCode> out = new HashSet<>();
 		if(this.fathers == null || this.fathers.size()==0) return out;
 		out.addAll(this.fathers);
 		for(HierarchicalCode f : this.fathers)
@@ -91,7 +91,7 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 	 * @return The code's siblings
 	 */
 	public Collection<HierarchicalCode> getSiblings() {
-		HashSet<HierarchicalCode> out = new HashSet<HierarchicalCode>();
+		HashSet<HierarchicalCode> out = new HashSet<>();
 		if(this.fathers == null) return out;
 		for(HierarchicalCode f : this.fathers)
 			for(HierarchicalCode sib : f.children)
@@ -99,7 +99,7 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 		return out;
 	}
 
-	
+
 	/**
 	 * A selection criterion for a father code.
 	 */
@@ -114,7 +114,7 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 	 * @return
 	 */
 	public static ArrayList<HierarchicalCode> reduce(Collection<HierarchicalCode> cs, FatherSelectionCriteria fsc){
-		ArrayList<HierarchicalCode> out = new ArrayList<HierarchicalCode>(cs);
+		ArrayList<HierarchicalCode> out = new ArrayList<>(cs);
 		HierarchicalCode red = findReduction(out, fsc);
 		while (red != null){
 			out.removeAll(red.children);
@@ -126,7 +126,7 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 	public static ArrayList<HierarchicalCode> reduce(Collection<HierarchicalCode> cs){ return reduce(cs, null); }
 	private static HierarchicalCode findReduction(Collection<HierarchicalCode> cs, FatherSelectionCriteria fsc) {
 		//get all fathers
-		HashSet<HierarchicalCode> fathers = new HashSet<HierarchicalCode>();
+		HashSet<HierarchicalCode> fathers = new HashSet<>();
 		for(HierarchicalCode c : cs) fathers.addAll(c.fathers);
 
 		//check if all children of a father are in set
@@ -142,8 +142,9 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 
 
 
+	@Override
 	public int compareTo(HierarchicalCode hc) {
-		return code.compareTo(hc.code);
+		return this.code.compareTo(hc.code);
 	}
 
 	/**
@@ -159,6 +160,7 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 	 */
 	public static void sort(List<? extends HierarchicalCode> hcs){
 		Collections.sort(hcs, new Comparator<HierarchicalCode>() {
+			@Override
 			public int compare(HierarchicalCode hc1, HierarchicalCode hc2) { return hc1.compareTo(hc2); }
 		});
 		for(Object obj : hcs){
@@ -172,8 +174,8 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 	}
 	private void printHierarchy(int indent) {
 		for(int i=0; i<indent; i++) System.out.print("    ");
-		System.out.println(code+"\t\t"+description);
-		ArrayList<HierarchicalCode> childrenS = new ArrayList<HierarchicalCode>(children);
+		System.out.println(this.code+"\t\t"+this.description);
+		ArrayList<HierarchicalCode> childrenS = new ArrayList<>(this.children);
 		Collections.sort(childrenS);
 		for(HierarchicalCode child : childrenS)
 			child.printHierarchy(indent+1);
@@ -183,7 +185,7 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 	@Override
 	public String toString() {
 		//return code+"\t"+description+":" + (fathers.size()==0?"ROOT":fathers.size()==1?fathers.get(0).code:fathers.size()) + ":"+children.size();
-		return code;
+		return this.code;
 	}
 
 	public static void printHierarchy(Collection<?> hcs) {

@@ -29,7 +29,7 @@ public class FileUtil {
 		return getFiles(new File(folderPath));
 	}
 	public static ArrayList<File> getFiles(File folder) {
-		ArrayList<File> files = new ArrayList<File>();
+		ArrayList<File> files = new ArrayList<>();
 		for (File file : folder.listFiles())
 			if (file.isDirectory())
 				files.addAll(getFiles(file));

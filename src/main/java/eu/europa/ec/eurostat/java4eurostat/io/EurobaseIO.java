@@ -83,13 +83,19 @@ public class EurobaseIO {
 			URL url = new URL(url_);
 
 			URLConnection urlc = url.openConnection();
-			BufferedReader in = new BufferedReader(new InputStreamReader(urlc.getInputStream()));
-			String line;
-			while ((line = in.readLine()) != null){
-				line = line.replace("start="+indic, "");
-				if(line.contains(indic)) break;
+			String line = "";
+			BufferedReader in = null;
+			try {
+				in = new BufferedReader(new InputStreamReader(urlc.getInputStream()));
+				while ((line = in.readLine()) != null){
+					line = line.replace("start="+indic, "");
+					if(line.contains(indic)) break;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(in!=null) in.close();
 			}
-			in.close();
 
 			line = line.substring(line.indexOf( ("data".equals(dir)?"tsv":"dic") + "</td>"), line.length());
 			line = line.substring(line.indexOf("&nbsp;")+6, line.length());

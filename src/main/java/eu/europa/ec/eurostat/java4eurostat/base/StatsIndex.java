@@ -40,17 +40,17 @@ public class StatsIndex {
 	public StatsIndex(StatsHypercube hc, String... dimLabels){
 		if(dimLabels.length == 0){
 			if(hc.stats.size()==0)
-				data = null;
+				this.data = null;
 			else if(hc.stats.size()==1)
-				data = hc.stats.iterator().next();
+				this.data = hc.stats.iterator().next();
 			else
-				data = new HashSet<Stat>(hc.stats);
+				this.data = new HashSet<>(hc.stats);
 		} else {
 			//TODO improve with in depth-first construction
 
 			//partition hypercube by dimension values
 			String dimLabel = dimLabels[0];
-			HashMap<String, StatsHypercube> hcP = new HashMap<String, StatsHypercube>();
+			HashMap<String, StatsHypercube> hcP = new HashMap<>();
 			for(Stat s : hc.stats){
 				String dimValue = s.dims.get(dimLabel);
 				StatsHypercube hcP_ = hcP.get(dimValue);
@@ -63,8 +63,8 @@ public class StatsIndex {
 			}
 
 			//build index recursively from hypercube partition
-			HashMap<String, StatsIndex> data_ = new HashMap<String, StatsIndex>();
-			data = data_;
+			HashMap<String, StatsIndex> data_ = new HashMap<>();
+			this.data = data_;
 			String[] dimLabelsOut = new String[dimLabels.length-1]; for(int i=1; i<dimLabels.length; i++) dimLabelsOut[i-1] = dimLabels[i];
 			for(Entry<String, StatsHypercube> e : hcP.entrySet()){
 				data_.put(e.getKey(), new StatsIndex(e.getValue(), dimLabelsOut));
@@ -90,6 +90,7 @@ public class StatsIndex {
 				LOGGER.warn("Problem in index values retrieval. Too many dimension labels? " + dimLabels);
 				return null;
 			}
+			@SuppressWarnings("unchecked")
 			HashMap<String, StatsIndex> data_ = (HashMap<String, StatsIndex>)out.data;
 			if(data_.get(label) == null) return null;
 			out = data_.get(label);
@@ -104,15 +105,17 @@ public class StatsIndex {
 	public Collection<Stat> getCollection(String... dimLabels){
 		StatsIndex si = getSubIndex(dimLabels);
 		if(si==null) return null;
-		else if(si.data instanceof Collection) return (Collection<Stat>)si.data;
+		else if(si.data instanceof Collection)
+			return (Collection<Stat>)si.data;
 		else if(si.data instanceof Stat){
-			HashSet<Stat> col = new HashSet<Stat>();
+			HashSet<Stat> col = new HashSet<>();
 			col.add((Stat)si.data);
 			return col;
 		}
 		//build output collection recursivelly
+		@SuppressWarnings("unchecked")
 		Collection<StatsIndex> sis = ((HashMap<String, StatsIndex>)si.data).values();
-		HashSet<Stat> col = new HashSet<Stat>();
+		HashSet<Stat> col = new HashSet<>();
 		for(StatsIndex si_ : sis) col.addAll(si_.getCollection());
 		return col;
 	}
@@ -169,8 +172,10 @@ public class StatsIndex {
 	 */
 	public Set<String> getKeys(String... dimLabels){
 		StatsIndex si = getSubIndex(dimLabels);
-		if(si == null) return null;
-		if(data instanceof HashMap) return ((HashMap<String, StatsIndex>)si.data).keySet();
+		if(si == null)
+			return null;
+		if(this.data instanceof HashMap)
+			return ((HashMap<String, StatsIndex>)si.data).keySet();
 		return null;
 	}
 
@@ -181,7 +186,7 @@ public class StatsIndex {
 	public List<String> getKeysAsList(String... dimLabels){
 		Set<String> set = getKeys(dimLabels);
 		if(set == null) return null;
-		ArrayList<String> list = new ArrayList<String>(set);
+		ArrayList<String> list = new ArrayList<>(set);
 		Collections.sort(list);
 		return list;
 	}
@@ -196,18 +201,20 @@ public class StatsIndex {
 	 * Print the index structure, with indentation.
 	 */
 	public void print(int indent){
-		if(data instanceof Stat){
+		if(this.data instanceof Stat){
 			for(int i=0;i<indent;i++) System.out.print("\t");
-			System.out.println(((Stat)data).value);
-		} else if(data instanceof Collection){
+			System.out.println(((Stat)this.data).value);
+		} else if(this.data instanceof Collection){
 			for(int i=0;i<indent;i++) System.out.print("\t");
-			System.out.println("#="+((Collection)data).size());
+			System.out.println("#="+((Collection<?>)this.data).size());
 		} else {
-			HashMap<String, StatsIndex> data_ = (HashMap<String, StatsIndex>) data;
+			@SuppressWarnings("unchecked")
+			HashMap<String, StatsIndex> data_ = (HashMap<String, StatsIndex>) this.data;
 			for(Entry<String, StatsIndex> e : data_.entrySet()){
 				for(int i=0;i<indent;i++) System.out.print("\t");
 				System.out.print(e.getKey());
 				if(e.getValue().data instanceof Collection){
+					@SuppressWarnings("unchecked")
 					Collection<Stat> col = (Collection<Stat>)e.getValue().data;
 					if(col.size()==1) System.out.println(" "+col.iterator().next().value);
 					else System.out.println(" "+col.size());
@@ -224,18 +231,19 @@ public class StatsIndex {
 	 */
 	public Collection<Collection<Stat>> getLeaves() {
 		Collection<Collection<Stat>> out = new ArrayList<>();
-		if(data instanceof Stat) {
+		if(this.data instanceof Stat) {
 			ArrayList<Stat> s = new ArrayList<>();
-			s.add((Stat)data);
+			s.add((Stat)this.data);
 			out.add(s);
-		} else if(data instanceof Collection) {
-			out.add((Collection<Stat>) data);
-		} else if(data instanceof HashMap) {
-			HashMap<String, StatsIndex> data_ = (HashMap<String, StatsIndex>) data;
+		} else if(this.data instanceof Collection) {
+			out.add((Collection<Stat>) this.data);
+		} else if(this.data instanceof HashMap) {
+			@SuppressWarnings("unchecked")
+			HashMap<String, StatsIndex> data_ = (HashMap<String, StatsIndex>) this.data;
 			for(StatsIndex si : data_.values())
 				out.addAll(si.getLeaves());
 		} else
-			LOGGER.error("Unexpected type for statindex data: "+data.getClass().getSimpleName());
+			LOGGER.error("Unexpected type for statindex data: " + this.data.getClass().getSimpleName());
 		return out;
 	}
 

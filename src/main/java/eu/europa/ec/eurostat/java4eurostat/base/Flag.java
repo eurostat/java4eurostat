@@ -34,7 +34,7 @@ public class Flag {
 	public static HashMap<String, FlagType> code;
 	public static HashMap<FlagType, String> text;
 	static{
-		code = new HashMap<String, FlagType>();
+		code = new HashMap<>();
 		code.put("b", FlagType.b);
 		code.put("c", FlagType.c);
 		code.put("d", FlagType.d);
@@ -49,7 +49,7 @@ public class Flag {
 		code.put("x", FlagType.x);
 		code.put("z", FlagType.z);
 
-		text = new HashMap<FlagType, String>();
+		text = new HashMap<>();
 		text.put(FlagType.b, "break in time series");
 		text.put(FlagType.c, "confidential");
 		text.put(FlagType.d, "definition differs, see metadata");

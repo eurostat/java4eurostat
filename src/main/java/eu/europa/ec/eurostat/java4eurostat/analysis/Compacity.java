@@ -41,9 +41,10 @@ public class Compacity {
 	 * @return the compacity indicator.
 	 */
 	public static double getCompacityIndicator(StatsHypercube hc, boolean ignoreNaNValues, boolean ignoreNullValues) {
-		if(ignoreNaNValues) hc = hc.selectValueDifferentFrom(Double.NaN);
-		if(ignoreNullValues) hc = hc.selectValueDifferentFrom(0);
-		return (1.0 * hc.stats.size()) / (1.0 * getMaxSize(hc));
+		StatsHypercube hc_ = hc;
+		if(ignoreNaNValues) hc_ = hc_.selectValueDifferentFrom(Double.NaN);
+		if(ignoreNullValues) hc_ = hc_.selectValueDifferentFrom(0);
+		return (1.0 * hc_.stats.size()) / (1.0 * getMaxSize(hc_));
 	}
 
 

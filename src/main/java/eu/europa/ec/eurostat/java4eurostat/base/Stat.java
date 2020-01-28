@@ -53,7 +53,7 @@ public class Stat {
 	 * The dimensions
 	 * Ex: gender - male ; time - 2015 ; country - PL
 	 */
-	public HashMap<String,String> dims = new HashMap<String,String>();
+	public HashMap<String,String> dims = new HashMap<>();
 
 	/**
 	 * The flags providing some metadata information
@@ -66,8 +66,8 @@ public class Stat {
 	 * @return
 	 */
 	public boolean addFlag(Flag.FlagType flag){
-		if(flags == null) flags = new HashSet<Flag.FlagType>();
-		return flags.add(flag);
+		if(this.flags == null) this.flags = new HashSet<>();
+		return this.flags.add(flag);
 	}
 
 	/**
@@ -85,29 +85,29 @@ public class Stat {
 		}
 	}
 	public boolean removeFlag(Flag.FlagType flag){
-		if(flags == null) return false;
-		return flags.remove(flag);
+		if(this.flags == null) return false;
+		return this.flags.remove(flag);
 	}
 	public boolean isFlagged(Flag.FlagType flag){
-		if(flags == null) return false;
-		return flags.contains(flag);
+		if(this.flags == null) return false;
+		return this.flags.contains(flag);
 	}
 
 	public String getFlags(){
-		if(flags == null || flags.size()==0) return "";
+		if(this.flags == null || this.flags.size()==0) return "";
 		StringBuffer sb = new StringBuffer();
-		for(Flag.FlagType f : flags) sb.append(f);
+		for(Flag.FlagType f : this.flags) sb.append(f);
 		return sb.toString();
 	}
 
 	public String getValueFlagged(){
-		return value + getFlags();
+		return this.value + getFlags();
 	}
 
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		for(Entry<String,String> dim:dims.entrySet())
+		for(Entry<String,String> dim : this.dims.entrySet())
 			sb.append(dim.getKey()).append(":").append(dim.getValue()).append(", ");
 		sb.append(getValueFlagged());
 		return sb.toString();
@@ -121,7 +121,7 @@ public class Stat {
 	 */
 	public String[] getDimValues(String[] dimLabels) {
 		String[] dimValues = new String[dimLabels.length];
-		for(int i=0; i<dimLabels.length; i++) dimValues[i] = dims.get(dimLabels[i]);
+		for(int i=0; i<dimLabels.length; i++) dimValues[i] = this.dims.get(dimLabels[i]);
 		return dimValues;
 	}
 }
