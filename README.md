@@ -153,9 +153,10 @@ for(String gender : index.getKeys())
 <dependency>
 	<groupId>eu.europa.ec.eurostat</groupId>
 	<artifactId>java4eurostat</artifactId>
-	<version>1.15</version>
+	<version>X.Y.ZY</version>
 </dependency>
 ```
+Where *X.Y.Z* is the current version number, as available [Maven central repository](https://search.maven.org/artifact/eu.europa.ec.eurostat/java4eurostat).
 
 ### Input data
 #### CSV
