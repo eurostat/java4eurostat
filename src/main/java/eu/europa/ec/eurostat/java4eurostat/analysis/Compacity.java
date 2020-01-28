@@ -3,16 +3,10 @@
  */
 package eu.europa.ec.eurostat.java4eurostat.analysis;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Set;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import eu.europa.ec.eurostat.java4eurostat.base.Stat;
 import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
-import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
 
 /**
  * Compute the compacity of the 
@@ -26,24 +20,25 @@ public class Compacity {
 	/**
 	 * Compute the number of possible positions in the hypercube.
 	 * This is simply the product of the sizes of all dimensions.
-	 * @param hc
-	 * @return
+	 * @param hc The input hypercube.
+	 * @return the number of possible positions in the hypercube.
 	 */
 	public static int getMaxSize(StatsHypercube hc) {
+		if(hc.dimLabels.size()==0) return 0;
 		int size = 1;
-		for(String dimLabel : hc.getDimLabels())
+		for(String dimLabel : hc.dimLabels)
 			size *= hc.getDimValues(dimLabel).size();
 		return size;
 	}
 
 	/**
-	 * Give an overview of how full/empty is the hypercube.
+	 * Give an overview of how full/sparse/empty is the hypercube.
 	 * 0: not compact (almost empty). 1: very compact (all values provided)
 	 * NB: The value could be greater than one if several values are provided for some positions. Check the unicity for that.
-	 * @param hc
-	 * @param ignoreNaNValues
-	 * @param ignoreNullValues
-	 * @return
+	 * @param hc The input hypercube.
+	 * @param ignoreNaNValues Ignore NaN values.
+	 * @param ignoreNullValues Ignore null values.
+	 * @return the compacity indicator.
 	 */
 	public static double getCompacityIndicator(StatsHypercube hc, boolean ignoreNaNValues, boolean ignoreNullValues) {
 		if(ignoreNaNValues) hc = hc.selectValueDifferentFrom(Double.NaN);
@@ -52,6 +47,7 @@ public class Compacity {
 	}
 
 
+	//TODO write tests
 	//TODO analyse compacity per dimension/value.
 	//TODO make compact - by adding missing values
 	//TODO clean - remove overlaps
