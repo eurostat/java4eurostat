@@ -18,7 +18,7 @@ import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
 import eu.europa.ec.eurostat.java4eurostat.io.CSV;
 
 /**
- * Operations hypercube structures
+ * Operations on hypercube structures.
  * 
  * @author julien Gaffuri
  *
@@ -27,28 +27,18 @@ public class Operations {
 	public final static Logger LOGGER = LogManager.getLogger(Operations.class.getName());
 
 	/**
-	 * Compute a unary operation.
+	 * Compute a unary operation on hypercube values.
 	 * 
 	 * @param hc
 	 * @param uop
 	 * @return
 	 */
 	public static StatsHypercube compute(StatsHypercube hc, UnaryOperator<Double> uop){
-		String[] dimLabels = hc.getDimLabels();
-		StatsHypercube out = new StatsHypercube(dimLabels);
+		StatsHypercube out = new StatsHypercube(hc.getDimLabels());
 		for(Stat s : hc.stats){
-			//get stat value
-			double val = s.value;
-			if(Double.isNaN(val)) continue;
-
-			//compute comparison figure
-			double outVal = uop.apply(val);
-			if(Double.isNaN(val)) continue;
-
-			//store comparison figures
-			Stat sc = new Stat(outVal);
-			for(int i=0; i<dimLabels.length; i++) sc.dims.put(dimLabels[i], s.dims.get(dimLabels[i]));
-			out.stats.add(sc);
+			Stat s_ = new Stat(hc.stats.iterator().next());
+			s_.value = uop.apply(s.value);
+			out.stats.add(s_);
 		}
 		return out;
 	}
