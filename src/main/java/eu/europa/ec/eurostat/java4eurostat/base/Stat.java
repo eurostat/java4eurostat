@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
  *
  */
 public class Stat {
-	public final static Logger LOGGER = LogManager.getLogger(Stat.class.getName());
+	private final static Logger LOGGER = LogManager.getLogger(Stat.class.getName());
 
 	/**
 	 * 
@@ -37,6 +37,7 @@ public class Stat {
 
 	/**
 	 * Clone a stat object
+	 * @param s 
 	 */
 	public Stat(Stat s){
 		this();
