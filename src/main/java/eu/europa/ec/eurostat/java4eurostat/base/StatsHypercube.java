@@ -14,19 +14,19 @@ import java.util.function.UnaryOperator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import eu.europa.ec.eurostat.java4eurostat.base.Selection.Criteria;
-import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueDifferentFrom;
-import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueEqualTo;
-import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueGreaterOrEqualThan;
-import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueGreaterThan;
-import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueLowerOrEqualThan;
-import eu.europa.ec.eurostat.java4eurostat.base.Selection.DimValueLowerThan;
-import eu.europa.ec.eurostat.java4eurostat.base.Selection.ValueDifferentFrom;
-import eu.europa.ec.eurostat.java4eurostat.base.Selection.ValueEqualTo;
-import eu.europa.ec.eurostat.java4eurostat.base.Selection.ValueGreaterOrEqualThan;
-import eu.europa.ec.eurostat.java4eurostat.base.Selection.ValueGreaterThan;
-import eu.europa.ec.eurostat.java4eurostat.base.Selection.ValueLowerOrEqualThan;
-import eu.europa.ec.eurostat.java4eurostat.base.Selection.ValueLowerThan;
+import eu.europa.ec.eurostat.java4eurostat.analysis.Selection.Criteria;
+import eu.europa.ec.eurostat.java4eurostat.analysis.Selection.DimValueDifferentFrom;
+import eu.europa.ec.eurostat.java4eurostat.analysis.Selection.DimValueEqualTo;
+import eu.europa.ec.eurostat.java4eurostat.analysis.Selection.DimValueGreaterOrEqualThan;
+import eu.europa.ec.eurostat.java4eurostat.analysis.Selection.DimValueGreaterThan;
+import eu.europa.ec.eurostat.java4eurostat.analysis.Selection.DimValueLowerOrEqualThan;
+import eu.europa.ec.eurostat.java4eurostat.analysis.Selection.DimValueLowerThan;
+import eu.europa.ec.eurostat.java4eurostat.analysis.Selection.ValueDifferentFrom;
+import eu.europa.ec.eurostat.java4eurostat.analysis.Selection.ValueEqualTo;
+import eu.europa.ec.eurostat.java4eurostat.analysis.Selection.ValueGreaterOrEqualThan;
+import eu.europa.ec.eurostat.java4eurostat.analysis.Selection.ValueGreaterThan;
+import eu.europa.ec.eurostat.java4eurostat.analysis.Selection.ValueLowerOrEqualThan;
+import eu.europa.ec.eurostat.java4eurostat.analysis.Selection.ValueLowerThan;
 import eu.europa.ec.eurostat.java4eurostat.util.StatsUtil;
 
 /**
@@ -118,7 +118,7 @@ public class StatsHypercube {
 
 	/**
 	 * Extract an hypercube of stats having dimLabel > value
-	 * Ex: year > 2015
+	 * Ex: year &gt= 2015
 	 * 
 	 * @param dimLabel
 	 * @param value
@@ -128,7 +128,7 @@ public class StatsHypercube {
 
 	/**
 	 * Extract an hypercube of stats having dimLabel < value
-	 * Ex: year < 2015
+	 * Ex: year &lt 2015
 	 * 
 	 * @param dimLabel
 	 * @param value
@@ -138,7 +138,7 @@ public class StatsHypercube {
 
 	/**
 	 * Extract an hypercube of stats having dimLabel >= value
-	 * Ex: year >= 2015
+	 * Ex: year &gt= 2015
 	 * 
 	 * @param dimLabel
 	 * @param value
@@ -148,7 +148,7 @@ public class StatsHypercube {
 
 	/**
 	 * Extract an hypercube of stats having dimLabel <= value
-	 * Ex: year <= 2015
+	 * Ex: year &lt= 2015
 	 * 
 	 * @param dimLabel
 	 * @param value

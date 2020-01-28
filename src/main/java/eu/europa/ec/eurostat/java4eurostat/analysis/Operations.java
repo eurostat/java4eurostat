@@ -208,7 +208,7 @@ public class Operations {
 	 * @param percentile
 	 * @param dimLabel
 	 * @param percentileDimValue The dimension value for the new value.
-	 * @return
+	 * @return The result.
 	 */
 	public static Collection<Stat> computePercentileDim(StatsHypercube hc, int percentile, String dimLabel, String percentileDimValue) {
 		return computeAggregation(hc, new Aggregator() {
@@ -226,7 +226,7 @@ public class Operations {
 	 * @param hc
 	 * @param dimLabel
 	 * @param medianDimValue The dimension value for the new value.
-	 * @return
+	 * @return The result.
 	 */
 	public static Collection<Stat> computeMedianDim(StatsHypercube hc, String dimLabel, String medianDimValue) {
 		return computePercentileDim(hc, 50, dimLabel, medianDimValue);
@@ -238,7 +238,7 @@ public class Operations {
 	 * @param hc
 	 * @param dimLabel
 	 * @param q1DimValue
-	 * @return
+	 * @return The result.
 	 */
 	public static Collection<Stat> computeQuartile1Dim(StatsHypercube hc, String dimLabel, String q1DimValue) {
 		return computePercentileDim(hc, 25, dimLabel, q1DimValue);
@@ -250,7 +250,7 @@ public class Operations {
 	 * @param hc
 	 * @param dimLabel
 	 * @param q2DimValue
-	 * @return
+	 * @return The result.
 	 */
 	public static Collection<Stat> computeQuartile2Dim(StatsHypercube hc, String dimLabel, String q2DimValue) {
 		return computePercentileDim(hc, 75, dimLabel, q2DimValue);
@@ -262,7 +262,7 @@ public class Operations {
 	 * @param hc
 	 * @param dimLabel
 	 * @param stdDimValue
-	 * @return
+	 * @return The result.
 	 */
 	public static Collection<Stat> computeStdDim(StatsHypercube hc, String dimLabel, String stdDimValue) {
 		return computeAggregation(hc, new Aggregator() {
@@ -280,7 +280,7 @@ public class Operations {
 	 * @param hc
 	 * @param dimLabel
 	 * @param rmsDimValue
-	 * @return
+	 * @return The result.
 	 */
 	public static Collection<Stat> computeRMSDim(StatsHypercube hc, String dimLabel, String rmsDimValue) {
 		return computeAggregation(hc, new Aggregator() {

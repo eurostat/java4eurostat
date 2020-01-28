@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-import eu.europa.ec.eurostat.java4eurostat.base.Selection.Criteria;
+import eu.europa.ec.eurostat.java4eurostat.analysis.Selection.Criteria;
 import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
 import eu.europa.ec.eurostat.java4eurostat.util.Util;
 

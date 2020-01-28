@@ -1,7 +1,9 @@
 /**
  * 
  */
-package eu.europa.ec.eurostat.java4eurostat.base;
+package eu.europa.ec.eurostat.java4eurostat.analysis;
+
+import eu.europa.ec.eurostat.java4eurostat.base.Stat;
 
 /**
  * Classes and interface for data selection/filtering/dicing/slicing

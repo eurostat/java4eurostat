@@ -19,8 +19,8 @@ import java.util.regex.Pattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import eu.europa.ec.eurostat.java4eurostat.base.Selection;
-import eu.europa.ec.eurostat.java4eurostat.base.Selection.Criteria;
+import eu.europa.ec.eurostat.java4eurostat.analysis.Selection;
+import eu.europa.ec.eurostat.java4eurostat.analysis.Selection.Criteria;
 import eu.europa.ec.eurostat.java4eurostat.base.Stat;
 import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
 import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
