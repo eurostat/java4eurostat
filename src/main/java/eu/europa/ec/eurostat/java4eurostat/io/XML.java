@@ -1,6 +1,5 @@
 package eu.europa.ec.eurostat.java4eurostat.io;
 
-import java.io.InputStream;
 import java.net.URL;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,10 +12,17 @@ import org.w3c.dom.Document;
  */
 public class XML {
 
+	/**
+	 * Get a XML document from a URL.
+	 * 
+	 * @param urlString
+	 * @return
+	 */
 	public static Document parseXMLfromURL(String urlString){
 		try{
-			InputStream in = new URL(urlString).openConnection().getInputStream();
-			return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(in);
+			Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new URL(urlString).openConnection().getInputStream());
+			new URL(urlString).openConnection().getInputStream().close();
+			return doc;
 		}
 		catch(Exception e){
 			e.printStackTrace();

@@ -21,32 +21,75 @@ import eu.europa.ec.eurostat.java4eurostat.util.Util;
  *
  */
 public class EurobaseIO {
+
+	/***/
 	public static String eurobaseWSURLBase = "http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/";
+
+	/**
+	 * @param lg
+	 * @param version
+	 */
 	public static void updateEurobaseWSURLBase(String lg, String version){ eurobaseWSURLBase = "http://ec.europa.eu/eurostat/wdds/rest/data/v"+version+"/json/"+lg+"/"; }
 
+	/***/
 	public static String sinceTimePeriod = "sinceTimePeriod";
+	/***/
 	public static String lastTimePeriod = "lastTimePeriod";
 
+	/**
+	 * @param url
+	 * @param ssc
+	 * @return
+	 */
 	public static StatsHypercube getDataFromURL(String url, Criteria ssc){ return JSONStat.load( IOUtil.getDataFromURL(url), true, ssc ); }
+
+	/**
+	 * @param url
+	 * @return
+	 */
 	public static StatsHypercube getDataFromURL(String url){ return getDataFromURL(url, null); }
 
+	/**
+	 * @param eurobaseDatabaseCode
+	 * @param paramData
+	 * @return
+	 */
 	public static String getURL(String eurobaseDatabaseCode, String... paramData){
 		return IOUtil.getURL(eurobaseWSURLBase + eurobaseDatabaseCode, paramData);
 	}
 
+	/**
+	 * @param eurobaseDatabaseCode
+	 * @param ssc
+	 * @param paramData
+	 * @return
+	 */
 	public static StatsHypercube getData(String eurobaseDatabaseCode, Criteria ssc, String... paramData){
 		return getDataFromURL(getURL(eurobaseDatabaseCode, paramData), ssc);
 	}
+
+	@SuppressWarnings("javadoc")
 	public static StatsHypercube getData(String eurobaseDatabaseCode, String... paramData){
 		return getDataFromURL(getURL(eurobaseDatabaseCode, paramData));
 	}
+
+	/**
+	 * @param eurobaseDatabaseCode
+	 * @return
+	 */
 	public static StatsHypercube getData(String eurobaseDatabaseCode){ return getDataFromURL(getURL(eurobaseDatabaseCode)); }
 
+	/***/
 	public static String eurobaseBulkURLBase = "http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data%2F";
+	/***/
 	public static String eurobaseBulkURLSuf = ".tsv.gz";
 
-	public static void getDataBulkDownload(String eurobaseDatabaseCode){ getDataBulkDownload(eurobaseDatabaseCode,""); }
-	public static void getDataBulkDownload(String eurobaseDatabaseCode, String path){ getDataBulkDownload(eurobaseDatabaseCode,path,true); }
+
+	/**
+	 * @param eurobaseDatabaseCode
+	 * @param path
+	 * @param unzip
+	 */
 	public static void getDataBulkDownload(String eurobaseDatabaseCode, String path, boolean unzip){
 		if(!new File(path).exists()) new File(path).mkdirs();
 		String dFilePath = path + File.separator + eurobaseDatabaseCode + eurobaseBulkURLSuf;
@@ -56,13 +99,28 @@ public class EurobaseIO {
 			new File(dFilePath).delete();
 		}
 	}
+	@SuppressWarnings("javadoc")
+	public static void getDataBulkDownload(String eurobaseDatabaseCode){ getDataBulkDownload(eurobaseDatabaseCode,""); }
+	@SuppressWarnings("javadoc")
+	public static void getDataBulkDownload(String eurobaseDatabaseCode, String path){ getDataBulkDownload(eurobaseDatabaseCode,path,true); }
 
+
+	/**
+	 * @param eurobaseDatabaseCode
+	 * @param ssc
+	 * @return
+	 */
 	public static StatsHypercube getDataBulk(String eurobaseDatabaseCode, Criteria ssc){
 		getDataBulkDownload(eurobaseDatabaseCode,"");
 		StatsHypercube hc = EurostatTSV.load(File.separator + eurobaseDatabaseCode + ".tsv", ssc);
 		new File(File.separator + eurobaseDatabaseCode + ".tsv").delete();
 		return hc;
 	}
+
+	/**
+	 * @param eurobaseDatabaseCode
+	 * @return
+	 */
 	public static StatsHypercube getDataBulk(String eurobaseDatabaseCode){ return getDataBulk(eurobaseDatabaseCode, null); }
 
 
@@ -76,6 +134,7 @@ public class EurobaseIO {
 		return getUpdateDate(indic, "data"); //use "dic%2Fen" for codelists
 	}
 
+	@SuppressWarnings("null")
 	private static Date getUpdateDate(String indic, String dir) {
 		try {
 			String url_ = "http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?dir="+dir;
@@ -170,6 +229,9 @@ public class EurobaseIO {
 
 
 
+	/**
+	 * 
+	 */
 	public static String eurobaseDictionnaryURLBase = "http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=dic%2Fen%2F";
 
 	/**
@@ -191,7 +253,7 @@ public class EurobaseIO {
 		return getUpdateDate(indic, "dic%2Fen");
 	}
 
-
+	/*
 	public static void main(String[] args) {
 		//System.out.println(getDictionnaryUpdateDate("coicop"));
 		//HashMap<String, String> dict = getDictionnary("coicop");
@@ -214,5 +276,5 @@ public class EurobaseIO {
 		//getDataBulk("acf_s_own").printInfo();
 		//getDataBulk("prc_hicp_cow").printInfo();
 	}
-
+	 */
 }

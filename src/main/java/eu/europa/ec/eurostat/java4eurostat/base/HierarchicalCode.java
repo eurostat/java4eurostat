@@ -37,6 +37,12 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 	 */
 	public ArrayList<HierarchicalCode> children = new ArrayList<>();
 
+	/**
+	 * Build a hierarchical code.
+	 * 
+	 * @param code The code.
+	 * @param description The code description.
+	 */
 	public HierarchicalCode(String code, String description) {
 		this.code = code;
 		this.description = description;
@@ -103,11 +109,17 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 	/**
 	 * A selection criterion for a father code.
 	 */
-	public interface FatherSelectionCriteria { boolean ignore(HierarchicalCode father);  }
+	public interface FatherSelectionCriteria {
+		/**
+		 * @param father
+		 * @return
+		 */
+		boolean ignore(HierarchicalCode father);
+	}
 
 	/**
 	 * Return the reduction of a list of hierarchical codes.
-	 * A list is reduced when all children are replaced by their common father.
+	 * The list is reduced when all children are replaced by their common father.
 	 * 
 	 * @param cs A list of codes.
 	 * @param fsc A method to select fathers. If null, all fathers are considered.
@@ -123,6 +135,11 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 		}
 		return out;
 	}
+
+	/**
+	 * @param cs  
+	 * @return
+	 */
 	public static ArrayList<HierarchicalCode> reduce(Collection<HierarchicalCode> cs){ return reduce(cs, null); }
 	private static HierarchicalCode findReduction(Collection<HierarchicalCode> cs, FatherSelectionCriteria fsc) {
 		//get all fathers
@@ -169,6 +186,7 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 		}
 	}
 
+	/** */
 	public void printHierarchy() {
 		printHierarchy(0);
 	}
@@ -188,6 +206,9 @@ public class HierarchicalCode implements Comparable<HierarchicalCode> {
 		return this.code;
 	}
 
+	/**
+	 * @param hcs
+	 */
 	public static void printHierarchy(Collection<?> hcs) {
 		for(Object obj : hcs){
 			HierarchicalCode hc = (HierarchicalCode)obj;

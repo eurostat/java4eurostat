@@ -85,15 +85,32 @@ public class Stat {
 			addFlag(flag);
 		}
 	}
+
+	/**
+	 * Remove a flag.
+	 * 
+	 * @param flag
+	 * @return
+	 */
 	public boolean removeFlag(Flag.FlagType flag){
 		if(this.flags == null) return false;
 		return this.flags.remove(flag);
 	}
+
+	/**
+	 * Check if the stat value is flagged.
+	 * 
+	 * @param flag
+	 * @return
+	 */
 	public boolean isFlagged(Flag.FlagType flag){
 		if(this.flags == null) return false;
 		return this.flags.contains(flag);
 	}
 
+	/**
+	 * @return The flags.
+	 */
 	public String getFlags(){
 		if(this.flags == null || this.flags.size()==0) return "";
 		StringBuffer sb = new StringBuffer();
@@ -101,6 +118,9 @@ public class Stat {
 		return sb.toString();
 	}
 
+	/**
+	 * @return A text corresponding to the value and the flags.
+	 */
 	public String getValueFlagged(){
 		return this.value + getFlags();
 	}
@@ -117,6 +137,7 @@ public class Stat {
 
 	/**
 	 * Return an array of dimension values.
+	 * 
 	 * @param dimLabels The dimension labels.
 	 * @return
 	 */

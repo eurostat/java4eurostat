@@ -30,12 +30,15 @@ import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
  *
  */
 public class CSV {
-	public final static Logger LOGGER = LogManager.getLogger(CSV.class.getName());
+	private final static Logger LOGGER = LogManager.getLogger(CSV.class.getName());
 
 	private static final String PAT = "\\s*(\"[^\"]*\"|[^,]*)\\s*";
 
+	@SuppressWarnings("javadoc")
 	public static StatsHypercube load(String inputFilePath, String valueLabel) { return load(inputFilePath, valueLabel, PAT, null); }
+	@SuppressWarnings("javadoc")
 	public static StatsHypercube load(String inputFilePath, String valueLabel, String patternString) { return load(inputFilePath, valueLabel, patternString, null); }
+	@SuppressWarnings("javadoc")
 	public static StatsHypercube load(String inputFilePath, String valueLabel, Criteria ssc) { return load(inputFilePath, valueLabel, PAT, ssc); }
 
 	/**
@@ -57,7 +60,7 @@ public class CSV {
 			//read header
 			String line = br.readLine();
 			Matcher m = pattern.matcher(line);
-			ArrayList<String> keys = new ArrayList<String>();
+			ArrayList<String> keys = new ArrayList<>();
 			while(m.find()){
 				keys.add(m.group(1));
 				m.find();
@@ -76,7 +79,7 @@ public class CSV {
 					if(key.equals(valueLabel)) {
 						try {
 							s.value = Double.parseDouble(value);
-						} catch (NumberFormatException e) {
+						} catch (@SuppressWarnings("unused") NumberFormatException e) {
 							LOGGER.warn("Could not parse statistical value: "+value);
 							s.value = Double.NaN;
 						}
@@ -101,15 +104,27 @@ public class CSV {
 		return hc;		
 	}
 
-	public static void save(StatsHypercube hc, String valueLabel, String outFile) { save(hc,valueLabel,outFile,","); }
-	public static void save(StatsHypercube hc, String valueLabel, String outFile, String separator) { save(hc,valueLabel,outFile,",",null); }
+	@SuppressWarnings("javadoc")
+	public static void save(StatsHypercube hc, String valueLabel, String outFile) { save(hc,valueLabel,outFile, ","); }
+	@SuppressWarnings("javadoc")
+	public static void save(StatsHypercube hc, String valueLabel, String outFile, String separator) { save(hc, valueLabel, outFile, separator, null); }
+
+	/**
+	 * Save a hypercube as a CSV file.
+	 * 
+	 * @param hc
+	 * @param valueLabel The text to use for the column containing the values.
+	 * @param outFile The output file path.
+	 * @param separator The separator.
+	 * @param keysComparator A comparator in case the columns have to be ordered.
+	 */
 	public static void save(StatsHypercube hc, String valueLabel, String outFile, String separator, Comparator<String> keysComparator) {
 		try {
 			File f = FileUtil.getFile(outFile, true, true);
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));
 
 			//write header
-			Collection<String> dimLabels = new ArrayList<String>(hc.dimLabels);
+			Collection<String> dimLabels = new ArrayList<>(hc.dimLabels);
 			if(keysComparator != null){
 				Collections.sort((ArrayList<String>)dimLabels, keysComparator);
 			}
@@ -147,7 +162,11 @@ public class CSV {
 
 
 
-	//TODO: document
+	/**
+	 * @param hcI
+	 * @param idName
+	 * @param outFile
+	 */
 	public static void save(StatsIndex hcI, String idName, String outFile) {
 		try {
 			File outFile_ = new File(outFile);

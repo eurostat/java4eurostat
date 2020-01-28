@@ -23,7 +23,7 @@ import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
  *
  */
 public class Operations {
-	public final static Logger LOGGER = LogManager.getLogger(Operations.class.getName());
+	private final static Logger LOGGER = LogManager.getLogger(Operations.class.getName());
 
 	/**
 	 * Compute a unary operation on hypercube values.
@@ -112,7 +112,21 @@ public class Operations {
 		}
 		return out;
 	}
-	public interface Aggregator { double compute(double[] values); }
+
+	/**
+	 * A method specifying how to compute the aggregation of values (sum, mean, etc.)
+	 * 
+	 * @author julien Gaffuri
+	 */
+	public interface Aggregator {
+		/**
+		 * A method specifying how to compute the aggregation of values (sum, mean, etc.)
+		 * 
+		 * @param values The values to be aggregated.
+		 * @return The aggregate value.
+		 */
+		double compute(double[] values);
+	}
 
 
 	/**
@@ -218,14 +232,38 @@ public class Operations {
 		return computePercentileDim(hc, 50, dimLabel, medianDimValue);
 	}
 
+	/**
+	 * Compute the first quantile of all values along a dimension.
+	 * 
+	 * @param hc
+	 * @param dimLabel
+	 * @param q1DimValue
+	 * @return
+	 */
 	public static Collection<Stat> computeQuartile1Dim(StatsHypercube hc, String dimLabel, String q1DimValue) {
 		return computePercentileDim(hc, 25, dimLabel, q1DimValue);
 	}
 
+	/**
+	 * Compute the second quantile of all values along a dimension.
+	 * 
+	 * @param hc
+	 * @param dimLabel
+	 * @param q2DimValue
+	 * @return
+	 */
 	public static Collection<Stat> computeQuartile2Dim(StatsHypercube hc, String dimLabel, String q2DimValue) {
 		return computePercentileDim(hc, 75, dimLabel, q2DimValue);
 	}
 
+	/**
+	 * Compute the standard deviation of all values along a dimension.
+	 * 
+	 * @param hc
+	 * @param dimLabel
+	 * @param stdDimValue
+	 * @return
+	 */
 	public static Collection<Stat> computeStdDim(StatsHypercube hc, String dimLabel, String stdDimValue) {
 		return computeAggregation(hc, new Aggregator() {
 			@Override
@@ -236,6 +274,14 @@ public class Operations {
 		}, dimLabel, stdDimValue);
 	}
 
+	/**
+	 * Compute the RMS of all values along a dimension.
+	 * 
+	 * @param hc
+	 * @param dimLabel
+	 * @param rmsDimValue
+	 * @return
+	 */
 	public static Collection<Stat> computeRMSDim(StatsHypercube hc, String dimLabel, String rmsDimValue) {
 		return computeAggregation(hc, new Aggregator() {
 			@Override

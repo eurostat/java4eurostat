@@ -36,7 +36,7 @@ import eu.europa.ec.eurostat.java4eurostat.util.StatsUtil;
  *
  */
 public class StatsHypercube {
-	public final static Logger LOGGER = LogManager.getLogger(StatsHypercube.class.getName());
+	private final static Logger LOGGER = LogManager.getLogger(StatsHypercube.class.getName());
 
 	/**
 	 * The statistical values.
@@ -48,15 +48,20 @@ public class StatsHypercube {
 	 * Ex: gender,time,country
 	 */
 	public Collection<String> dimLabels;
+
+	/**
+	 * @return The dimension labels
+	 */
 	public String[] getDimLabels(){ return this.dimLabels.toArray(new String[this.dimLabels.size()]); }
 
+	/**
+	 * Build an hypercube.
+	 * 
+	 * @param dimLabels The dimension labels.
+	 */
 	public StatsHypercube(String... dimLabels){
-		this();
-		for(String dimLabel : dimLabels) this.dimLabels.add(dimLabel);
-	}
-
-	public StatsHypercube(){
 		this(new HashSet<Stat>(), new HashSet<String>());
+		for(String dimLabel : dimLabels) this.dimLabels.add(dimLabel);
 	}
 
 	private StatsHypercube(Collection<Stat> stats, Collection<String> dimLabels){
@@ -95,27 +100,106 @@ public class StatsHypercube {
 
 	/**
 	 * Extract an hypercube of stats having dimLabel=dimValue
-	 * Ex: gender=male, country=HU, etc.
+	 * Ex: gender=male AND country=HU, etc.
 	 * 
 	 * @param dimLabelValues List of couples (label,value) Example; "gender","male","country","HU"
 	 * @return
 	 */
 	public StatsHypercube selectDimValueEqualTo(String... dimLabelValues){ return select(new DimValueEqualTo(dimLabelValues)); }
-	public StatsHypercube selectDimValueDifferentFrom(String... dimLabelValues){ return select(new DimValueDifferentFrom(dimLabelValues)); }
-	public StatsHypercube selectDimValueGreaterThan(String dimLabel, double value){ return select(new DimValueGreaterThan(dimLabel, value)); }
-	public StatsHypercube selectDimValueLowerThan(String dimLabel, double value){ return select(new DimValueLowerThan(dimLabel, value)); }
-	public StatsHypercube selectDimValueGreaterOrEqualThan(String dimLabel, double value){ return select(new DimValueGreaterOrEqualThan(dimLabel, value)); }
-	public StatsHypercube selectDimValueLowerOrEqualThan(String dimLabel, double value){ return select(new DimValueLowerOrEqualThan(dimLabel, value)); }
 
 	/**
-	 * Selection on values.
-	 * Ex: stat.value greater than 50
+	 * Extract an hypercube of stats having dimLabel!=dimValue
+	 * Ex: gender!=male AND country!=HU, etc.
+	 * 
+	 * @param dimLabelValues
+	 * @return
+	 */
+	public StatsHypercube selectDimValueDifferentFrom(String... dimLabelValues){ return select(new DimValueDifferentFrom(dimLabelValues)); }
+
+	/**
+	 * Extract an hypercube of stats having dimLabel > value
+	 * Ex: year > 2015
+	 * 
+	 * @param dimLabel
+	 * @param value
+	 * @return
+	 */
+	public StatsHypercube selectDimValueGreaterThan(String dimLabel, double value){ return select(new DimValueGreaterThan(dimLabel, value)); }
+
+	/**
+	 * Extract an hypercube of stats having dimLabel < value
+	 * Ex: year < 2015
+	 * 
+	 * @param dimLabel
+	 * @param value
+	 * @return
+	 */
+	public StatsHypercube selectDimValueLowerThan(String dimLabel, double value){ return select(new DimValueLowerThan(dimLabel, value)); }
+
+	/**
+	 * Extract an hypercube of stats having dimLabel >= value
+	 * Ex: year >= 2015
+	 * 
+	 * @param dimLabel
+	 * @param value
+	 * @return
+	 */
+	public StatsHypercube selectDimValueGreaterOrEqualThan(String dimLabel, double value){ return select(new DimValueGreaterOrEqualThan(dimLabel, value)); }
+
+	/**
+	 * Extract an hypercube of stats having dimLabel <= value
+	 * Ex: year <= 2015
+	 * 
+	 * @param dimLabel
+	 * @param value
+	 * @return
+	 */
+	public StatsHypercube selectDimValueLowerOrEqualThan(String dimLabel, double value){ return select(new DimValueLowerOrEqualThan(dimLabel, value)); }
+
+
+
+
+
+	/**
+	 * Extract an hypercube of stats having specified value.
+	 * @param value 
+	 * @return 
 	 */
 	public StatsHypercube selectValueEqualTo(double value){ return select(new ValueEqualTo(value)); }
+
+	/**
+	 * Extract an hypercube of stats different from specified value.
+	 * @param value
+	 * @return
+	 */
 	public StatsHypercube selectValueDifferentFrom(double value){ return select(new ValueDifferentFrom(value)); }
+
+	/**
+	 * Extract an hypercube of stats having values greater than a specified value.
+	 * @param value
+	 * @return
+	 */
 	public StatsHypercube selectValueGreaterThan(double value){ return select(new ValueGreaterThan(value)); }
+
+	/**
+	 * Extract an hypercube of stats having values lower than a specified value.
+	 * @param value
+	 * @return
+	 */
 	public StatsHypercube selectValueLowerThan(double value){ return select(new ValueLowerThan(value)); }
+
+	/**
+	 * Extract an hypercube of stats having values greater or equal than a specified value.
+	 * @param value
+	 * @return
+	 */
 	public StatsHypercube selectValueGreaterOrEqualThan(double value){ return select(new ValueGreaterOrEqualThan(value)); }
+
+	/**
+	 * Extract an hypercube of stats having values lower or equal than a specified value.
+	 * @param value
+	 * @return
+	 */
 	public StatsHypercube selectValueLowerOrEqualThan(double value){ return select(new ValueLowerOrEqualThan(value)); }
 
 	/**
@@ -123,6 +207,7 @@ public class StatsHypercube {
 	 * This should be used, for example, to free memory when all stats have a unique dimension value.
 	 * 
 	 * @param dimLabel
+	 * @return 
 	 */
 	public StatsHypercube delete(String dimLabel){
 		for(Stat s : this.stats){
@@ -138,7 +223,7 @@ public class StatsHypercube {
 	 * Remove dimensions with no or a single value.
 	 * @return
 	 */
-	public StatsHypercube shrinkDims() {
+	public StatsHypercube shrinkDimensions() {
 		Collection<String> toDelete = new ArrayList<>();
 		for(String dimLabel : this.dimLabels) if(getDimValues(dimLabel).size() <= 1) toDelete.add(dimLabel);
 		for(String dimLabel : toDelete) this.delete(dimLabel);
@@ -150,6 +235,7 @@ public class StatsHypercube {
 	 * 
 	 * @param dimLabel
 	 * @param dimValue
+	 * @return 
 	 */
 	public StatsHypercube delete(String dimLabel, String dimValue){
 		this.stats.removeAll( selectDimValueEqualTo(dimLabel, dimValue).stats );
@@ -157,10 +243,12 @@ public class StatsHypercube {
 	}
 
 	/**
-	 * Delete the stats having a label value with a given length
+	 * Delete the stats having a label value with a given number of caracters.
+	 * Ex: Delete all stats at NUTS 0 level with: hc.delete(2);
 	 * 
 	 * @param dimLabel
 	 * @param size
+	 * @return 
 	 */
 	public StatsHypercube delete(String dimLabel, int size) {
 		HashSet<String> values = getDimValues(dimLabel);
@@ -355,6 +443,11 @@ public class StatsHypercube {
 	public void printInfo() {
 		printInfo(true);
 	}
+
+	/**
+	 * Print hypercube structure.
+	 * @param printDimValues Set to true to also show the dimension values.
+	 */
 	public void printInfo(boolean printDimValues) {
 		System.out.println("Information: " + this.stats.size() + " value(s) with " + this.dimLabels.size() + " dimension(s).");
 		for(String lbl : this.dimLabels){
@@ -376,12 +469,23 @@ public class StatsHypercube {
 		StatsUtil.printStats(vals);
 	}
 
+	/**
+	 * Compute the quantiles of the statistics.
+	 *  
+	 * @param nb The number of quantiles.
+	 * @return
+	 */
 	public double[] getQuantiles(int nb) {
 		Collection<Double> vals = new HashSet<>();
 		for(Stat s : this.stats) if(!Double.isNaN(s.value)) vals.add(new Double(s.value));
 		return StatsUtil.getQuantiles(vals, nb);
 	}
 
+	/**
+	 * Print the quantiles.
+	 * 
+	 * @param nb The number of quantiles.
+	 */
 	public void printQuantiles(int nb) {
 		Collection<Double> vals = new HashSet<>();
 		for(Stat s : this.stats) if(!Double.isNaN(s.value)) vals.add(s.value);

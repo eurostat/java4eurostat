@@ -16,8 +16,17 @@ import java.util.regex.Pattern;
  *
  */
 public class Util {
+	/**
+	 * The "yyyy-MM-dd HH:mm:ss" date format.
+	 */
 	public static final DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+	/**
+	 * Double[] to double[]...
+	 * 
+	 * @param in
+	 * @return
+	 */
 	public static double[] toDoubleArray(Double[] in) {
 		double[] out = new double[in.length];
 		for(int i=0; i<in.length; i++) out[i]=in[i].doubleValue();
@@ -51,9 +60,15 @@ public class Util {
 
 
 
-	//clean string
+	/**
+	 * 
+	 */
 	public static final Pattern DIACRITICS_AND_FRIENDS = Pattern.compile("[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+");
 
+	/**
+	 * @param str
+	 * @return
+	 */
 	public static String stripDiacritics(String str) {
 		String str_ = str;
 		str_ = Normalizer.normalize(str_, Normalizer.Form.NFD);
@@ -61,19 +76,25 @@ public class Util {
 		return str_;
 	}
 
+	/**
+	 * @param str
+	 * @return
+	 */
 	public static String stripWeirdCaracters(String str) {
 		String string = Normalizer.normalize(str, Normalizer.Form.NFD);
 		return string.replaceAll("[^\\p{ASCII}]", "");
 	}
 
+	/**
+	 * Check if a piece of text is an integer.
+	 * @param str
+	 * @return
+	 */
 	public static boolean isInteger(String str) {
-		if (str == null) {
-			return false;
-		}
+		if (str == null) return false;
 		int length = str.length();
-		if (length == 0) {
-			return false;
-		}
+		if (length == 0) return false;
+
 		int i = 0;
 		if (str.charAt(0) == '-') {
 			if (length == 1) {
@@ -113,6 +134,10 @@ public class Util {
 		return st.length() - st.replace(thing, "").length();
 	}
 
+	/**
+	 * @param map
+	 * @return
+	 */
 	public static HashMap<String,String> reverseMap(Map<String,String> map){
 		HashMap<String,String> mapOut = new HashMap<>();
 		for(Entry<String,String> e : map.entrySet())
@@ -121,6 +146,11 @@ public class Util {
 	}
 
 
+	/**
+	 * @param d
+	 * @param nbDec
+	 * @return
+	 */
 	public static String addTrailingZeros(double d, int nbDec) {
 		String d_ = Double.toString(d);
 		if(d_.contains("E")) return d_;

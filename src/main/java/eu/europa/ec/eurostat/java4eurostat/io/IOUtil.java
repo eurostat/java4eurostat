@@ -16,6 +16,10 @@ import java.nio.channels.ReadableByteChannel;
  */
 public class IOUtil {
 
+	/**
+	 * @param paramData
+	 * @return
+	 */
 	public static String getURLParametersPart(String... paramData){
 		StringBuffer sb = new StringBuffer();
 		for(int i=0; i<paramData.length; i+=2){
@@ -26,16 +30,27 @@ public class IOUtil {
 		return sb.toString();
 	}
 
+	/**
+	 * @param urlBase
+	 * @param paramData
+	 * @return
+	 */
 	public static String getURL(String urlBase, String... paramData){
 		return urlBase + (paramData == null? "" : "?" + getURLParametersPart(paramData));
 	}
 
+	/**
+	 * @param url
+	 * @return
+	 */
 	public static String getDataFromURL(String url) {
 		try {
-			BufferedReader in = new BufferedReader(new InputStreamReader(new URL(url).openConnection().getInputStream()));
-			String line; StringBuffer sb = new StringBuffer();
-			while ((line = in.readLine()) != null) sb.append(line);
-			in.close();
+			String line;
+			StringBuffer sb = new StringBuffer();
+			while ((line = new BufferedReader(new InputStreamReader(new URL(url).openConnection().getInputStream())).readLine()) != null) {
+				sb.append(line);
+			}
+			new BufferedReader(new InputStreamReader(new URL(url).openConnection().getInputStream())).close();
 			return sb.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -43,6 +58,10 @@ public class IOUtil {
 		}
 	}
 
+	/**
+	 * @param url
+	 * @param path
+	 */
 	public static void downloadFile(String url, String path) {
 		try {
 			URL website = new URL(url);

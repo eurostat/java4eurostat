@@ -25,10 +25,30 @@ public class StatsUtil {
 			out[quantile] = StatUtils.percentile(vals, 100*(quantile+1)/(nb+1));
 		return out;
 	}
+
+	/**
+	 * Compute the quantiles.
+	 * 
+	 * @param vals
+	 * @param nb
+	 * @return
+	 */
 	public static double[] getQuantiles(Double[] vals, int nb) { return getQuantiles(ArrayUtils.toPrimitive(vals), nb); }
+
+	/**
+	 * Compute the quantiles.
+	 * 
+	 * @param vals
+	 * @param nb
+	 * @return
+	 */
 	public static double[] getQuantiles(Collection<Double> vals, int nb) { return getQuantiles(vals.toArray(new Double[vals.size()]), nb); }
 
-	
+
+	/**
+	 * Print some basic statistics of some values.
+	 * @param vals
+	 */
 	public static void printStats(double[] vals){
 		System.out.println("Max = " + StatUtils.max(vals));
 		System.out.println("Min = " + StatUtils.min(vals));
@@ -40,6 +60,27 @@ public class StatsUtil {
 		System.out.println("RMS = " + Math.sqrt(StatUtils.sumSq(vals)/vals.length));
 	}
 
+	/**
+	 * Print some basic statistics of some values.
+	 * @param vals
+	 */
+	public static void printStats(Double[] vals) { printStats(ArrayUtils.toPrimitive(vals)); }
+
+	/**
+	 * Print some basic statistics of some values.
+	 * @param vals
+	 */
+	public static void printStats(Collection<Double> vals) { printStats(vals.toArray(new Double[vals.size()])); }
+
+
+	/**
+	 * Write some basic statistics of some values.
+	 * 
+	 * @param bw
+	 * @param vals
+	 * @throws MathIllegalArgumentException
+	 * @throws IOException
+	 */
 	public static void writeStats(BufferedWriter bw, double[] vals) throws MathIllegalArgumentException, IOException {
 		bw.write("Max," + StatUtils.max(vals) + "\n");
 		bw.write("Min," + StatUtils.min(vals) + "\n");
@@ -51,16 +92,24 @@ public class StatsUtil {
 		bw.write("RMS," + Math.sqrt(StatUtils.sumSq(vals)/vals.length) + "\n");
 	}
 
-	public static void printStats(Double[] vals) { printStats(ArrayUtils.toPrimitive(vals)); }
-	public static void printStats(Collection<Double> vals) { printStats(vals.toArray(new Double[vals.size()])); }
 
-
+	/**
+	 * Print quantile values.
+	 * @param vals
+	 * @param nb
+	 */
 	private static void printQuantiles(double[] vals, int nb) {
 		for(int quantile=1; quantile<=nb; quantile++)
 			System.out.println("Quantile " + quantile + "/" + nb + ": " + StatUtils.percentile(vals, quantile*100/nb));
 	}
 
-	private static void printQuantiles(Double[] vals, int nb) { printQuantiles(ArrayUtils.toPrimitive(vals), nb); }
+	/**
+	 * Print quantile values.
+	 * @param vals
+	 * @param nb
+	 */
 	public static void printQuantiles(Collection<Double> vals, int nb) { printQuantiles(vals.toArray(new Double[vals.size()]), nb); }
+
+	private static void printQuantiles(Double[] vals, int nb) { printQuantiles(ArrayUtils.toPrimitive(vals), nb); }
 
 }

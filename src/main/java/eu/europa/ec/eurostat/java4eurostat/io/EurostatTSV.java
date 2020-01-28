@@ -18,12 +18,20 @@ import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
  */
 public class EurostatTSV {
 
+	@SuppressWarnings("javadoc")
 	public static StatsHypercube load(String inputFilePath){ return load( inputFilePath, null ); }
+
+	/**
+	 * @param inputFilePath
+	 * @param ssc
+	 * @return
+	 */
+	@SuppressWarnings("resource")
 	public static StatsHypercube load(String inputFilePath, Criteria ssc){
 		String sep="\t";
 		BufferedReader br = null;
 		StatsHypercube sh = new StatsHypercube();
-		ArrayList<String> dimLabelsL = new ArrayList<String>();
+		ArrayList<String> dimLabelsL = new ArrayList<>();
 		try {
 			//read dimensions
 			br = new BufferedReader(new FileReader(new File(inputFilePath)));
@@ -101,16 +109,17 @@ public class EurostatTSV {
 				}
 			}
 
-			if (br != null) br.close();
+			br.close();
 			br = null;
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			try { if (br != null) br.close(); } catch (Exception e) { e.printStackTrace(); }
-		}		
+		}
 		return sh;
 	}
 
+	/*
 	public static void save(StatsHypercube hc, String filePath){
 		//TODO
 
@@ -124,5 +133,6 @@ public class EurostatTSV {
 		//walk through index tree.
 
 	}
+	 */
 
 }

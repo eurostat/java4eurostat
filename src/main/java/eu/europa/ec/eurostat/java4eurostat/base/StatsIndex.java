@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Logger;
  *
  */
 public class StatsIndex {
-	public final static Logger LOGGER = LogManager.getLogger(StatsIndex.class.getName());
+	private final static Logger LOGGER = LogManager.getLogger(StatsIndex.class.getName());
 
 	/**
 	 * The index recurssive element: Can be:
@@ -199,6 +199,7 @@ public class StatsIndex {
 
 	/**
 	 * Print the index structure, with indentation.
+	 * @param indent 
 	 */
 	public void print(int indent){
 		if(this.data instanceof Stat){

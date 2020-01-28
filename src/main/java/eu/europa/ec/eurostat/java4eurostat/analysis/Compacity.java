@@ -3,9 +3,6 @@
  */
 package eu.europa.ec.eurostat.java4eurostat.analysis;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
 
 /**
@@ -15,7 +12,7 @@ import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
  *
  */
 public class Compacity {
-	public final static Logger LOGGER = LogManager.getLogger(Compacity.class.getName());
+	//private final static Logger LOGGER = LogManager.getLogger(Compacity.class.getName());
 
 	/**
 	 * Compute the number of possible positions in the hypercube.

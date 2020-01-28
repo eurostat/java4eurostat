@@ -28,7 +28,7 @@ public class Validation {
 	 * @return
 	 */
 	public static HashMap<String,Integer> checkDimensionValuesValidity(StatsHypercube hc, String dimLabel, Collection<String> expectedDimValues, boolean print) {
-		HashMap<String,Integer> unexpectedValues = new HashMap<String,Integer>();
+		HashMap<String,Integer> unexpectedValues = new HashMap<>();
 
 		//list and count unexpected values
 		for(Stat s : hc.stats){
@@ -67,7 +67,7 @@ public class Validation {
 	 * @return
 	 */
 	public static HashMap<String,Integer> checkUnicity(StatsIndex index) {
-		HashMap<String, Integer> out = new HashMap<String, Integer>();
+		HashMap<String, Integer> out = new HashMap<>();
 		Set<String> keys = index.getKeys();
 		if(keys == null || keys.size() == 0) {
 			Collection<Stat> vals = index.getCollection();

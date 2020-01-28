@@ -18,6 +18,10 @@ import java.util.zip.ZipOutputStream;
  */
 public class CompressUtil {
 
+	/**
+	 * @param inGZIPFile
+	 * @param outUnGZIPFile
+	 */
 	public static void unGZIP(String inGZIPFile, String outUnGZIPFile){
 		try {
 			GZIPInputStream gzis = new GZIPInputStream(new FileInputStream(inGZIPFile));
@@ -33,6 +37,11 @@ public class CompressUtil {
 		}
 	}
 
+	/**
+	 * @param inPath
+	 * @param zipFile
+	 * @param inFiles
+	 */
 	public static void createZIP(String inPath, String zipFile, String[] inFiles){
 		try {
 			File outFile = new File(inPath+zipFile);

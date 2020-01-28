@@ -15,24 +15,35 @@ import java.util.HashMap;
  */
 public class Flag {
 
+	/**
+	 * The flag types.
+	 * 
+	 * @author julien Gaffuri
+	 *
+	 */
 	public enum FlagType { 
-		b,
-		c,
-		d,
-		e,
-		f,
-		i,
-		n,
-		p,
-		r,
-		s,
-		u,
-		x,
+		/** */
+		b, /** */
+		c, /** */
+		d, /** */
+		e, /** */
+		f, /** */
+		i, /** */
+		n, /** */
+		p, /** */
+		r, /** */
+		s, /** */
+		u, /** */
+		x, /** */
 		z
 	}
 
+	/** */
 	public static HashMap<String, FlagType> code;
+
+	/** */
 	public static HashMap<FlagType, String> text;
+
 	static{
 		code = new HashMap<>();
 		code.put("b", FlagType.b);

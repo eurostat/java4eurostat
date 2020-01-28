@@ -19,8 +19,25 @@ import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
  */
 public class JSONStat {
 
+	/**
+	 * @param data
+	 * @return
+	 */
 	public static StatsHypercube load(String data) { return load(data, true); }
+
+	/**
+	 * @param data
+	 * @param statusAsEurostatFlags
+	 * @return
+	 */
 	public static StatsHypercube load(String data, boolean statusAsEurostatFlags) { return load(data, statusAsEurostatFlags, null); }
+
+	/**
+	 * @param data
+	 * @param statusAsEurostatFlags
+	 * @param ssc
+	 * @return
+	 */
 	public static StatsHypercube load(String data, boolean statusAsEurostatFlags, Criteria ssc) {
 		//System.out.println(data);
 		StatsHypercube hc = new StatsHypercube();
@@ -34,7 +51,7 @@ public class JSONStat {
 		JSONArray sizes = obj.getJSONArray("size");
 
 		//read dimension values
-		HashMap<String,JSONObject> dimValues = new HashMap<String,JSONObject>();
+		HashMap<String,JSONObject> dimValues = new HashMap<>();
 		for(int coordI=0; coordI<sizes.length(); coordI++){
 			String dimLabel = obj.getJSONArray("id").getString(coordI);
 			JSONObject ind = dimensions.getJSONObject(dimLabel).getJSONObject("category").getJSONObject("index");
@@ -52,11 +69,13 @@ public class JSONStat {
 			Stat s = new Stat();
 
 			//get value. If none, continue.
-			try { s.value = values.getDouble(""+i); } catch (JSONException e) { continue; }
+			try { s.value = values.getDouble(""+i); }
+			catch (@SuppressWarnings("unused") JSONException e) { continue; }
 
 			//get status/flags
 			if(statusAsEurostatFlags)
-				try { s.addAllFlags(status.getString(""+i)); } catch (Exception e) {}
+				try { s.addAllFlags(status.getString(""+i)); }
+			catch (@SuppressWarnings("unused") Exception e) { /* Do nothing */ }
 
 			//compute value coordinates in the hypercube
 			int[] coords = new int[sizes.length()];
@@ -89,6 +108,7 @@ public class JSONStat {
 		return out;
 	}
 
+	/*
 	public static void main(String[] args) {
 		//StatsHypercube hc = JSONStat.load( IOUtil.getDataFromURL("http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/prc_hicp_midx?geo=AT&unit=I15&coicop=CP00&sinceTimePeriod=2016M01") );
 		//hc.printInfo();
@@ -96,6 +116,7 @@ public class JSONStat {
 
 		//EurobaseIO.getData("prc_hicp_cow").printInfo();
 	}
+	 */
 
 	//TODO save
 
