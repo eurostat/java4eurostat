@@ -36,7 +36,7 @@ public class Operations {
 	public static StatsHypercube compute(StatsHypercube hc, UnaryOperator<Double> uop){
 		StatsHypercube out = new StatsHypercube(hc.getDimLabels());
 		for(Stat s : hc.stats){
-			Stat s_ = new Stat(hc.stats.iterator().next());
+			Stat s_ = new Stat(s);
 			s_.value = uop.apply(s.value);
 			out.stats.add(s_);
 		}
@@ -56,24 +56,14 @@ public class Operations {
 		StatsHypercube out = new StatsHypercube(dimLabels);
 		StatsIndex hcI2 = new StatsIndex(hc2, dimLabels);
 		for(Stat s : hc1.stats){
-			//get stat value
-			double val1 = s.value;
-			if(Double.isNaN(val1)) continue;
+			//retrieve values
+			double v1 = s.value;
+			double v2 = hcI2.getSingleValue(s.getDimValues(dimLabels));
 
-			//retrieve value to compare with
-			String[] dimValues = new String[dimLabels.length];
-			for(int i=0; i<dimLabels.length; i++) dimValues[i] = s.dims.get(dimLabels[i]);
-			double val2 = hcI2.getSingleValue(dimValues);
-			if(Double.isNaN(val2)) continue;
-
-			//compute comparison figure
-			double outVal = bop.apply(val1, val2);
-			if(Double.isNaN(outVal)) continue;
-
-			//store comparison figures
-			Stat sc = new Stat(outVal);
-			for(int i=0; i<dimLabels.length; i++) sc.dims.put(dimLabels[i], s.dims.get(dimLabels[i]));
-			out.stats.add(sc);
+			//compute new value
+			Stat s_ = new Stat(s);
+			s_.value = bop.apply(v1, v2);
+			out.stats.add(s_);
 		}
 		return out;
 	}
