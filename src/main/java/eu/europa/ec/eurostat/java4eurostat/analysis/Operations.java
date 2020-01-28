@@ -15,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 import eu.europa.ec.eurostat.java4eurostat.base.Stat;
 import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
 import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
-import eu.europa.ec.eurostat.java4eurostat.io.CSV;
 
 /**
  * Operations on hypercube structures.
@@ -74,9 +73,9 @@ public class Operations {
 	 * Compute an aggregated value of all values along a dimension.
 	 * 
 	 * @param hc
-	 * @param agg
-	 * @param dimLabel
-	 * @param aggDimValue
+	 * @param agg The aggregation operation.
+	 * @param dimLabel The dimension to aggregate along.
+	 * @param aggDimValue The dimension value for the new aggregated value.
 	 * @return
 	 */
 	public static Collection<Stat> computeAggregation(StatsHypercube hc, Aggregator agg, String dimLabel, String aggDimValue) {
@@ -99,11 +98,14 @@ public class Operations {
 			//prepare aggregated stat
 			Stat s = new Stat(leaf.iterator().next());
 			s.dims.put(dimLabel, aggDimValue);
-			if(LOGGER.isDebugEnabled()) LOGGER.debug("Compute total for "+s.dims);
+			if(LOGGER.isDebugEnabled()) LOGGER.debug("Compute aggregate for " + s.dims);
 
-			//compute aggregated value
+			//get values to aggregate
+			//TODO: provide possiblity to ignore some dimension values
 			double[] vals = new double[leaf.size()]; int i=0;
 			for(Stat s_ : leaf) vals[i++] = s_.value;
+
+			//compute aggregated value
 			s.value = agg.compute(vals);
 
 			out.add(s);
@@ -113,96 +115,103 @@ public class Operations {
 	public interface Aggregator { double compute(double[] values); }
 
 
-	public static Collection<Stat> computeTotalDim(StatsHypercube hc, String dimLabel, String aggDimValue) {
+	/**
+	 * Compute the sum of all values along a dimension.
+	 * @param hc
+	 * @param dimLabel
+	 * @param sumDimValue The dimension value for the new value.
+	 * @return
+	 */
+	public static Collection<Stat> computeSumDim(StatsHypercube hc, String dimLabel, String sumDimValue) {
 		return computeAggregation(hc, new Aggregator() {
 			@Override
 			public double compute(double[] vals) {
 				return StatUtils.sum(vals);
 			}
-		}, dimLabel, aggDimValue);
+		}, dimLabel, sumDimValue);
 	}
 
-	public static Collection<Stat> computeMaxDim(StatsHypercube hc, String dimLabel, String aggDimValue) {
+	public static Collection<Stat> computeMaxDim(StatsHypercube hc, String dimLabel, String maxDimValue) {
 		return computeAggregation(hc, new Aggregator() {
 			@Override
 			public double compute(double[] vals) {
 				if(vals.length == 0) return Double.NaN;
 				return StatUtils.max(vals);
 			}
-		}, dimLabel, aggDimValue);
+		}, dimLabel, maxDimValue);
 	}
 
-	public static Collection<Stat> computeMinDim(StatsHypercube hc, String dimLabel, String aggDimValue) {
+	public static Collection<Stat> computeMinDim(StatsHypercube hc, String dimLabel, String minDimValue) {
 		return computeAggregation(hc, new Aggregator() {
 			@Override
 			public double compute(double[] vals) {
 				if(vals.length == 0) return Double.NaN;
 				return StatUtils.min(vals);
 			}
-		}, dimLabel, aggDimValue);
+		}, dimLabel, minDimValue);
 	}
 
-	public static Collection<Stat> computeMeanDim(StatsHypercube hc, String dimLabel, String aggDimValue) {
+	public static Collection<Stat> computeMeanDim(StatsHypercube hc, String dimLabel, String meanDimValue) {
 		return computeAggregation(hc, new Aggregator() {
 			@Override
 			public double compute(double[] vals) {
 				if(vals.length == 0) return Double.NaN;
 				return StatUtils.mean(vals);
 			}
-		}, dimLabel, aggDimValue);
+		}, dimLabel, meanDimValue);
 	}
 
-	public static Collection<Stat> computePercentileDim(StatsHypercube hc, int percentile, String dimLabel, String aggDimValue) {
+	public static Collection<Stat> computePercentileDim(StatsHypercube hc, int percentile, String dimLabel, String percentileDimValue) {
 		return computeAggregation(hc, new Aggregator() {
 			@Override
 			public double compute(double[] vals) {
 				if(vals.length == 0) return Double.NaN;
 				return StatUtils.percentile(vals, percentile);
 			}
-		}, dimLabel, aggDimValue);
+		}, dimLabel, percentileDimValue);
 	}
 
-	public static Collection<Stat> computeMedianDim(StatsHypercube hc, String dimLabel, String aggDimValue) {
-		return computePercentileDim(hc, 50, dimLabel, aggDimValue);
+	public static Collection<Stat> computeMedianDim(StatsHypercube hc, String dimLabel, String medianDimValue) {
+		return computePercentileDim(hc, 50, dimLabel, medianDimValue);
 	}
 
-	public static Collection<Stat> computeQuartile1Dim(StatsHypercube hc, String dimLabel, String aggDimValue) {
-		return computePercentileDim(hc, 25, dimLabel, aggDimValue);
+	public static Collection<Stat> computeQuartile1Dim(StatsHypercube hc, String dimLabel, String q1DimValue) {
+		return computePercentileDim(hc, 25, dimLabel, q1DimValue);
 	}
 
-	public static Collection<Stat> computeQuartile2Dim(StatsHypercube hc, String dimLabel, String aggDimValue) {
-		return computePercentileDim(hc, 75, dimLabel, aggDimValue);
+	public static Collection<Stat> computeQuartile2Dim(StatsHypercube hc, String dimLabel, String q2DimValue) {
+		return computePercentileDim(hc, 75, dimLabel, q2DimValue);
 	}
 
-	public static Collection<Stat> computeStdDim(StatsHypercube hc, String dimLabel, String aggDimValue) {
+	public static Collection<Stat> computeStdDim(StatsHypercube hc, String dimLabel, String stdDimValue) {
 		return computeAggregation(hc, new Aggregator() {
 			@Override
 			public double compute(double[] vals) {
 				if(vals.length == 0) return Double.NaN;
 				return Math.sqrt(StatUtils.variance(vals));
 			}
-		}, dimLabel, aggDimValue);
+		}, dimLabel, stdDimValue);
 	}
 
-	public static Collection<Stat> computeRMSDim(StatsHypercube hc, String dimLabel, String aggDimValue) {
+	public static Collection<Stat> computeRMSDim(StatsHypercube hc, String dimLabel, String rmsDimValue) {
 		return computeAggregation(hc, new Aggregator() {
 			@Override
 			public double compute(double[] vals) {
 				if(vals.length == 0) return Double.NaN;
 				return Math.sqrt(StatUtils.sumSq(vals)/vals.length);
 			}
-		}, dimLabel, aggDimValue);
+		}, dimLabel, rmsDimValue);
 	}
 
-
+	/*
 	public static void main(String[] args) {
 		String path = "./src/test/resources/";
 		StatsHypercube hc = CSV.load(path+"ex.csv", "population");
 
 		//hc.printInfo();
 
-		Collection<Stat> stats = computeTotalDim(hc, "country", "Total");
+		Collection<Stat> stats = computeSumDim(hc, "country", "Total");
 		System.out.println(stats);
 	}
-
+	 */
 }
