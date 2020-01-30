@@ -97,6 +97,7 @@ public class Compacity {
 				dvc.dimLabel = dimLabel;
 				dvc.dimValue = dimValue;
 				dvc.compacity = comp;
+				out.add(dvc);
 			}
 		//sort list
 		out.sort(new Comparator<DimensionValueCompacity>() {
