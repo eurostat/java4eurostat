@@ -120,6 +120,8 @@ public class Compacity {
 		public String dimValue;
 		/** The compacity value */
 		public double compacity;
+		@Override
+		public String toString() { return this.dimLabel + " " + this.dimValue + " " + this.compacity; }
 	}
 
 	//TODO write tests
