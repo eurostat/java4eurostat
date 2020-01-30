@@ -125,6 +125,7 @@ public class Compacity {
 		public String toString() { return this.dimLabel + ":" + this.dimValue + "   " + this.compacity; }
 	}
 
+
 	//TODO write tests
 	//TODO make compact - by adding missing values
 	//TODO clean - remove overlaps. What to do with overlaps: sum or remove?
