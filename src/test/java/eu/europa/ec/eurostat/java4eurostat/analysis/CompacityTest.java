@@ -22,15 +22,6 @@ public class CompacityTest extends TestCase {
 		StatsHypercube hcOv = CSV.load(path+"ex_overlap.csv", "population");
 		StatsHypercube hcDirty = CSV.load(path+"ex_dirty.csv", "population");
 
-		//System.out.println(hc.dimLabels.size()); //3
-		//System.out.println(hc.stats.size()); //12
-		//System.out.println(hc.getDimLabels().length); //3
-		//System.out.println(hc.getDimValues("country").size()); //2
-		//System.out.println(hc.getDimValues("gender").size()); //3
-		//System.out.println(hc.getDimValues("year").size()); //2
-		//double[] qt = hc.getQuantiles(3); //[47.85, 119.5, 148.15]
-		//for(double q : qt) System.out.println(" "+q);
-
 		assertEquals(12, Compacity.getMaxSize(hc));
 		assertEquals(1.0, Compacity.getCompacityIndicator(hc, false, false));
 		assertEquals(12, Compacity.getMaxSize(hcNc));
