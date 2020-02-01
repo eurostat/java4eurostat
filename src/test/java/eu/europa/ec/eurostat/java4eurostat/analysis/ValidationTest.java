@@ -29,7 +29,6 @@ public class ValidationTest extends TestCase {
 		System.out.println(Validation.checkUnicity(hcOv)); //2+2
 		System.out.println(Validation.checkUnicity(hcDirty)); //2+3
 		 */
-
 	}
 
 }
