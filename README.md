@@ -222,17 +222,17 @@ Basic operations based on selection and indexing are presented in the quick star
 
 ### Operations
 
-TODO
+[TODO: describe]
 
 ### Analysis
 
 ## Compacity
 
-TODO
+[TODO: describe]
 
 ## Validation
 
-TODO
+[TODO: describe]
 
 ## Time series analysis
 
