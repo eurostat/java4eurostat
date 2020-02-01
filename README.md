@@ -220,7 +220,21 @@ Basic operations based on selection and indexing are presented in the quick star
 
 [TODO: extend description.]
 
-### Time series analysis
+### Operations
+
+TODO
+
+### Analysis
+
+## Compacity
+
+TODO
+
+## Validation
+
+TODO
+
+## Time series analysis
 
 The class ```TimeSeriesUtil``` provides several function for time series analysis such as the computation of moving averages, gap analysis and outlier values detection.
 
