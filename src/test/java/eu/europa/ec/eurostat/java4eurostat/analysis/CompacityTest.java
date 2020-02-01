@@ -39,7 +39,6 @@ public class CompacityTest extends TestCase {
 		assertEquals(3.5/3.0, Compacity.getCompacityIndicator(hcOv, false, false));
 		assertEquals(27, Compacity.getMaxSize(hcDirty));
 		assertEquals(0.48148148148148145, Compacity.getCompacityIndicator(hcDirty, false, false));
-
 	}
 
 }
