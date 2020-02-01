@@ -1,5 +1,7 @@
 package eu.europa.ec.eurostat.java4eurostat.analysis;
 
+import java.util.HashMap;
+
 import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
 import eu.europa.ec.eurostat.java4eurostat.io.CSV;
 import junit.framework.TestCase;
@@ -10,25 +12,33 @@ import junit.framework.TestCase;
  */
 public class ValidationTest extends TestCase {
 
-	/*public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
 		junit.textui.TestRunner.run(ValidationTest.class);
-	}*/
+	}
 
-	public void test() throws Exception {
+	public void testUnicity() throws Exception {
+		StatsHypercube hc = CSV.load("./src/test/resources/ex.csv", "population");
+		assertEquals(0, Validation.checkUnicity(hc).size());
+	}
 
-		String path = "./src/test/resources/";
-		StatsHypercube hc = CSV.load(path+"ex.csv", "population");
-		StatsHypercube hcNc = CSV.load(path+"ex_non_compact.csv", "population");
-		StatsHypercube hcOv = CSV.load(path+"ex_overlap.csv", "population");
-		StatsHypercube hcDirty = CSV.load(path+"ex_dirty.csv", "population");
+	public void testUnicityNc() throws Exception {
+		StatsHypercube hcNc = CSV.load("./src/test/resources/ex_non_compact.csv", "population");
+		assertEquals(0, Validation.checkUnicity(hcNc).size());
+	}
 
-		//TODO
-		/*
-		System.out.println(Validation.checkUnicity(hc)); //0
-		System.out.println(Validation.checkUnicity(hcNc)); //0
-		System.out.println(Validation.checkUnicity(hcOv)); //2+2
-		System.out.println(Validation.checkUnicity(hcDirty)); //2+3
-		 */
+	public void testUnicityOv() throws Exception {
+		StatsHypercube hcOv = CSV.load("./src/test/resources/ex_overlap.csv", "population");
+
+		HashMap<String, Integer> un = Validation.checkUnicity(hcOv);
+		assertEquals(2.0, un.get("{country=Brasil, gender=Female, year=2013}").doubleValue());
+		assertEquals(2.0, un.get("{country=Japan, gender=Male, year=2013}").doubleValue());
+	}
+
+	public void testUnicityDirty() throws Exception {
+		StatsHypercube hcDirty = CSV.load("./src/test/resources/ex_dirty.csv", "population");
+		HashMap<String, Integer> un = Validation.checkUnicity(hcDirty);
+		assertEquals(2.0, un.get("{country=Brasil, gender=Female, year=2013}").doubleValue());
+		assertEquals(3.0, un.get("{country=Brasil, gender=Total, year=2013}").doubleValue());
 	}
 
 }
