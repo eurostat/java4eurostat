@@ -1,1 +1,0 @@
-package eu.europa.ec.eurostat.java4eurostat.base;
