@@ -4,11 +4,12 @@
 package eu.europa.ec.eurostat.java4eurostat.io;
 
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 /**
  * @author julien Gaffuri
@@ -47,10 +48,9 @@ public class IOUtil {
 		try {
 			String line;
 			StringBuffer sb = new StringBuffer();
-			while ((line = new BufferedReader(new InputStreamReader(new URL(url).openConnection().getInputStream())).readLine()) != null) {
-				sb.append(line);
-			}
-			new BufferedReader(new InputStreamReader(new URL(url).openConnection().getInputStream())).close();
+			BufferedReader br = new BufferedReader(new InputStreamReader(new URL(url).openConnection().getInputStream()));
+			while ((line = br.readLine()) != null) sb.append(line);
+			br.close();
 			return sb.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,16 +64,20 @@ public class IOUtil {
 	 */
 	public static void downloadFile(String url, String path) {
 		try {
-			URL website = new URL(url);
-			ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+			URL url_ = new URL(url);
 
 			/*File f = new File(path);
 			if(f.exists()) f.delete();
 			f.createNewFile();*/
 
-			FileOutputStream fos = new FileOutputStream(path);
-			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-			fos.close();
+			InputStream in = url_.openStream();
+			Files.copy(in, Paths.get(path), StandardCopyOption.REPLACE_EXISTING);
+			in.close();
+
+			//ReadableByteChannel rbc = Channels.newChannel(url_.openStream());
+			//FileOutputStream fos = new FileOutputStream(path);
+			//fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+			//fos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
