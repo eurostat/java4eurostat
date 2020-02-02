@@ -259,7 +259,7 @@ public class EurobaseIO {
 
 		String st = IOUtil.getDataFromURL("https://www.google.com");
 		System.out.println(st);
-
+/*
 		StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");
 		hc.printInfo();
 
@@ -267,7 +267,7 @@ public class EurobaseIO {
 		StatsHypercube hc2 = EurostatTSV.load("/home/juju/Bureau/prc_hicp_cow.tsv");
 		hc2.printInfo();
 		EurobaseIO.update("/home/juju/Bureau/", "prc_hicp_cow");
-
+*/
 		System.out.println("End");
 
 		//System.out.println(getDictionnaryUpdateDate("coicop"));
