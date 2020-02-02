@@ -22,14 +22,16 @@ import eu.europa.ec.eurostat.java4eurostat.util.Util;
  */
 public class EurobaseIO {
 
+	public static String eurostatBaseURL = "https://ec.europa.eu/eurostat/";
+	
 	/***/
-	public static String eurobaseWSURLBase = "http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/";
+	public static String eurobaseWSURLBase = eurostatBaseURL + "wdds/rest/data/v2.1/json/en/";
 
 	/**
 	 * @param lg
 	 * @param version
 	 */
-	public static void updateEurobaseWSURLBase(String lg, String version){ eurobaseWSURLBase = "http://ec.europa.eu/eurostat/wdds/rest/data/v"+version+"/json/"+lg+"/"; }
+	public static void updateEurobaseWSURLBase(String lg, String version){ eurobaseWSURLBase = eurostatBaseURL + "wdds/rest/data/v"+version+"/json/"+lg+"/"; }
 
 	/***/
 	public static String sinceTimePeriod = "sinceTimePeriod";
@@ -80,7 +82,7 @@ public class EurobaseIO {
 	public static StatsHypercube getData(String eurobaseDatabaseCode){ return getDataFromURL(getURL(eurobaseDatabaseCode)); }
 
 	/***/
-	public static String eurobaseBulkURLBase = "http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data%2F";
+	public static String eurobaseBulkURLBase = eurostatBaseURL + "estat-navtree-portlet-prod/BulkDownloadListing?file=data%2F";
 	/***/
 	public static String eurobaseBulkURLSuf = ".tsv.gz";
 
@@ -93,7 +95,7 @@ public class EurobaseIO {
 	public static void getDataBulkDownload(String eurobaseDatabaseCode, String path, boolean unzip){
 		if(!new File(path).exists()) new File(path).mkdirs();
 		String dFilePath = path + File.separator + eurobaseDatabaseCode + eurobaseBulkURLSuf;
-		IOUtil.downloadFile(eurobaseBulkURLBase + eurobaseDatabaseCode + eurobaseBulkURLSuf, dFilePath);
+		IOUtil.downloadFile(eurobaseBulkURLBase + eurobaseDatabaseCode + eurobaseBulkURLSuf, dFilePath);		
 		if(unzip){
 			CompressUtil.unGZIP(dFilePath, path + File.separator + eurobaseDatabaseCode+".tsv");
 			new File(dFilePath).delete();
@@ -137,7 +139,7 @@ public class EurobaseIO {
 	@SuppressWarnings("null")
 	private static Date getUpdateDate(String indic, String dir) {
 		try {
-			String url_ = "http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?dir="+dir;
+			String url_ = eurostatBaseURL + "estat-navtree-portlet-prod/BulkDownloadListing?dir="+dir;
 			if("data".equals(dir)) url_ += "&start="+indic;
 			URL url = new URL(url_);
 
@@ -177,7 +179,7 @@ public class EurobaseIO {
 
 			System.out.println("Start data update from Eurobase...");
 
-			String baseUrl1 = "http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=";
+			String baseUrl1 = eurostatBaseURL + "estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=";
 			String baseUrl2 = baseUrl1 + "data%2F";
 
 			System.out.println("Read information on update last update dates");
@@ -232,10 +234,10 @@ public class EurobaseIO {
 	/**
 	 * 
 	 */
-	public static String eurobaseDictionnaryURLBase = "http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=dic%2Fen%2F";
+	public static String eurobaseDictionnaryURLBase = eurostatBaseURL + "estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=dic%2Fen%2F";
 
 	/**
-	 * Load a dictionnary from http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?dir=dic%2Fen
+	 * Load a dictionnary from https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?dir=dic%2Fen
 	 * 
 	 * @param code the dictionnary code. Example: "geo" for geographical regions.
 	 * @return
@@ -254,19 +256,20 @@ public class EurobaseIO {
 	}
 
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		System.out.println("Start");
 
+		//test 1
 		//StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");
 		//hc.printInfo();
 
-		//problem with that: does not download.
-		IOUtil.downloadFile("http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data%2Fprc_hicp_cow.tsv.gz", "/home/juju/Bureau/prc_hicp_cow.tsv.gz");
-
-		//EurobaseIO.getDataBulkDownload("prc_hicp_cow","/home/juju/Bureau");
-		//StatsHypercube hc2 = EurostatTSV.load("/home/juju/Bureau/prc_hicp_cow.tsv");
+		//test 2
+		//EurobaseIO.getDataBulkDownload("prc_hicp_cow","target/db");
+		//StatsHypercube hc2 = EurostatTSV.load("target/db/prc_hicp_cow.tsv");
 		//hc2.printInfo();
-		//EurobaseIO.update("/home/juju/Bureau/", "prc_hicp_cow");
+
+		//test 3
+		//EurobaseIO.update("target/db/", "prc_hicp_cow");
 
 		System.out.println("End");
 
@@ -275,7 +278,7 @@ public class EurobaseIO {
 		//System.out.println(dict.size());
 		//System.out.println(dict.get("CP0112"));
 
-		//System.out.println( IOUtil.getDataFromURL("http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=dic%2Fen%2Fcoicop.dic") );
+		//System.out.println( IOUtil.getDataFromURL(eurostatBaseURL + "estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=dic%2Fen%2Fcoicop.dic") );
 
 		//getData("prc_hicp_cow", "geo", "EU", "geo", "EA", "lastTimePeriod", "4").printInfo();
 		//getData("prc_hicp_cow", "geo", "EU", "geo", "EA", "sinceTimePeriod", "2005").printInfo();
