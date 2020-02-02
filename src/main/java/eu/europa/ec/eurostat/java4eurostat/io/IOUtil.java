@@ -47,10 +47,9 @@ public class IOUtil {
 		try {
 			String line;
 			StringBuffer sb = new StringBuffer();
-			while ((line = new BufferedReader(new InputStreamReader(new URL(url).openConnection().getInputStream())).readLine()) != null) {
-				sb.append(line);
-			}
-			new BufferedReader(new InputStreamReader(new URL(url).openConnection().getInputStream())).close();
+			BufferedReader br = new BufferedReader(new InputStreamReader(new URL(url).openConnection().getInputStream()));
+			while ((line = br.readLine()) != null) sb.append(line);
+			br.close();
 			return sb.toString();
 		} catch (Exception e) {
 			e.printStackTrace();

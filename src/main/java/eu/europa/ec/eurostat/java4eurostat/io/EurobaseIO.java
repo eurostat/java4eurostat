@@ -257,7 +257,7 @@ public class EurobaseIO {
 	public static void main(String[] args) {
 		System.out.println("Start");
 
-		String st = IOUtil.getDataFromURL("www.google.com");
+		String st = IOUtil.getDataFromURL("https://www.google.com");
 		System.out.println(st);
 
 		StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");
