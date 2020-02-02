@@ -260,6 +260,7 @@ public class EurobaseIO {
 		//StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");
 		//hc.printInfo();
 
+		//problem with that: does not download.
 		IOUtil.downloadFile("http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data%2Fprc_hicp_cow.tsv.gz", "/home/juju/Bureau/prc_hicp_cow.tsv.gz");
 
 		//EurobaseIO.getDataBulkDownload("prc_hicp_cow","/home/juju/Bureau");
