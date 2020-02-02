@@ -263,7 +263,6 @@ public class EurobaseIO {
 		StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");
 		hc.printInfo();
 
-
 		EurobaseIO.getDataBulkDownload("prc_hicp_cow","/home/juju/Bureau/");
 		StatsHypercube hc2 = EurostatTSV.load("/home/juju/Bureau/prc_hicp_cow.tsv");
 		hc2.printInfo();
