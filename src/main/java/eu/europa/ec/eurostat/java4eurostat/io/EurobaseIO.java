@@ -253,8 +253,24 @@ public class EurobaseIO {
 		return getUpdateDate(indic, "dic%2Fen");
 	}
 
-	/*
+
 	public static void main(String[] args) {
+		System.out.println("Start");
+
+		String st = IOUtil.getDataFromURL("www.google.com");
+		System.out.println(st);
+
+		StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");
+		hc.printInfo();
+
+
+		EurobaseIO.getDataBulkDownload("prc_hicp_cow","/home/juju/Bureau/");
+		StatsHypercube hc2 = EurostatTSV.load("/home/juju/Bureau/prc_hicp_cow.tsv");
+		hc2.printInfo();
+		EurobaseIO.update("/home/juju/Bureau/", "prc_hicp_cow");
+
+		System.out.println("End");
+
 		//System.out.println(getDictionnaryUpdateDate("coicop"));
 		//HashMap<String, String> dict = getDictionnary("coicop");
 		//System.out.println(dict.size());
@@ -276,5 +292,5 @@ public class EurobaseIO {
 		//getDataBulk("acf_s_own").printInfo();
 		//getDataBulk("prc_hicp_cow").printInfo();
 	}
-	 */
+
 }
