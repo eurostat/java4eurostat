@@ -255,7 +255,7 @@ public class EurobaseIO {
 		return getUpdateDate(indic, "dic%2Fen");
 	}
 
-
+/*
 	public static void main(String[] args) throws Exception {
 		System.out.println("Start");
 
@@ -294,5 +294,5 @@ public class EurobaseIO {
 		//getDataBulk("acf_s_own").printInfo();
 		//getDataBulk("prc_hicp_cow").printInfo();
 	}
-
+*/
 }
