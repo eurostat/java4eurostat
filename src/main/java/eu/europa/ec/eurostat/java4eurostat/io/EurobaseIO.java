@@ -257,17 +257,16 @@ public class EurobaseIO {
 	public static void main(String[] args) {
 		System.out.println("Start");
 
-		String st = IOUtil.getDataFromURL("https://www.google.com");
-		System.out.println(st);
-/*
-		StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");
-		hc.printInfo();
+		//StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");
+		//hc.printInfo();
 
-		EurobaseIO.getDataBulkDownload("prc_hicp_cow","/home/juju/Bureau/");
-		StatsHypercube hc2 = EurostatTSV.load("/home/juju/Bureau/prc_hicp_cow.tsv");
-		hc2.printInfo();
-		EurobaseIO.update("/home/juju/Bureau/", "prc_hicp_cow");
-*/
+		IOUtil.downloadFile("http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data%2Fprc_hicp_cow.tsv.gz", "/home/juju/Bureau/prc_hicp_cow.tsv.gz");
+
+		//EurobaseIO.getDataBulkDownload("prc_hicp_cow","/home/juju/Bureau");
+		//StatsHypercube hc2 = EurostatTSV.load("/home/juju/Bureau/prc_hicp_cow.tsv");
+		//hc2.printInfo();
+		//EurobaseIO.update("/home/juju/Bureau/", "prc_hicp_cow");
+
 		System.out.println("End");
 
 		//System.out.println(getDictionnaryUpdateDate("coicop"));
