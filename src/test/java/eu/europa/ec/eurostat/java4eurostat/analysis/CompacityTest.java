@@ -10,9 +10,9 @@ import junit.framework.TestCase;
  */
 public class CompacityTest extends TestCase {
 
-	public static void main(String[] args) throws Exception {
+	/*public static void main(String[] args) throws Exception {
 		junit.textui.TestRunner.run(CompacityTest.class);
-	}
+	}*/
 
 	public void test() throws Exception {
 
