@@ -22,8 +22,9 @@ import eu.europa.ec.eurostat.java4eurostat.util.Util;
  */
 public class EurobaseIO {
 
+	/***/
 	public static String eurostatBaseURL = "https://ec.europa.eu/eurostat/";
-	
+
 	/***/
 	public static String eurobaseWSURLBase = eurostatBaseURL + "wdds/rest/data/v2.1/json/en/";
 
@@ -253,46 +254,6 @@ public class EurobaseIO {
 	 */
 	public static Date getDictionnaryUpdateDate(String indic) {
 		return getUpdateDate(indic, "dic%2Fen");
-	}
-
-
-	public static void main(String[] args) throws Exception {
-		System.out.println("Start");
-
-		//test 1
-		//StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");
-		//hc.printInfo();
-
-		//test 2
-		//EurobaseIO.getDataBulkDownload("prc_hicp_cow","target/db");
-		//StatsHypercube hc2 = EurostatTSV.load("target/db/prc_hicp_cow.tsv");
-		//hc2.printInfo();
-
-		//test 3
-		//EurobaseIO.update("target/db/", "prc_hicp_cow");
-
-		System.out.println("End");
-
-		//System.out.println(getDictionnaryUpdateDate("coicop"));
-		//HashMap<String, String> dict = getDictionnary("coicop");
-		//System.out.println(dict.size());
-		//System.out.println(dict.get("CP0112"));
-
-		//System.out.println( IOUtil.getDataFromURL(eurostatBaseURL + "estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=dic%2Fen%2Fcoicop.dic") );
-
-		//getData("prc_hicp_cow", "geo", "EU", "geo", "EA", "lastTimePeriod", "4").printInfo();
-		//getData("prc_hicp_cow", "geo", "EU", "geo", "EA", "sinceTimePeriod", "2005").printInfo();
-		//public static String sinceTimePeriod = "sinceTimePeriod";
-
-		//getData("prc_hicp_cow", "time", "2016").printInfo();;
-		//update("data/", "prc_hicp_cow", "prc_hicp_inw", "prc_hicp_midx", "prc_hicp_manr", "prc_hicp_mmor", "prc_hicp_mv12r", "prc_hicp_aind", "prc_hicp_cind", "prc_hicp_cann", "prc_hicp_cmon");
-		//System.out.println( getUpdateDate("prc_hicp_midx") );
-		//System.out.println( getUpdateDate("prc_hicp_cow") );
-		//System.out.println( getUpdateDate("acf_s_own") );
-		//getDataFromDBCode("prc_hicp_cow", new DimValueEqualTo("geo","BG")).printInfo();
-		//getDataBulkDownload("acf_s_own","",true);
-		//getDataBulk("acf_s_own").printInfo();
-		//getDataBulk("prc_hicp_cow").printInfo();
 	}
 
 }
