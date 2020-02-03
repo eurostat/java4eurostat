@@ -1,0 +1,1 @@
+"C:\Program Files\Java\jdk1.8.0_121\jre\..\bin\javadoc.exe" -J-Dhttp.proxyHost=pslux.ec.europa.eu -J-Dhttp.proxyPort=8012 -J-Dhttps.proxyHost=pslux.ec.europa.eu -J-Dhttps.proxyPort=8012 @options @argfile
