@@ -12,9 +12,9 @@ import junit.framework.TestCase;
  */
 public class ValidationTest extends TestCase {
 
-	public static void main(String[] args) throws Exception {
+	/*public static void main(String[] args) throws Exception {
 		junit.textui.TestRunner.run(ValidationTest.class);
-	}
+	}*/
 
 	public void testUnicity() throws Exception {
 		StatsHypercube hc = CSV.load("./src/test/resources/ex.csv", "population");

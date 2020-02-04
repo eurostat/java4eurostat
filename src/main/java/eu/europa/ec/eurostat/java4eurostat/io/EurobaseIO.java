@@ -22,8 +22,8 @@ import eu.europa.ec.eurostat.java4eurostat.util.Util;
  */
 public class EurobaseIO {
 
+	/***/
 	public static String eurostatBaseURL = "https://ec.europa.eu/eurostat/";
-	
 	/***/
 	public static String eurobaseWSURLBase = eurostatBaseURL + "wdds/rest/data/v2.1/json/en/";
 
