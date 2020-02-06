@@ -104,7 +104,7 @@ which selects all statistics with country names containing a "r" character, and 
 A single value can be retrieved with for example ```hc.selectDimValueEqualTo("country", "Japan", "gender", "Total", "year", "2014").stats.iterator().next().value``` but the fastest way to retrieve a value and scan a dataset is to use an index with:
 
 ```java
-StatsIndex index = new StatsIndex(hc,"gender","year","country");
+StatsIndex index = new StatsIndex(hc, "gender", "year", "country");
 ```
 This index is a tree structure based on the dimension values. This structure can be displayed with ```index.print();```:
 
@@ -153,10 +153,10 @@ for(String gender : index.getKeys())
 <dependency>
 	<groupId>eu.europa.ec.eurostat</groupId>
 	<artifactId>java4eurostat</artifactId>
-	<version>X.Y.ZY</version>
+	<version>X.Y.Z</version>
 </dependency>
 ```
-Where *X.Y.Z* is the current version number, as available [Maven central repository](https://search.maven.org/artifact/eu.europa.ec.eurostat/java4eurostat).
+Where *X.Y.Z* is the latest version number, as available [Maven central repository](https://search.maven.org/artifact/eu.europa.ec.eurostat/java4eurostat).
 
 ### Input data
 #### CSV
