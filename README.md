@@ -158,7 +158,7 @@ for(String gender : index.getKeys())
 ```
 Where *X.Y.Z* is the latest version number, as available [Maven central repository](https://search.maven.org/artifact/eu.europa.ec.eurostat/java4eurostat).
 
-### Input data
+### Load/save data
 #### CSV
 
 Statistical data such as:
@@ -167,12 +167,8 @@ Statistical data such as:
 country,gender,year,population
 Brasil,Male,2013,45.1
 Brasil,Female,2013,48.3
-Brasil,Total,2013,93.4
-Brasil,Female,2014,47.7
-Brasil,Total,2014,93.9
-Japan,Male,2013,145.1
-Japan,Female,2014,147.7
-Japan,Total,2014,293.9
+Japan,Total,2013,93.4
+...
 ```
 
 Can be simply loaded and saved with:
@@ -184,9 +180,24 @@ StatsHypercube hc = CSV.load("C:\datafolder\myFile.csv", "population");
 CSV.save(hc, "population", "C:\datafolder\myFile.csv");
 ```
 
-TODO: multi value columns
+For tabular data with several value columns such as: 
 
+```
+country,gender,year,2010,2015,2020
+Brasil,Male,2013,45.1,45.1,45.1
+Brasil,Total,2013,93.4,45.1,45.1
+Japan,Male,2014,46.2,45.1,45.1
+...
+```
 
+Just use:
+
+```java
+//load
+StatsHypercube hc = CSV.loadMultiValues("C:\datafolder\myFile.csv", "year", "2010", "2015", "2020");
+//save
+//  not implemented (yet)
+```
 
 #### JSON-stat
 See [here](https://json-stat.org/) for more information on this format.
