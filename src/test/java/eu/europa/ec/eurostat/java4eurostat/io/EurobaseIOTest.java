@@ -12,9 +12,9 @@ import junit.framework.TestCase;
  */
 public class EurobaseIOTest extends TestCase {
 
-	public static void main(String[] args) throws Exception {
+	/*public static void main(String[] args) throws Exception {
 		junit.textui.TestRunner.run(EurobaseIOTest.class);
-	}
+	}*/
 
 	public void testGetData1() throws Exception {
 		StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");
