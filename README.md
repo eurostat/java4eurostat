@@ -181,7 +181,7 @@ Can be simply loaded and saved with:
 //load
 StatsHypercube hc = CSV.load("C:\datafolder\myFile.csv", "population");
 //save
-CSV.save(hc, "C:\datafolder\myFile.csv");
+CSV.save(hc, "population", "C:\datafolder\myFile.csv");
 ```
 
 TODO: multi value columns
