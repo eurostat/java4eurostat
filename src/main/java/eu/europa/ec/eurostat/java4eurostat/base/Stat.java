@@ -12,7 +12,10 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * 
- * A statistical value, described by dimension-coordinates in the hypercube, and possibly flags.
+ * A statistical value.
+ * 
+ * A statistical value is stored in a hypercube.
+ * His position in the hypercube is specified by its dimension values.
  * 
  * @author julien Gaffuri
  *
@@ -27,7 +30,7 @@ public class Stat {
 
 	/**
 	 * @param value The statistical value
-	 * @param dims The dimension data: list of pairs: dimLabel1,dimValue1,dimLabel2,dimValue2,...
+	 * @param dims The position of the statistical value in the hypercube: list of pairs: dimLabel1,dimValue1,dimLabel2,dimValue2,...
 	 */
 	public Stat(double value, String... dims){
 		this();
@@ -51,10 +54,11 @@ public class Stat {
 	public double value;
 
 	/**
-	 * The dimensions
+	 * The position of the element in the hypercube.
 	 * Ex: gender - male ; time - 2015 ; country - PL
 	 */
 	public HashMap<String,String> dims = new HashMap<>();
+
 
 	/**
 	 * The flags providing some metadata information

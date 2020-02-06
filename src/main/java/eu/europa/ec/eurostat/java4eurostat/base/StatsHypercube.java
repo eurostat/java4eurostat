@@ -30,7 +30,11 @@ import eu.europa.ec.eurostat.java4eurostat.analysis.Selection.ValueLowerThan;
 import eu.europa.ec.eurostat.java4eurostat.util.StatsUtil;
 
 /**
- * An hypercube of statistical values.
+ * A hypercube of statistical values.
+ * 
+ * A hypercube has several dimensions.
+ * For each dimension, several values are possible.
+ * An element of the hypercube is statistical value, whose position in the hypercube is described by its dimension values.
  * 
  * @author julien Gaffuri
  *
