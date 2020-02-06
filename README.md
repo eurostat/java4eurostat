@@ -305,15 +305,15 @@ hcPopByAge.stats.addAll(totals);
 
 More operations are available from the ```Operations``` class. Custom [unary](https://en.wikipedia.org/wiki/Unary_operation), [binary](https://en.wikipedia.org/wiki/Binary_operation) or [aggregation](https://en.wikipedia.org/wiki/Aggregate_function) operators can be implemented.
 
-## Compacity
+### Compacity
 
-The class ```Compacity``` provide various methods to analyse how full/empty the hypercube structure is. This compacity computation can be restrictied to single dimensions, which gives a good overview of the completness of the input data and along which dimension it is worth focussing on. See for example the ```Compacity.getDimensionValuesByCompacity``` method.
+The class ```Compacity``` provides various methods to analyse how full/empty the hypercube structure is. This compacity computation can be restrictied to single dimensions, which gives a good overview of the completness of the input data and along which dimension it is worth focussing on. See for example the ```Compacity.getDimensionValuesByCompacity``` method.
 
-## Validation
+### Validation
 
-The class ```Validation``` provide various methods to check the compliance of the dimension codes with some specified values (```Validation.Compacity.checkDimensionValuesValidity``` method). The ```Validation.Compacity.checkUnicity``` methods also checks the unicity of statistical values per position in the hypercube.
+The class ```Validation``` provides various methods to check the compliance of the dimension codes with some specified values (```Validation.Compacity.checkDimensionValuesValidity``` method). The ```Validation.Compacity.checkUnicity``` methods also checks the unicity of statistical values per position in the hypercube.
 
-## Time series analysis
+### Time series analysis
 
 The class ```TimeSeriesUtil``` provides several function for time series analysis such as the computation of moving averages, gap analysis and outlier values detection.
 
