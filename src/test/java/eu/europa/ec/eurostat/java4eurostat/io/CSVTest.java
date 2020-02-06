@@ -9,9 +9,9 @@ import junit.framework.TestCase;
  */
 public class CSVTest extends TestCase {
 
-	public static void main(String[] args) throws Exception {
+	/*public static void main(String[] args) throws Exception {
 		junit.textui.TestRunner.run(CSVTest.class);
-	}
+	}*/
 
 	public void test() throws Exception {
 		String path = "./src/test/resources/";
