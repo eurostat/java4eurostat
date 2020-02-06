@@ -257,6 +257,10 @@ Basic operations based on selection and indexing are presented in the quick star
 
 [TODO: extend description.]
 
+## Selection
+
+The class ```Selection``` provide various ways to navigate in the hypercube structure hy selecting specific values based on various criteria. 
+
 ### Operations
 
 Operations can be quickly applied on statistical values of a hypercube, such as:
@@ -297,15 +301,15 @@ Collection<Stat> totals = Operations.computeSumDim(hcPopByAge, "age_group", "TOT
 hcPopByAge.stats.addAll(totals);
 ```
 
-More operations are available from the ```Operations``` class. Custom [unary](https://en.wikipedia.org/wiki/Unary_operation), [binary](https://en.wikipedia.org/wiki/Binary_operation) or [aggregation](https://en.wikipedia.org/wiki/Aggregate_function) operators can be implemented.
+More operations are available from the ```Operations`` class. Custom [unary](https://en.wikipedia.org/wiki/Unary_operation), [binary](https://en.wikipedia.org/wiki/Binary_operation) or [aggregation](https://en.wikipedia.org/wiki/Aggregate_function) operators can be implemented.
 
 ## Compacity
 
-[TODO: describe]
+The class ```Compacity``` provide various methods to analyse how full/empty the hypercube structure is. This compacity computation can be restrictied to single dimensions, which gives a good overview of the completness of the input data and along which dimension it is worth focussing on. See for example the ```Compacity.getDimensionValuesByCompacity``` method.
 
 ## Validation
 
-[TODO: describe]
+The class ```Validation``` provide various methods to check the compliance of the dimension codes with some specified values (```Validation.Compacity.checkDimensionValuesValidity``` method). The ```Validation.Compacity.checkUnicity``` methods also checks the unicity of statistical values per position in the hypercube.
 
 ## Time series analysis
 
