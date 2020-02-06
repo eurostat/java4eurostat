@@ -17,10 +17,10 @@
 -docencoding
 'UTF-8'
 -doctitle
-'java4eurostat 1.18-SNAPSHOT API'
+'java4eurostat 1.19-SNAPSHOT API'
 -linkoffline
 'https://docs.oracle.com/javase/8/docs/api' 'C:/Users/gaffuju/workspace/java4eurostat/target/javadoc-bundle-options'
 -use
 -version
 -windowtitle
-'java4eurostat 1.18-SNAPSHOT API'
+'java4eurostat 1.19-SNAPSHOT API'
