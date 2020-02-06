@@ -160,12 +160,34 @@ Where *X.Y.Z* is the latest version number, as available [Maven central reposito
 
 ### Input data
 #### CSV
+
+Statistical data such as:
+
+```
+country,gender,year,population
+Brasil,Male,2013,45.1
+Brasil,Female,2013,48.3
+Brasil,Total,2013,93.4
+Brasil,Female,2014,47.7
+Brasil,Total,2014,93.9
+Japan,Male,2013,145.1
+Japan,Female,2014,147.7
+Japan,Total,2014,293.9
+```
+
+Can be simply loaded and saved with:
+
 ```java
 //load
-StatsHypercube hc = CSV.load("example.csv", "population");
+StatsHypercube hc = CSV.load("C:\datafolder\myFile.csv", "population");
 //save
-CSV.save(hc, "C:\datafolder\", "dataset.csv");
+CSV.save(hc, "C:\datafolder\myFile.csv");
 ```
+
+TODO: multi value columns
+
+
+
 #### JSON-stat
 See [here](https://json-stat.org/) for more information on this format.
 ```java
