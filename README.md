@@ -241,11 +241,11 @@ StatsHypercube hc = JSONStat.load(jsonStatString);
 #### Filtering on loading
 To ensure an efficient usage of memory, a selection criteria can be specified when loading from a data source. For example, ```StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow", new DimValueEqualTo("geo","BG"))``` loads only data for country *BG*.
 
-### Basic data structures
+### Base data structures
 
-The base classes are ```Stat``` and  ```StatsHypercube```. A ```Stat``` object represents a statistical values, element of a ```StatsHypercube``` object.
+The base classes are ```Stat``` and  ```StatsHypercube```. A ```Stat``` object represents a statistical value, which is stored as an element of the ```StatsHypercube``` structure.
 
-A ```Stat``` object is characterised by its value (of course) and a dictionnary of pairs *(dimension label, dimension value)*, which represents its coordinates within the hypercube. [Flags](http://ec.europa.eu/eurostat/data/database/information) can also be attached to a statistical value. The class ```StatsHypercube``` is simply characterised by its collection of ```Stat``` elements and dimension names.
+A ```Stat``` object is characterised by its value (of course) and its position in the hypercube, which is represented as a dictionnary of pairs *(dimension label, dimension value)*, which represents its coordinates within the hypercube. [Flags](http://ec.europa.eu/eurostat/data/database/information) can also be attached to a statistical value. The class ```StatsHypercube``` is simply characterised by its collection of ```Stat``` elements and dimension names.
 
 [TODO: describe HierarchicalCode]
 
@@ -259,9 +259,45 @@ Basic operations based on selection and indexing are presented in the quick star
 
 ### Operations
 
-[TODO: describe]
+Operations can be quickly applied on statistical values of a hypercube, such as:
 
-### Analysis
+```java
+//divide all values by 100.
+hc.div(100);
+//add 0.185 to all values.
+hc.add(0.185);
+```
+
+It is also possible to combine values of two hypercubes for example:
+
+```java
+//get population data for 2020 and 2010
+StatsHypercube hcPop2020 = ...;
+StatsHypercube hcPop2010 = ...;
+//compute population change
+StatsHypercube hcPopChange = hcPop2020.diff(hcPop2010);
+```
+
+These operation can easily be combined:
+
+```java
+//get population data for 2020 and 2010
+StatsHypercube hcPop2020 = ...;
+StatsHypercube hcPop2010 = ...;
+//compute population rate of change, in percentage
+StatsHypercube hcPopRateOfChange = hcPop2020.diff(hcPop2010).div(hcPop2010).mult(100);
+```
+
+New statistical values can also be computed from existing hypercube values. For example, to compute the total value along a dimension ```age_group```:
+
+```java
+//get population data by age group
+StatsHypercube hcPopByAge = ...;
+Collection<Stat> totals = Operations.computeSumDim(hcPopByAge, "age_group", "TOTAL");
+hcPopByAge.stats.addAll(totals);
+```
+
+More operations are available from the ```Operations``` class. Custom [unary](https://en.wikipedia.org/wiki/Unary_operation), [binary](https://en.wikipedia.org/wiki/Binary_operation) or [aggregation](https://en.wikipedia.org/wiki/Aggregate_function) operators can be implemented.
 
 ## Compacity
 
