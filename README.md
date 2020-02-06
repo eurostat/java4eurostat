@@ -199,16 +199,7 @@ StatsHypercube hc = CSV.loadMultiValues("C:\datafolder\myFile.csv", "year", "201
 //  not implemented (yet)
 ```
 
-#### JSON-stat
-See [here](https://json-stat.org/) for more information on this format.
-```java
-//load
-String jsonStatString = '{"version":"2.0", "class":"dataset", "label":"Population data", "source":"", "id":[...], "size":[...], "dimension":{...}, "value":[...]}';
-StatsHypercube hc = JSONStat.load(jsonStatString);
-//save
-//  not implemented (yet)
-```
-#### Eurostat data
+#### TSV and Eurostat data
 
 The class ```EurobaseIO``` provides several functions to handle Eurostat data. For example: ```StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow");``` loads the database *prc_hicp_cow*. Selection parameters may also be specified: ```getData("prc_hicp_cow", "geo", "EU", "geo", "EA", "time", "2016")``` returns loads database *prc_hicp_cow* figures for 2016, for both *EU* and *EA*. Additionnaly, ```getData("prc_hicp_cow", "lastTimePeriod", "4")``` return the figures for the 4 last time periods, while ```getData("prc_hicp_cow", "sinceTimePeriod", "2005")``` returns all figures since 2005.
 
@@ -234,6 +225,18 @@ EurobaseIO.update("C:/my_data_folder/", "my_database_code1", "my_database_code2"
 retrieves new files *my_database_code1.tsv*, *my_database_code2.tsv* and *my_database_code3.tsv* only when they has been updated. This function creates a file ```update.txt``` in ```C:/my_data_folder/``` folder, which gives the last update dates of the files. 
 
 Code list dictionnaries are loaded with for example ```EurobaseIO.getDictionnary("geo")``` which retrieve the dictionnary of geographical locations (code *geo*). ```EurobaseIO.getDictionnary("geo").get("IT")``` returns "Italy". Last update dates are retreved with for example ```getDictionnaryUpdateDate("geo")```.
+
+#### JSON-stat
+
+For [JSON-stat](https://json-stat.org/) data, simply use:
+
+```java
+//load
+String jsonStatString = '{"version":"2.0", "class":"dataset", "label":"Population data", "source":"", "id":[...], "size":[...], "dimension":{...}, "value":[...]}';
+StatsHypercube hc = JSONStat.load(jsonStatString);
+//save
+//  not implemented (yet)
+```
 
 #### Filtering on loading
 To ensure an efficient usage of memory, a selection criteria can be specified when loading from a data source. For example, ```StatsHypercube hc = EurobaseIO.getData("prc_hicp_cow", new DimValueEqualTo("geo","BG"))``` loads only data for country *BG*.
