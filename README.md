@@ -253,15 +253,13 @@ A ```Stat``` object is characterised by its value (of course) and its position i
 
 [TODO: describe HierarchicalCode]
 
-### Data access
+### Data access and selection
 
 Data of a hypercube are accessed using either the ```StatsHypercube.select()``` method or a ```StatsIndex``` object. Access with a ```StatsIndex``` is faster, but requires the construction of an index object, which can be resource consumming.
 
 Basic operations based on selection and indexing are presented in the quick start section above.
 
 [TODO: extend description.]
-
-## Selection
 
 The class ```Selection``` provide various ways to navigate in the hypercube structure hy selecting specific values based on various criteria. 
 
@@ -305,7 +303,7 @@ Collection<Stat> totals = Operations.computeSumDim(hcPopByAge, "age_group", "TOT
 hcPopByAge.stats.addAll(totals);
 ```
 
-More operations are available from the ```Operations`` class. Custom [unary](https://en.wikipedia.org/wiki/Unary_operation), [binary](https://en.wikipedia.org/wiki/Binary_operation) or [aggregation](https://en.wikipedia.org/wiki/Aggregate_function) operators can be implemented.
+More operations are available from the ```Operations``` class. Custom [unary](https://en.wikipedia.org/wiki/Unary_operation), [binary](https://en.wikipedia.org/wiki/Binary_operation) or [aggregation](https://en.wikipedia.org/wiki/Aggregate_function) operators can be implemented.
 
 ## Compacity
 
