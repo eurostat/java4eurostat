@@ -158,6 +158,10 @@ for(String gender : index.getKeys())
 ```
 Where *X.Y.Z* is the latest version number, as available [Maven central repository](https://search.maven.org/artifact/eu.europa.ec.eurostat/java4eurostat).
 
+### Documentation
+
+See the [Javadoc API](https://eurostat.github.io/java4eurostat/src/site/apidocs/).
+
 ### Load/save data
 #### CSV
 
@@ -316,10 +320,6 @@ The class ```Validation``` provide various methods to check the compliance of th
 The class ```TimeSeriesUtil``` provides several function for time series analysis such as the computation of moving averages, gap analysis and outlier values detection.
 
 [TODO: extend description.]
-
-### Further documentation
-
-See the [Javadoc API](https://eurostat.github.io/java4eurostat/src/site/apidocs/).
 
 ## Support and contribution
 
