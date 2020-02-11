@@ -158,6 +158,8 @@ for(String gender : index.getKeys())
 ```
 Where *X.Y.Z* is the latest version number, as available [Maven central repository](https://search.maven.org/artifact/eu.europa.ec.eurostat/java4eurostat).
 
+For more information on how to setup a coding environment based on Eclipse, see [this page](https://github.com/eurostat/README/blob/master/docs/howto/java_eclipse_maven_git_quick_guide.md).
+
 ### Documentation
 
 See the [Javadoc API](https://eurostat.github.io/java4eurostat/src/site/apidocs/).
