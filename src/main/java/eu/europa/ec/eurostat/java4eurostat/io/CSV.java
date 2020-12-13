@@ -145,13 +145,13 @@ public class CSV {
 		return hc;
 	}
 
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 	@SuppressWarnings("javadoc")
 	public static void save(StatsHypercube hc, String valueLabel, String outFile) { save(hc,valueLabel,outFile, ","); }
 	@SuppressWarnings("javadoc")
@@ -229,6 +229,22 @@ public class CSV {
 			}
 			bw.close();
 		} catch (IOException e) { e.printStackTrace(); }
+	}
+
+
+
+
+	/**
+	 * Save a hypercube as a CSV file for which several values are specified per raw.
+	 * 
+	 * @param hc 
+	 * @param outFile The output file path.
+	 * @param newDimLabel The new dimension label for the different value columns.
+	 * @param valueColumns The header of the raws containing statistical values.
+	 * @return
+	 */
+	public static void saveMultiValues(StatsHypercube hc, String outFile, String newDimLabel, String... valueColumns) {
+		//TODO
 	}
 
 }
