@@ -152,9 +152,7 @@ public class CSV {
 
 
 
-	@SuppressWarnings("javadoc")
 	public static void save(StatsHypercube hc, String valueLabel, String outFile) { save(hc,valueLabel,outFile, ","); }
-	@SuppressWarnings("javadoc")
 	public static void save(StatsHypercube hc, String valueLabel, String outFile, String separator) { save(hc, valueLabel, outFile, separator, null); }
 
 	/**
@@ -234,17 +232,70 @@ public class CSV {
 
 
 
+	public static void saveMultiValues(StatsHypercube hc, String outFile, String separator, Comparator<String> keysComparator, String dimLabelColumn) {
+		saveMultiValues(hc, outFile, separator, keysComparator, dimLabelColumn, hc.getDimValues(dimLabelColumn).toArray(new String[]{}));
+	}
+
 	/**
 	 * Save a hypercube as a CSV file for which several values are specified per raw.
 	 * 
 	 * @param hc 
 	 * @param outFile The output file path.
-	 * @param newDimLabel The new dimension label for the different value columns.
+	 * @param dimLabelColumn The new dimension label for the different value columns.
 	 * @param valueColumns The header of the raws containing statistical values.
 	 * @return
 	 */
-	public static void saveMultiValues(StatsHypercube hc, String outFile, String newDimLabel, String... valueColumns) {
-		//TODO
+	public static void saveMultiValues(StatsHypercube hc, String outFile, String separator, Comparator<String> keysComparator, String dimLabelColumn, String... valueColumns) {
+		try {
+			File f = FileUtil.getFile(outFile, true, true);
+			BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));
+
+			//write header
+			ArrayList<String> dimLabels = new ArrayList<>(hc.dimLabels);
+			dimLabels.remove(dimLabelColumn);
+			if(keysComparator != null)
+				Collections.sort(dimLabels, keysComparator);
+			for(String dimLabel : dimLabels ){
+				if(dimLabel.contains(separator)) bw.write("\"");
+				bw.write(dimLabel);
+				if(dimLabel.contains(separator)) bw.write("\"");
+				bw.write(",");
+			}
+			int i=0;
+			for(String valueColumn : valueColumns ){
+				if(valueColumn.contains(separator)) bw.write("\"");
+				bw.write(valueColumn);
+				if(valueColumn.contains(separator)) bw.write("\"");
+				if(i<valueColumns.length-1) bw.write(",");
+				i++;
+			}
+			bw.write("\n");
+
+			
+			//TODO
+			StatsIndex si = new StatsIndex(hc, dimLabelColumn);
+
+			//write data
+			for(Stat s : hc.stats){
+				for(String dimLabel : dimLabels){
+					String dimValue = s.dims.get(dimLabel);
+					if(dimValue.contains(separator)) bw.write("\"");
+					bw.write(dimValue);
+					if(dimValue.contains(separator)) bw.write("\"");
+					bw.write(",");
+				}
+				i=0;
+				for(String valueColumn : valueColumns ){
+					//write value as a double or as an int (to avoid writing the ".0") in the end.
+					if( (s.value % 1) == 0 ) bw.write(""+(int)s.value);
+					else bw.write(""+s.value);
+					if(i<valueColumns.length-1) bw.write(",");
+					i++;
+				}
+				bw.write("\n");
+			}
+			bw.close();
+		} catch (Exception e) {e.printStackTrace();}
 	}
 
 }
