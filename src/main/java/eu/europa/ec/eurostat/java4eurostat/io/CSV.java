@@ -271,10 +271,17 @@ public class CSV {
 			}
 			bw.write("\n");
 
-			
-			//TODO
-			StatsIndex si = new StatsIndex(hc, dimLabelColumn);
+			//build index
+			String[] dls = new String[hc.dimLabels.size()];
+			for(i=0; i<dimLabels.size(); i++)
+				dls[i] = dimLabels.get(i);
+			dls[dimLabels.size()] = dimLabelColumn;
+			StatsIndex si = new StatsIndex(hc, dls);
 
+			//TODO
+			//si.get
+			
+			/*
 			//write data
 			for(Stat s : hc.stats){
 				for(String dimLabel : dimLabels){
@@ -294,7 +301,8 @@ public class CSV {
 				}
 				bw.write("\n");
 			}
-			bw.close();
+			bw.close();*/
+
 		} catch (Exception e) {e.printStackTrace();}
 	}
 
