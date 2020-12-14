@@ -20,12 +20,12 @@ public class CSVTest extends TestCase {
 		StatsHypercube hcOv = CSV.load(path+"ex_overlap.csv", "population");
 		StatsHypercube hcDirty = CSV.load(path+"ex_dirty.csv", "population");
 	}
-	 */
+
 	public void testMultiLoad() throws Exception {
 		String path = "./src/test/resources/";
 		String outpath = "./target/test/";
 		StatsHypercube hc = CSV.loadMultiValues(path+"ex_multi.csv", "year", "2010", "2015", "2020");
-	}
+	}*/
 
 	public void testMultiSave() throws Exception {
 		String path = "./src/test/resources/";
