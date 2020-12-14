@@ -40,6 +40,7 @@ public class CSVTest extends TestCase {
 		String outpath = "./target/test/";
 		//TODO other
 		StatsHypercube hcNc = CSV.load(path+"ex_non_compact.csv", "population");
+		CSV.saveMultiValues(hcNc, outpath + "mutli_year_nc___.csv", "year");
 		CSV.saveMultiValues(hcNc, outpath + "mutli_year_nc.csv", ",", "ND", null, "year", "2013", "2014", "2015");
 		CSV.saveMultiValues(hcNc, outpath + "mutli_gender_nc.csv", ",", "ND", null, "gender", "Total", "Female", "Male");
 		CSV.saveMultiValues(hcNc, outpath + "mutli_country_nc.csv", ",", "ND", null, "country", "Japan", "Brasil");
