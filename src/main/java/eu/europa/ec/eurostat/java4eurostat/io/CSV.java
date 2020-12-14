@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -234,11 +235,13 @@ public class CSV {
 
 
 	public static void saveMultiValues(StatsHypercube hc, String outFile, String dimLabelColumn) {
-		saveMultiValues(hc, outFile, ",", "", null, dimLabelColumn, hc.getDimValues(dimLabelColumn).toArray(new String[]{}));
+		HashSet<String> valueColumns = hc.getDimValues(dimLabelColumn);
+		saveMultiValues(hc, outFile, ",", "", null, dimLabelColumn, valueColumns.toArray(new String[valueColumns.size()]));
 	}
 
 	public static void saveMultiValues(StatsHypercube hc, String outFile, String separator, String noValue, Comparator<String> keysComparator, String dimLabelColumn) {
-		saveMultiValues(hc, outFile, separator, noValue, keysComparator, dimLabelColumn, hc.getDimValues(dimLabelColumn).toArray(new String[]{}));
+		HashSet<String> valueColumns = hc.getDimValues(dimLabelColumn);
+		saveMultiValues(hc, outFile, separator, noValue, keysComparator, dimLabelColumn, valueColumns.toArray(new String[valueColumns.size()]));
 	}
 
 	/**
