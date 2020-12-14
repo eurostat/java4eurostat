@@ -1,7 +1,6 @@
 package eu.europa.ec.eurostat.java4eurostat.io;
 
 import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
-import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
 import junit.framework.TestCase;
 
 /**
@@ -22,12 +21,20 @@ public class CSVTest extends TestCase {
 		StatsHypercube hcDirty = CSV.load(path+"ex_dirty.csv", "population");
 	}
 	 */
-	public void testMulti() throws Exception {
+	public void testMultiLoad() throws Exception {
 		String path = "./src/test/resources/";
 		String outpath = "./target/test/";
 		StatsHypercube hc = CSV.loadMultiValues(path+"ex_multi.csv", "year", "2010", "2015", "2020");
-		//TODO add tests
-		CSV.saveMultiValues(hc, outpath + "mutli.csv", ",", null, "year", "2010", "2015", "2020");
+	}
+
+	public void testMultiSave() throws Exception {
+		String path = "./src/test/resources/";
+		String outpath = "./target/test/";
+		//TODO other
+		StatsHypercube hc = CSV.loadMultiValues(path+"ex_multi.csv", "year", "2010", "2015", "2020");
+		CSV.saveMultiValues(hc, outpath + "mutli_year.csv", ",", null, "year", "2010", "2015", "2020");
+		//CSV.saveMultiValues(hc, outpath + "mutli_gender.csv", ",", null, "gender", "Total", "Female", "Male");
+		//CSV.saveMultiValues(hc, outpath + "mutli_gender.csv", ",", null, "country", "Japan", "Brasil");
 	}
 
 }
