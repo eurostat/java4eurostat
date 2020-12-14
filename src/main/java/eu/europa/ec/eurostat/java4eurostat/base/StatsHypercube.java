@@ -68,6 +68,17 @@ public class StatsHypercube {
 		for(String dimLabel : dimLabels) this.dimLabels.add(dimLabel);
 	}
 
+	/**
+	 * Build an hypercube.
+	 * 
+	 * @param stats
+	 * @param dimLabels The dimension labels.
+	 */
+	public StatsHypercube(Collection<Stat> stats, String... dimLabels){
+		this(stats, new HashSet<String>());
+		for(String dimLabel : dimLabels) this.dimLabels.add(dimLabel);
+	}
+
 	private StatsHypercube(Collection<Stat> stats, Collection<String> dimLabels){
 		this.stats = stats;
 		this.dimLabels = dimLabels;

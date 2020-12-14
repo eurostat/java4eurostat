@@ -14,7 +14,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -234,8 +233,8 @@ public class CSV {
 
 
 
-	public static void saveMultiValues(StatsHypercube hc, String outFile, String separator, Comparator<String> keysComparator, String dimLabelColumn) {
-		saveMultiValues(hc, outFile, separator, keysComparator, dimLabelColumn, hc.getDimValues(dimLabelColumn).toArray(new String[]{}));
+	public static void saveMultiValues(StatsHypercube hc, String outFile, String separator, String noValue, Comparator<String> keysComparator, String dimLabelColumn) {
+		saveMultiValues(hc, outFile, separator, noValue, keysComparator, dimLabelColumn, hc.getDimValues(dimLabelColumn).toArray(new String[]{}));
 	}
 
 	/**
@@ -247,7 +246,7 @@ public class CSV {
 	 * @param valueColumns The header of the raws containing statistical values.
 	 * @return
 	 */
-	public static void saveMultiValues(StatsHypercube hc, String outFile, String separator, Comparator<String> keysComparator, String dimLabelColumn, String... valueColumns) {
+	public static void saveMultiValues(StatsHypercube hc, String outFile, String separator, String noValue, Comparator<String> keysComparator, String dimLabelColumn, String... valueColumns) {
 		try {
 			File f = FileUtil.getFile(outFile, true, true);
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));
@@ -273,24 +272,10 @@ public class CSV {
 			}
 			bw.write("\n");
 
-			//build index
-			/*String[] dls = new String[hc.dimLabels.size()];
-			for(i=0; i<dimLabelsSorted.size(); i++)
-				dls[i] = dimLabelsSorted.get(i);
-			dls[dimLabelsSorted.size()] = dimLabelColumn;
-			StatsIndex index = new StatsIndex(hc, dls);*/
+			//write data rows
 
-			/*
-			System.out.println(hc.dimLabels);
-			System.out.println(dimLabelsSorted);
-			for(String lb : dls) System.out.println(lb);
-
-			//index.print();
-*/
-
+			//index
 			StatsIndex index = new StatsIndex(hc, dimLabelsSorted.toArray(new String[dimLabelsSorted.size()]));
-			//index.print();
-
 			for(Collection<Stat> leave : index.getLeaves()) {
 				//write dim values
 				Stat s = leave.iterator().next();
@@ -301,42 +286,21 @@ public class CSV {
 					if(dimValue.contains(separator)) bw.write("\"");
 					bw.write(",");
 				}
-				//TODO write values
-				bw.write("\n");
-			}
-			
-			
-			//StatsIndex subIndex = index.getSubIndex(dimLabels);
-/*
-			//TODO
-			for(String gender : index.getKeys())
-				for(String year : index.getKeys(gender))
-					for(String country : index.getKeys(gender,year)) {
-						System.out.println(gender +" "+year+" "+country);
-						System.out.println(index.getSingleValue(gender,year,country));
-					}
-*/
-
-			/*
-			//write data
-			for(Stat s : hc.stats){
-				for(String dimLabel : dimLabels){
-					String dimValue = s.dims.get(dimLabel);
-					if(dimValue.contains(separator)) bw.write("\"");
-					bw.write(dimValue);
-					if(dimValue.contains(separator)) bw.write("\"");
-					bw.write(",");
-				}
+				//index leave values
+				index = new StatsIndex( new StatsHypercube(leave, hc.getDimLabels()), dimLabelColumn );
+				//write values
 				i=0;
-				for(String valueColumn : valueColumns ){
-					//write value as a double or as an int (to avoid writing the ".0") in the end.
-					if( (s.value % 1) == 0 ) bw.write(""+(int)s.value);
-					else bw.write(""+s.value);
+				for(String valueColumn: valueColumns) {
+					double v = index.getSingleValue(valueColumn);
+					if(Double.isNaN(v))
+						bw.write(noValue);
+					else
+						bw.write(""+v);
 					if(i<valueColumns.length-1) bw.write(",");
 					i++;
 				}
 				bw.write("\n");
-			}*/
+			}
 			bw.close();
 
 		} catch (Exception e) {e.printStackTrace();}
