@@ -300,8 +300,8 @@ public class CSV {
 					i++;
 				}
 				bw.write("\n");
-			}
-			bw.close();*/
+			}*/
+			bw.close();
 
 		} catch (Exception e) {e.printStackTrace();}
 	}
