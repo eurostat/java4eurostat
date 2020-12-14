@@ -233,6 +233,10 @@ public class CSV {
 
 
 
+	public static void saveMultiValues(StatsHypercube hc, String outFile, String dimLabelColumn) {
+		saveMultiValues(hc, outFile, ",", "", null, dimLabelColumn, hc.getDimValues(dimLabelColumn).toArray(new String[]{}));
+	}
+
 	public static void saveMultiValues(StatsHypercube hc, String outFile, String separator, String noValue, Comparator<String> keysComparator, String dimLabelColumn) {
 		saveMultiValues(hc, outFile, separator, noValue, keysComparator, dimLabelColumn, hc.getDimValues(dimLabelColumn).toArray(new String[]{}));
 	}

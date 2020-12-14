@@ -202,7 +202,7 @@ Just use:
 //load
 StatsHypercube hc = CSV.loadMultiValues("C:\datafolder\myFile.csv", "year", "2010", "2015", "2020");
 //save
-//  not implemented (yet)
+CSV.saveMultiValues(hc, "C:\datafolder\myFile.csv", "year")
 ```
 
 #### TSV and Eurostat data
