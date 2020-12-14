@@ -1,6 +1,7 @@
 package eu.europa.ec.eurostat.java4eurostat.io;
 
 import eu.europa.ec.eurostat.java4eurostat.base.StatsHypercube;
+import eu.europa.ec.eurostat.java4eurostat.base.StatsIndex;
 import junit.framework.TestCase;
 
 /**
@@ -12,7 +13,7 @@ public class CSVTest extends TestCase {
 	public static void main(String[] args) throws Exception {
 		junit.textui.TestRunner.run(CSVTest.class);
 	}
-/*
+	/*
 	public void test() throws Exception {
 		String path = "./src/test/resources/";
 		StatsHypercube hc = CSV.load(path+"ex.csv", "population");
@@ -20,12 +21,11 @@ public class CSVTest extends TestCase {
 		StatsHypercube hcOv = CSV.load(path+"ex_overlap.csv", "population");
 		StatsHypercube hcDirty = CSV.load(path+"ex_dirty.csv", "population");
 	}
-*/
+	 */
 	public void testMulti() throws Exception {
 		String path = "./src/test/resources/";
 		String outpath = "./target/test/";
 		StatsHypercube hc = CSV.loadMultiValues(path+"ex_multi.csv", "year", "2010", "2015", "2020");
-		//hc.printInfo(true);
 		//TODO add tests
 		CSV.saveMultiValues(hc, outpath + "mutli.csv", ",", null, "year", "2010", "2015", "2020");
 	}

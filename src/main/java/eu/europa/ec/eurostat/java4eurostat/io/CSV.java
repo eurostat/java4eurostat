@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -115,6 +116,7 @@ public class CSV {
 	 * @return
 	 */
 	public static StatsHypercube loadMultiValues(String csvFilePath, String newDimLabel, String... valueColumns) {
+		//load CSV
 		ArrayList<HashMap<String, String>> data = CSVAsHashMap.load(csvFilePath);
 
 		//get list of dimension labels
@@ -251,11 +253,11 @@ public class CSV {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));
 
 			//write header
-			ArrayList<String> dimLabels = new ArrayList<>(hc.dimLabels);
-			dimLabels.remove(dimLabelColumn);
+			ArrayList<String> dimLabelsSorted = new ArrayList<>(hc.dimLabels);
+			dimLabelsSorted.remove(dimLabelColumn);
 			if(keysComparator != null)
-				Collections.sort(dimLabels, keysComparator);
-			for(String dimLabel : dimLabels ){
+				Collections.sort(dimLabelsSorted, keysComparator);
+			for(String dimLabel : dimLabelsSorted ){
 				if(dimLabel.contains(separator)) bw.write("\"");
 				bw.write(dimLabel);
 				if(dimLabel.contains(separator)) bw.write("\"");
@@ -273,13 +275,24 @@ public class CSV {
 
 			//build index
 			String[] dls = new String[hc.dimLabels.size()];
-			for(i=0; i<dimLabels.size(); i++)
-				dls[i] = dimLabels.get(i);
-			dls[dimLabels.size()] = dimLabelColumn;
-			StatsIndex si = new StatsIndex(hc, dls);
+			for(i=0; i<dimLabelsSorted.size(); i++)
+				dls[i] = dimLabelsSorted.get(i);
+			dls[dimLabelsSorted.size()] = dimLabelColumn;
+			StatsIndex index = new StatsIndex(hc, dls);
+
+			System.out.println(hc.dimLabels);
+			System.out.println(dimLabelsSorted);
+			for(String lb : dls) System.out.println(lb);
+
+			//index.print();
 
 			//TODO
-			//si.get
+			for(String gender : index.getKeys())
+				for(String year : index.getKeys(gender))
+					for(String country : index.getKeys(gender,year)) {
+						System.out.println(gender +" "+year+" "+country);
+						System.out.println(index.getSingleValue(gender,year,country));
+					}
 
 			/*
 			//write data
