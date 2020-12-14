@@ -25,6 +25,7 @@ public class CSVTest extends TestCase {
 		String path = "./src/test/resources/";
 		StatsHypercube hc = CSV.loadMultiValues(path+"ex_multi.csv", "year", "2010", "2015", "2020");
 		//hc.printInfo(true);
+		//TODO add tests
 	}
 
 }
