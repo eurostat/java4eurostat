@@ -274,18 +274,40 @@ public class CSV {
 			bw.write("\n");
 
 			//build index
-			String[] dls = new String[hc.dimLabels.size()];
+			/*String[] dls = new String[hc.dimLabels.size()];
 			for(i=0; i<dimLabelsSorted.size(); i++)
 				dls[i] = dimLabelsSorted.get(i);
 			dls[dimLabelsSorted.size()] = dimLabelColumn;
-			StatsIndex index = new StatsIndex(hc, dls);
+			StatsIndex index = new StatsIndex(hc, dls);*/
 
+			/*
 			System.out.println(hc.dimLabels);
 			System.out.println(dimLabelsSorted);
 			for(String lb : dls) System.out.println(lb);
 
 			//index.print();
+*/
 
+			StatsIndex index = new StatsIndex(hc, dimLabelsSorted.toArray(new String[dimLabelsSorted.size()]));
+			//index.print();
+
+			for(Collection<Stat> leave : index.getLeaves()) {
+				//write dim values
+				Stat s = leave.iterator().next();
+				for(String dimLabel : dimLabelsSorted){
+					String dimValue = s.dims.get(dimLabel);
+					if(dimValue.contains(separator)) bw.write("\"");
+					bw.write(dimValue);
+					if(dimValue.contains(separator)) bw.write("\"");
+					bw.write(",");
+				}
+				//TODO write values
+				bw.write("\n");
+			}
+			
+			
+			//StatsIndex subIndex = index.getSubIndex(dimLabels);
+/*
 			//TODO
 			for(String gender : index.getKeys())
 				for(String year : index.getKeys(gender))
@@ -293,6 +315,7 @@ public class CSV {
 						System.out.println(gender +" "+year+" "+country);
 						System.out.println(index.getSingleValue(gender,year,country));
 					}
+*/
 
 			/*
 			//write data

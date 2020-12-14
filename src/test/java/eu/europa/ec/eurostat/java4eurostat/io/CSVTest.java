@@ -33,8 +33,8 @@ public class CSVTest extends TestCase {
 		//TODO other
 		StatsHypercube hc = CSV.loadMultiValues(path+"ex_multi.csv", "year", "2010", "2015", "2020");
 		CSV.saveMultiValues(hc, outpath + "mutli_year.csv", ",", null, "year", "2010", "2015", "2020");
-		//CSV.saveMultiValues(hc, outpath + "mutli_gender.csv", ",", null, "gender", "Total", "Female", "Male");
-		//CSV.saveMultiValues(hc, outpath + "mutli_gender.csv", ",", null, "country", "Japan", "Brasil");
+		CSV.saveMultiValues(hc, outpath + "mutli_gender.csv", ",", null, "gender", "Total", "Female", "Male");
+		CSV.saveMultiValues(hc, outpath + "mutli_country.csv", ",", null, "country", "Japan", "Brasil");
 	}
 
 }
