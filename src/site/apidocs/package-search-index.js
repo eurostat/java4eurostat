@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"eu.europa.ec.eurostat.java4eurostat.analysis"},{"l":"eu.europa.ec.eurostat.java4eurostat.base"},{"l":"eu.europa.ec.eurostat.java4eurostat.io"},{"l":"eu.europa.ec.eurostat.java4eurostat.util"}]
