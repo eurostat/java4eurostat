@@ -36,11 +36,8 @@ public class CSV {
 
 	private static final String PAT = "\\s*(\"[^\"]*\"|[^,]*)\\s*";
 
-	@SuppressWarnings("javadoc")
 	public static StatsHypercube load(String inputFilePath, String valueLabel) { return load(inputFilePath, valueLabel, PAT, null); }
-	@SuppressWarnings("javadoc")
 	public static StatsHypercube load(String inputFilePath, String valueLabel, String patternString) { return load(inputFilePath, valueLabel, patternString, null); }
-	@SuppressWarnings("javadoc")
 	public static StatsHypercube load(String inputFilePath, String valueLabel, Criteria ssc) { return load(inputFilePath, valueLabel, PAT, ssc); }
 
 	/**
@@ -81,7 +78,7 @@ public class CSV {
 					if(key.equals(valueLabel)) {
 						try {
 							s.value = Double.parseDouble(value);
-						} catch (@SuppressWarnings("unused") NumberFormatException e) {
+						} catch (NumberFormatException e) {
 							LOGGER.warn("Could not parse statistical value: "+value);
 							s.value = Double.NaN;
 						}
@@ -285,13 +282,15 @@ public class CSV {
 			StatsIndex index = new StatsIndex(hc, dimLabelsSorted.toArray(new String[dimLabelsSorted.size()]));
 			for(Collection<Stat> leave : index.getLeaves()) {
 				//write dim values
-				Stat s = leave.iterator().next();
-				for(String dimLabel : dimLabelsSorted){
-					String dimValue = s.dims.get(dimLabel);
-					if(dimValue.contains(separator)) bw.write("\"");
-					bw.write(dimValue);
-					if(dimValue.contains(separator)) bw.write("\"");
-					bw.write(",");
+				{
+					Stat s = leave.iterator().next();
+					for(String dimLabel : dimLabelsSorted){
+						String dimValue = s.dims.get(dimLabel);
+						if(dimValue.contains(separator)) bw.write("\"");
+						bw.write(dimValue);
+						if(dimValue.contains(separator)) bw.write("\"");
+						bw.write(",");
+					}
 				}
 				//index leave values
 				index = new StatsIndex( new StatsHypercube(leave, hc.getDimLabels()), dimLabelColumn );
@@ -299,10 +298,9 @@ public class CSV {
 				i=0;
 				for(String valueColumn: valueColumns) {
 					double v = index.getSingleValue(valueColumn);
-					if(Double.isNaN(v))
-						bw.write(noValue);
-					else
-						bw.write(""+v);
+					if(Double.isNaN(v)) bw.write(noValue);
+					else if( (v % 1) == 0 ) bw.write(""+(int)v);
+					else bw.write(""+v);
 					if(i<valueColumns.length-1) bw.write(",");
 					i++;
 				}
