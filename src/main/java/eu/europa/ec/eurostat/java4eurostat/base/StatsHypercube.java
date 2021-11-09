@@ -246,6 +246,19 @@ public class StatsHypercube {
 	}
 
 	/**
+	 * Add a dimension, with a default value
+	 * 
+	 * @param dimLabel
+	 * @param dimValue
+	 * @return
+	 */
+	public StatsHypercube add(String dimLabel, String dimValue) {
+		this.dimLabels.add(dimLabel);
+		for(Stat s : this.stats) s.dims.put(dimLabel, dimValue);
+		return this;
+	}
+
+	/**
 	 * Delete all stats having a given value for a dimension
 	 * 
 	 * @param dimLabel
