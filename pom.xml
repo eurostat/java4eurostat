@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.europa.ec.eurostat</groupId>
 	<artifactId>java4eurostat</artifactId>
-	<version>1.29</version>
+	<version>1.30-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>java4eurostat</name>
 	<url>https://github.com/eurostat/java4eurostat</url>
@@ -19,7 +19,7 @@
 		<url>https://github.com/eurostat/java4eurostat</url>
 		<connection>scm:git:git://github.com/eurostat/java4eurostat.git</connection>
 		<developerConnection>scm:git:git@github.com:eurostat/java4eurostat.git</developerConnection>
-	  <tag>java4eurostat-1.29</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<issueManagement>
