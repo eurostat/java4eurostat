@@ -246,6 +246,9 @@ public class CSV {
 	 * 
 	 * @param hc 
 	 * @param outFile The output file path.
+	 * @param separator 
+	 * @param noValue 
+	 * @param keysComparator 
 	 * @param dimLabelColumn The new dimension label for the different value columns.
 	 * @param valueColumns The header of the raws containing statistical values.
 	 * @return
